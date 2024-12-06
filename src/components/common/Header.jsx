@@ -132,7 +132,7 @@ const Header = () => {
                                 <NavLink to="/astrologer" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-white" : "text-white"}>Talk to Astrologer</NavLink>
                                 <NavLink to="/book-puja" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-white" : "text-white"}>Book a Puja</NavLink>
                                 <NavLink to="/astro-mall" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-white" : "text-white"}>Astromall</NavLink>
-                                <NavLink className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-white" : "text-white"}>Astrotalk Store</NavLink>
+                                <NavLink to="" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-white" : "text-white"}>Astrotalk Store</NavLink>
                                 <NavLink to="/blog" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-white" : "text-white"}>Blog</NavLink>
                             </div>
                         </nav>
@@ -171,10 +171,6 @@ const Header = () => {
                                 <div className='flex items-center  border-b py-4 px-1'>
                                     <NavLink onClick={() => setShownav(!shownav)} to="/book-puja" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-primary" : "text-black"}>Book Puja</NavLink>
                                 </div>
-
-                                {/* <div className='flex items-center  border-b py-4 px-1'>
-            <NavLink onClick={() => setShownav(!shownav)} to="/" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-primary" : "text-black"}></NavLink>
-        </div> */}
                             </>}
 
                             {userAstrologerDataById && <>

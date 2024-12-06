@@ -62,18 +62,6 @@ const PaymentDetail = () => {
                         </table>
                     </div>
 
-                    {/* <div className='text flex justify-between mt-4 py-2 px-7 rounded-md border border-gray bg-yellow-50' style={{ boxShadow: "0 0 5px #bdb5b5" }}>
-                    <PercentSvg /><div >  APPLY COUPON </div> <RightArrowSvg />
-                </div>
-
-                <main className="flex flex-wrap gap-2 mt-4">
-                    {paymentCardData.map((data, index) => (
-                        <div key={index} className="flex-[45%]">
-                            <PaymentCard cardName={data.cardName} img={data.img} />
-                        </div>
-                    ))}
-                </main> */}
-
                     <div onClick={() => handlePayment()} className="mt-4 bg-primary text-white py-2 text-center rounded-md cursor-pointer">Proceed To Payment</div>
 
                 </article>
