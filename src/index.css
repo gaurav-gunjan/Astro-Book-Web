@@ -1,0 +1,100 @@
+/* global.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+* {
+  font-family: "Roboto", sans-serif;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body::-webkit-scrollbar {
+  width: 5px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  border-radius: 3px;
+}
+
+body::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #FD6008;
+  border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Chat  */
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 75vh;
+  padding: 10px;
+}
+
+.message-list {
+  flex-grow: 1;
+  overflow-y: auto;
+  margin-bottom: 10px;
+}
+
+.message {
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 5px;
+}
+
+.message.sent {
+  background-color: #dcf8c6;
+  align-self: flex-end;
+}
+
+.message.received {
+  background-color: #fff;
+  align-self: flex-start;
+}
+
+.message-text {
+  margin: 5px 0;
+}
+
+.message-timestamp {
+  font-size: 0.8rem;
+  color: gray;
+}
+
+.message-input {
+  display: flex;
+  gap: 10px;
+}
+
+.message-input input {
+  flex-grow: 1;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.message-input button {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #6ea9d7;
+  color: white;
+  cursor: pointer;
+}
