@@ -1,7 +1,7 @@
 import React from 'react';
 import Modal from 'react-modal';
-import AppStore from '../../assets/images/footer/app-store.png';
-import PlayStore from '../../assets/images/footer/google-play.png';
+import AppStore from '../../assets/images/common/app-store.png';
+import PlayStore from '../../assets/images/common/google-play.png';
 
 Modal.setAppElement('#root');
 
