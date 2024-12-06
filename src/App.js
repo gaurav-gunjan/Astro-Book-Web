@@ -21,6 +21,7 @@ import ChatInvoiceModal from './components/modal/ChatInvoiceModal';
 import CallInvoiceModal from './components/modal/CallInvoiceModal';
 import PageBlock from './components/features/PageBlock';
 import ScrollToTop from './components/features/ScrollToTop';
+import NewsLetter from './components/common/NewsLetter';
 
 //! Lazy Load Pages
 const LandingPage = lazy(() => import('./pages/landing-page'));
@@ -225,6 +226,7 @@ const App = () => {
             </Routes>
           </ScrollToTop>
         </Suspense>
+        {location?.pathname !== '/chat' && <NewsLetter />}
         {location?.pathname !== '/chat' && <Footer scrollToSection={scrollToSection} />}
 
         <ChatInvoiceModal />

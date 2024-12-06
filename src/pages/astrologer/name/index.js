@@ -6,7 +6,6 @@ import Modal from 'react-modal';
 import ReactStars from 'react-stars';
 import { toast } from 'react-toastify';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
-import Profile from '../../../assets/images/logo/profile.jpg';
 import RadioButton from '../../../components/button/RadioButton';
 import { CallSvg, ChatSvg, CrossSvg, RightArrowHeadSvg, RightArrowSvg, StarSvg, SyncSvg, VerifySvg } from '../../../assets/svg';
 import { api_urls } from '../../../utils/api-urls';
