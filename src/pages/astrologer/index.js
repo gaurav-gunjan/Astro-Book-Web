@@ -62,7 +62,7 @@ const ChatWithAstrologer = () => {
                     </article>
                 </section>
                 :
-                <section className='px-[100px] py-7 max-sm:px-[20px]'>
+                <section className='px-[80px] py-7 max-sm:px-[20px]'>
                     <article className='flex flex-col gap-7'>
                         <main className='flex gap-4 flex-wrap items-center justify-between'>
                             <div className='bg-[#F1B646] text-black px-12 max-md:px-8 py-2 font-semibold text-[22px] rounded-md flex items-center justify-center self-start text-nowrap'>Talk with Astrologer</div>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import * as BlogActions from "../../redux/actions/blogActions.js";
+import * as BlogActions from "../../redux/actions/blogAction";
 import * as EcommerceActions from "../../redux/actions/ecommerceActions";
 import * as AstrologerActions from "../../redux/actions/astrologerAction";
 import { BagSvg, CallSvg, ChatSvg } from '../../assets/svg/index.js';
@@ -72,7 +72,7 @@ const LandingPage = () => {
 
     useEffect(() => {
         //! Dispatching API for Get Blogs
-        dispatch(BlogActions.getAstroBlogs(''));
+        dispatch(BlogActions.getAstroblog(''));
 
         //! Dispatching API for Get Astrologers
         dispatch(AstrologerActions.getAstrologer());

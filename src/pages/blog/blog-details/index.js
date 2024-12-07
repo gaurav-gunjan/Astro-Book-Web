@@ -2,8 +2,8 @@ import moment from "moment";
 import React, { useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { api_urls } from '../../../utils/api-urls/index.js';
-import TopHeaderSection from '../../../components/common/TopHeaderSection.jsx';
 import { HomeSvg, ViewSvg } from "../../../assets/svg/index.js";
+import TopHeaderSection from '../../../components/common/TopHeaderSection.jsx';
 
 const categoryData = ['Vedic', 'Tarot', 'Vastu', 'Kundli', 'Sports', 'Festivals', 'Business'];
 

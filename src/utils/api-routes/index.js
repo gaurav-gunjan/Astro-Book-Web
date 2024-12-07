@@ -59,7 +59,8 @@ export const get_puja = 'api/ecommerce/get_puja';
 export const book_puja = 'api/ecommerce/book_puja';
 
 //! Blog
-export const get_astro_blogs = 'api/admin/get-astro-blogs-by-category';
+export const get_astro_blog_category = 'api/admin/blog-category-list';
+export const get_astro_blog = (page = 1, limit = 10, categoryId = '', search = '') => `api/customers/all_blogs?page=${page}&limit=${limit}&blogCategoryId=${categoryId}&search=${search}`;
 
 //! Static Page
 export const get_terms_and_conditions = 'api/admin/get-terms-condition';

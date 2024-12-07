@@ -8,7 +8,7 @@ import chatReducer from "./chatReducer";
 import kundliReducer from "./kundliReducer";
 import astrologyApiReducer from "./astrologyApiReducer";
 import ecommerceReducer from "./ecommerceReducer";
-import blogreducer from "./blogs";
+import blogreducer from "./blogReducer";
 import staticPageReducer from "./staticPageReducer";
 
 const rootReducer = combineReducers({

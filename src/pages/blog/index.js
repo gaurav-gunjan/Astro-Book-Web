@@ -1,23 +1,36 @@
+import moment from 'moment/moment.js';
 import React, { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { api_urls } from '../../utils/api-urls/index.js';
-import * as BlogActions from "../../redux/actions/blogActions.js";
 import { HomeSvg, SearchSvg, ViewSvg } from '../../assets/svg';
 import TopHeaderSection from '../../components/common/TopHeaderSection';
-import moment from 'moment/moment.js';
-
-const categoryData = ['Vedic', 'Tarot', 'Vastu', 'Kundli', 'Sports', 'Festivals', 'Business'];
+import * as BlogActions from "../../redux/actions/blogAction";
+import CustomPagination from '../../components/features/CustomPagination.jsx';
 
 const Blog = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { astroBlogData } = useSelector(state => state?.blogreducer);
+    const { astroBlogData, astroblogCategoryData } = useSelector(state => state?.blogreducer);
+
+    let [searchParams, setSearchParams] = useSearchParams();
+    const query = new URLSearchParams(searchParams);
+    const page = query.get('page') || 1;
+    const search = searchParams.get('search') || '';
+
+    const handleSearch = async (text) => {
+        setSearchParams(`page=1&search=${text.toLowerCase().split(' ').join('')}`);
+    };
 
     useEffect(() => {
-        //! Dispatching API for Get Blogs
-        dispatch(BlogActions.getAstroBlogs(''));
+        //! Dispatching API for Get Blog Category
+        dispatch(BlogActions.getAstroblogCategory());
     }, []);
+
+    useEffect(() => {
+        //! Dispatching API for Get Blog
+        dispatch(BlogActions.getAstroblog({ page, size: 10, search }));
+    }, [page, search]);
 
     return (
         <>
@@ -31,7 +44,7 @@ const Blog = () => {
             <section className='px-[80px] max-md:px-[20px] pb-5'>
                 <main className='flex justify-end'>
                     <div className='border border-[#DDDDDD] rounded-md flex items-center max-sm:w-[90vw]'>
-                        <input type='search' placeholder='Let’s find what you’re looking for..' className='outline-none px-3 py-3.5 text-[20.11px] rounded-md h-full w-[350px] max-xl:w-[330px] max-lg:w-[300px] max-md:w-[100%]' />
+                        <input type='search' value={search} onChange={(e) => handleSearch(e.target.value)} placeholder='Let’s find what you’re looking for..' className='outline-none px-3 py-3.5 text-[20.11px] rounded-md h-full w-[350px] max-xl:w-[330px] max-lg:w-[300px] max-md:w-[100%]' />
                         <button className='bg-[#F1B646] border-[#F1B646] rounded-e-md flex items-center justify-center p-2 px-3 w-[65px] h-full'><SearchSvg w='30' h='30' /></button>
                     </div>
                 </main>
@@ -49,28 +62,31 @@ const Blog = () => {
                         </div>
                         <div className='flex flex-col gap-3 py-8'>
                             <Link to={'/blog'} className='text-[21px]'>Home</Link>
-                            {categoryData?.map((value, index) => (
-                                <Link to={`/blog?category=${value}`} key={index} className='text-[21px]'>{value}</Link>
+                            {astroblogCategoryData?.map((value, index) => (
+                                <Link to={`/blog?category=${value?.blog_category?.split(' ')?.join('-')?.toLowerCase()}`} key={index} className='text-[21px]'>{value?.blog_category}</Link>
                             ))}
                         </div>
                     </div>
 
-                    <main className='flex-1 flex flex-wrap gap-[2.5%] gap-y-[40px]'>
-                        {astroBlogData?.map((value, index) => (
-                            <div onClick={() => navigate('/blog/blog-details', { state: { astroBlogData: value } })} className='relative flex flex-col border border-primary pb-4 rounded-[24.61px] lg:basis-[31.5%] max-lg:basis-[47.5%] max-lg:flex-grow max-md:basis-full cursor-pointer h-[287.69px]'>
-                                <img src={api_urls + 'uploads/' + value?.image} className='h-[178px] w-full rounded-t-[24.61px] border-b object-center' />
-                                <div className='absolute top-[10px] right-[10px] flex items-center justify-between px-4 w-[95px] h-[23px] rounded-[18px] text-sm bg-white text-[#C9C9C9]'><ViewSvg /> <span className='text-black'>1869</span></div>
+                    <div className='flex-1'>
+                        <main className='flex flex-wrap gap-[2.5%] gap-y-[40px]'>
+                            {astroBlogData?.results?.map((value, index) => (
+                                <div key={index} onClick={() => navigate('/blog/blog-details', { state: { astroBlogData: value } })} className='relative flex flex-col border border-primary pb-4 rounded-[24.61px] lg:basis-[31.5%] max-lg:basis-[47.5%] max-lg:flex-grow max-md:basis-full cursor-pointer h-[287.69px]'>
+                                    <img src={api_urls + 'uploads/' + value?.image} className='h-[178px] w-full rounded-t-[24.61px] border-b object-center' />
+                                    <div className='absolute top-[10px] right-[10px] flex items-center justify-between px-4 w-[95px] h-[23px] rounded-[18px] text-sm bg-white text-[#C9C9C9]'><ViewSvg /> <span className='text-black'>1869</span></div>
 
-                                <div className="p-3 text-[#545353] flex flex-col gap-2.5">
-                                    <h2 className="text-[16.77px] font-semibold line-clamp-2 min-h-12">{value?.title}</h2>
-                                    <div className="flex items-center justify-between text-[15px]">
-                                        <p>{value?.created_by}</p>
-                                        <p>{moment(value?.createdAt)?.format('MMMM DD, YYYY')}</p>
+                                    <div className="p-3 text-[#545353] flex flex-col gap-2.5">
+                                        <h2 className="text-[16.77px] font-semibold line-clamp-2 min-h-12">{value?.title}</h2>
+                                        <div className="flex items-center justify-between text-[15px]">
+                                            <p>{value?.created_by}</p>
+                                            <p>{moment(value?.createdAt)?.format('MMMM DD, YYYY')}</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        ))}
-                    </main>
+                            ))}
+                        </main>
+                        <CustomPagination count="10" totalDocuments={astroBlogData?.totalResults} />
+                    </div>
                 </article>
             </section>
         </>
