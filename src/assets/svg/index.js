@@ -1,7 +1,11 @@
-export const ViewSvg = ({ h = '20', w = '20' }) => {
+export const ViewSvg = ({ h = '19', w = '19' }) => {
     return (
         <>
-            <svg xmlns="http://www.w3.org/2000/svg" height={h} width={w} viewBox="0 0 24 24"><path fill="currentColor" fillRule="evenodd" d="M20.77 12c0-.359-.194-.594-.582-1.066C18.768 9.21 15.636 6 12 6c-3.636 0-6.768 3.21-8.188 4.934c-.388.472-.582.707-.582 1.066c0 .359.194.594.582 1.066C5.232 14.79 8.364 18 12 18c3.636 0 6.768-3.21 8.188-4.934c.388-.472.582-.707.582-1.066M12 15a3 3 0 1 0 0-6a3 3 0 0 0 0 6" clipRule="evenodd" /></svg>
+            <svg height={h} width={w} viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M1.94404 8.80064C2.79552 7.31061 5.19005 3.9585 9.50008 3.9585C13.8101 3.9585 16.2046 7.31062 17.0561 8.80064C17.2308 9.10632 17.3181 9.25917 17.3085 9.48718C17.2989 9.71519 17.1962 9.86418 16.9908 10.1621C15.9773 11.6326 13.2257 15.0418 9.50008 15.0418C5.77441 15.0418 3.02281 11.6326 2.00932 10.1621C1.80394 9.86417 1.70125 9.71519 1.69163 9.48718C1.68202 9.25917 1.76936 9.10632 1.94404 8.80064ZM9.50008 11.8752C10.8118 11.8752 11.8751 10.8118 11.8751 9.50016C11.8751 8.18849 10.8118 7.12516 9.50008 7.12516C8.1884 7.12516 7.12508 8.18849 7.12508 9.50016C7.12508 10.8118 8.1884 11.8752 9.50008 11.8752Z" fill="#7E869E" fill-opacity="0.25" />
+                <path d="M9.50016 3.9585C5.19014 3.9585 2.79561 7.31061 1.94413 8.80064C1.76945 9.10632 1.6821 9.25917 1.69172 9.48718C1.70134 9.71519 1.80403 9.86417 2.00941 10.1621C3.0229 11.6326 5.77449 15.0418 9.50016 15.0418C13.2258 15.0418 15.9774 11.6326 16.9909 10.1621C17.1963 9.86418 17.299 9.71519 17.3086 9.48718C17.3182 9.25917 17.2309 9.10632 17.0562 8.80064C16.2047 7.31062 13.8102 3.9585 9.50016 3.9585Z" stroke="#C9C9C9" stroke-width="0.95" />
+                <circle cx="9.5" cy="9.5" r="2.375" stroke="#C9C9C9" stroke-width="0.95" />
+            </svg>
         </>
     )
 };
@@ -38,7 +42,7 @@ export const VerifySvg = ({ h = '20', w = '20', color = '#000' }) => {
     )
 };
 
-export const SearchSvg = ({ h = '20', w = '20', color = '#000' }) => {
+export const SearchSvg = ({ h = '20', w = '20' }) => {
     return (
         <>
             <svg xmlns="http://www.w3.org/2000/svg" height={h} width={w} viewBox="0 0 24 24"><path fill="currentColor" d="M21.71 20.29L18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a1 1 0 0 0 1.42 0a1 1 0 0 0 0-1.39M11 18a7 7 0 1 1 7-7a7 7 0 0 1-7 7" /></svg>
@@ -46,6 +50,18 @@ export const SearchSvg = ({ h = '20', w = '20', color = '#000' }) => {
     )
 };
 
+export const HomeSvg = ({ h = '20', w = '20' }) => {
+    return (
+        <>
+            <svg height={h} width={w} viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="5.1665" y="5.1665" width="7.75" height="7.75" rx="1.29167" stroke="white" stroke-width="1.29167" stroke-linejoin="round" />
+                <rect x="5.1665" y="18.0835" width="7.75" height="7.75" rx="1.29167" stroke="white" stroke-width="1.29167" stroke-linejoin="round" />
+                <rect x="18.0835" y="18.0835" width="7.75" height="7.75" rx="1.29167" stroke="white" stroke-width="1.29167" stroke-linejoin="round" />
+                <rect x="18.0835" y="5.1665" width="7.75" height="7.75" rx="1.29167" stroke="white" stroke-width="1.29167" stroke-linejoin="round" />
+            </svg>
+        </>
+    )
+};
 
 export const RupeeSvg = ({ h = '20', w = '20', color = '#000' }) => {
     return (

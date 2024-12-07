@@ -7,6 +7,7 @@ import * as EcommerceAction from "../../redux/actions/ecommerceActions.js"
 import { api_urls } from "../../utils/api-urls/index.js";
 import { DeepSearchSpace } from "../../utils/common-function/index.js";
 import TopHeaderSection from "../../components/common/TopHeaderSection.jsx";
+import { SearchSvg } from "../../assets/svg/index.js";
 
 const AstroMall = () => {
     const navigate = useNavigate();
@@ -25,24 +26,24 @@ const AstroMall = () => {
 
     return (
         <>
-            <TopHeaderSection title={'Astromall Shop'} />
+            <TopHeaderSection />
 
-            <section className='px-[100px] py-7 max-sm:px-[20px]'>
-                <div className="text-center text-xl sm:text-2xl font-semibold text-gray-600 mb-8">Shop Best Online Astrology Products And Services</div>
+            <section className='px-[80px] max-md:px-[20px] pt-10 pb-5 text-center'>
+                <h1 className='text-[37px] font-semibold tracking-wider'>Astromall Shop</h1>
+                <p className='text-[#ADADAD] text-[28.4px] font-semibold tracking-wide'>Shop Best Online Astrology Products And Services</p>
+            </section>
 
-                <div className="relative flex justify-center mb-8">
-                    <hr className="w-full" />
-                    <img src={logo} alt="logo img" className="absolute h-10 -translate-y-1/2 bg-white px-4" style={{ top: "50%", left: "50%", transform: "translate(-50%, -50%)", zIndex: 1 }} />
-                </div>
+            <section className='px-[80px] max-md:px-[20px] pb-5'>
+                <main className='flex justify-end'>
+                    <div className='border border-[#DDDDDD] rounded-md flex items-center max-sm:w-[90vw]'>
+                        <input type='search' onChange={handleSearch} placeholder='Let’s find what you’re looking for..' className='outline-none px-3 py-3.5 text-[20.11px] rounded-md h-full w-[350px] max-xl:w-[330px] max-lg:w-[300px] max-md:w-[100%]' />
+                        <button className='bg-[#F1B646] border-[#F1B646] rounded-e-md flex items-center justify-center p-2 px-3 w-[65px] h-full'><SearchSvg w='30' h='30' /></button>
+                    </div>
+                </main>
+            </section>
 
-                {/* Search Bar */}
-                <div className="flex items-center justify-center mb-8">
-                    <input type="search" onChange={handleSearch} placeholder="Search" className="border border-gray-300 bg-white h-12 px-5 pr-12 rounded-full text-sm focus:outline-none w-full max-w-lg" />
-                </div>
-
-                {/* Products Category */}
+            <section className='px-[80px] max-md:px-[20px] py-10'>
                 <div className="flex flex-wrap gap-[2.5%] gap-y-[40px]">
-                    {/* <div className="flex flex-wrap justify-center items-center gap-6 mb-8"> */}
                     {filteredData?.map((item, index) => (
                         <AstroMallCard key={index}
                             onClick={() => navigate("/astro-mall/products", { state: { productCategoryData: item }, })}

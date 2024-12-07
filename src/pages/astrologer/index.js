@@ -65,15 +65,15 @@ const ChatWithAstrologer = () => {
                 <section className='px-[100px] py-7 max-sm:px-[20px]'>
                     <article className='flex flex-col gap-7'>
                         <main className='flex gap-4 flex-wrap items-center justify-between'>
-                            <div className='bg-primary text-white px-8 py-2 font-semibold rounded-md flex items-center justify-center'>Chat with Astrologer</div>
+                            <div className='bg-[#F1B646] text-black px-12 max-md:px-8 py-2 font-semibold text-[22px] rounded-md flex items-center justify-center self-start text-nowrap'>Talk with Astrologer</div>
                             <div>
                                 {userCustomerDataById && <div>Available balance: {IndianRupee(userCustomerDataById?.wallet_balance)}</div>}
                             </div>
                             <div className='flex gap-4 flex-wrap'>
                                 <div onClick={() => navigate('/recharge')} className='border border-green-500 text-green-500 px-5 rounded-md flex items-center justify-center max-md:py-1 cursor-pointer'>Recharge</div>
-                                <div className='border border-primary rounded-md flex items-center max-sm:w-[90vw]'>
-                                    <input type='search' value={search} onChange={(e) => handleSearch(e.target.value)} placeholder='Search...' className='outline-none px-3 py-2 rounded-md max-md:w-[100%]' />
-                                    <div className='bg-primary border-primary rounded-e-md h-[100%] flex items-center justify-center p-2 px-3'><SearchSvg w='16' /></div>
+                                <div className='border border-[#DDDDDD] rounded-md flex items-center max-sm:w-[90vw]'>
+                                    <input type='search' value={search} onChange={(e) => handleSearch(e.target.value)} placeholder='Search name...' className='outline-none px-3 py-3.5 text-[20.11px] rounded-md h-full w-[280px] max-xl:w-[250px] max-lg:w-[200px] max-md:w-[100%]' />
+                                    <button className='bg-[#F1B646] border-[#F1B646] rounded-e-md flex items-center justify-center p-2 px-3 w-[65px] h-full'><SearchSvg w='30' h='30' /></button>
                                 </div>
                             </div>
                         </main>
