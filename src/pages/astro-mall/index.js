@@ -27,17 +27,16 @@ const AstroMall = () => {
     return (
         <>
             <TopHeaderSection />
-
             <section className='px-[80px] max-md:px-[20px] pt-10 pb-5 text-center'>
-                <h1 className='text-[37px] font-semibold tracking-wider'>Astromall Shop</h1>
-                <p className='text-[#ADADAD] text-[28.4px] font-semibold tracking-wide'>Shop Best Online Astrology Products And Services</p>
+                <h1 className='text-[30px] max-md:text-[25px] font-[500] tracking-wider'>Astromall Shop</h1>
+                <p className='text-[#ADADAD] text-[24px] max-md:text-[20px] font-[500] tracking-wide'>Shop Best Online Astrology Products And Services</p>
             </section>
 
-            <section className='px-[80px] max-md:px-[20px] pb-5'>
+            <section className='px-[80px] max-md:px-[20px] pb-5 max-md:pb-0'>
                 <main className='flex justify-end'>
                     <div className='border border-[#DDDDDD] rounded-md flex items-center max-sm:w-[90vw]'>
-                        <input type='search' onChange={handleSearch} placeholder='Let’s find what you’re looking for..' className='outline-none px-3 py-3.5 text-[20.11px] rounded-md h-full w-[350px] max-xl:w-[330px] max-lg:w-[300px] max-md:w-[100%]' />
-                        <button className='bg-[#F1B646] border-[#F1B646] rounded-e-md flex items-center justify-center p-2 px-3 w-[65px] h-full'><SearchSvg w='30' h='30' /></button>
+                        <input type='search' placeholder='Let’s find what you’re looking for..' className='outline-none px-3 py-3.5 text-[16px] max-md:text-[16px] rounded-md h-full w-[330px] max-xl:w-[300px] max-lg:w-[100%]' />
+                        <button className='bg-[#F1B646] border-[#F1B646] rounded-e-md flex items-center justify-center p-2 px-3 w-[50px] h-full'><SearchSvg w='20' h='20' /></button>
                     </div>
                 </main>
             </section>

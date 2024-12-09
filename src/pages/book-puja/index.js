@@ -8,6 +8,7 @@ import { RightArrowHeadSvg, SearchSvg } from '../../assets/svg';
 import { DeepSearchSpace } from '../../utils/common-function/index.js';
 import TopHeaderSection from '../../components/common/TopHeaderSection';
 import * as EcommerceAction from "../../redux/actions/ecommerceActions.js"
+import RecordNotFound from '../../components/features/RecordNotFound.jsx';
 
 const BookPuja = () => {
     const navigate = useNavigate();
@@ -51,20 +52,19 @@ const BookPuja = () => {
                     </article>
                 </section>
                 :
-                <section className='px-[80px] py-7 max-sm:px-[20px]'>
-                    <article className='flex flex-col gap-7'>
-                        {/* <section className='px-[80px] max-md:px-[20px] pt-10 pb-5 text-center'>
-                            <h1 className='text-[37px] font-semibold tracking-wider'>Book Puja</h1>
-                        </section> */}
-                        <main className='flex justify-between max-md:flex-col gap-5'>
-                            <div className='bg-[#F1B646] text-black px-16 max-md:px-10 py-2 font-semibold text-[22px] rounded-md flex items-center justify-center self-start text-nowrap'>Book a Puja</div>
+                <>
+                    <section className='px-[80px] max-md:px-[20px] py-10'>
+                        <main className='flex justify-between max-md:flex-wrap gap-5'>
+                            <div className='bg-[#F1B646] text-black px-12 max-md:px-10 py-2 font-[500] text-[20px] rounded-md flex items-center justify-center self-start text-nowrap'>Book a Puja</div>
 
                             <div className='border border-[#DDDDDD] rounded-md flex items-center max-sm:w-[90vw]'>
-                                <input onChange={handleSearch} type='search' placeholder='Let’s find what you’re looking for..' className='outline-none px-3 py-3.5 text-[20.11px] rounded-md h-full w-[350px] max-xl:w-[330px] max-lg:w-[300px] max-md:w-[100%]' />
-                                <button className='bg-[#F1B646] border-[#F1B646] rounded-e-md flex items-center justify-center p-2 px-3 w-[65px] h-full'><SearchSvg w='30' h='30' /></button>
+                                <input type='search' onChange={handleSearch} placeholder='Let’s find what you’re looking for..' className='outline-none px-3 py-3.5 text-[16px] max-md:text-[16px] rounded-md h-full w-[330px] max-xl:w-[300px] max-lg:w-[100%]' />
+                                <button className='bg-[#F1B646] border-[#F1B646] rounded-e-md flex items-center justify-center p-2 px-3 w-[50px] h-full'><SearchSvg w='20' h='20' /></button>
                             </div>
                         </main>
+                    </section>
 
+                    <section className='px-[80px] max-md:px-[20px] pb-10'>
                         <main className='flex flex-wrap gap-[2.5%] gap-y-[40px]'>
                             {filteredData && filteredData?.map((value, index) => (
                                 <div key={index} className='lg:basis-[31.5%] max-lg:basis-[47.5%] max-lg:flex-grow max-md:basis-full rounded-xl capitalize bg-transparent'>
@@ -93,13 +93,9 @@ const BookPuja = () => {
                             ))}
                         </main>
 
-                        {filteredData?.length <= 0 && (
-                            <div className="flex justify-center items-center h-32 border-2 border-dashed border-gray-300 bg-gray-100 text-primary text-lg rounded-lg shadow-lg p-4">
-                                <p className="text-gray-500">No Record Found</p>
-                            </div>
-                        )}
-                    </article>
-                </section>
+                        {filteredData?.length <= 0 && (<RecordNotFound />)}
+                    </section>
+                </>
             }
         </>
     )

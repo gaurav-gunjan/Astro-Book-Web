@@ -7,6 +7,7 @@ import { HomeSvg, SearchSvg, ViewSvg } from '../../assets/svg';
 import TopHeaderSection from '../../components/common/TopHeaderSection';
 import CustomPagination from '../../components/features/CustomPagination.jsx';
 import * as BlogActions from "../../redux/actions/blogAction";
+import RecordNotFound from '../../components/features/RecordNotFound.jsx';
 
 const Blog = () => {
     const navigate = useNavigate();
@@ -41,13 +42,10 @@ const Blog = () => {
         <>
             <TopHeaderSection />
 
-            <section className='px-[80px] max-md:px-[20px] pt-10 pb-5 text-center'>
-                <h1 className='text-[30px] max-md:text-[25px] font-[500] tracking-wider'>Blog</h1>
-                <p className='text-[#ADADAD] text-[24px] max-md:text-[20px] font-[500] tracking-wide'>Shop Best Online Astrology Products And Services</p>
-            </section>
+            <section className='px-[80px] max-md:px-[20px] py-10'>
+                <main className='flex justify-between max-md:flex-wrap gap-5'>
+                    <div className='bg-[#F1B646] text-black px-12 max-md:px-10 py-2 font-[500] text-[20px] rounded-md flex items-center justify-center self-start text-nowrap'>Blog</div>
 
-            <section className='px-[80px] max-md:px-[20px] pb-5 max-md:pb-0'>
-                <main className='flex justify-end'>
                     <div className='border border-[#DDDDDD] rounded-md flex items-center max-sm:w-[90vw]'>
                         <input type='search' value={search} onChange={(e) => handleSearch(e.target.value)} placeholder='Let’s find what you’re looking for..' className='outline-none px-3 py-3.5 text-[16px] max-md:text-[16px] rounded-md h-full w-[330px] max-xl:w-[300px] max-lg:w-[100%]' />
                         <button className='bg-[#F1B646] border-[#F1B646] rounded-e-md flex items-center justify-center p-2 px-3 w-[50px] h-full'><SearchSvg w='20' h='20' /></button>
@@ -76,13 +74,13 @@ const Blog = () => {
                     <div className='flex-1'>
                         <main className='flex flex-wrap gap-[2.5%] gap-y-[40px]'>
                             {astroBlogData?.results?.map((value, index) => (
-                                <div key={index} onClick={() => handleViewBlog(value)} className='relative flex flex-col border border-primary pb-4 rounded-[24.61px] lg:basis-[31.5%] max-lg:basis-[47.5%] max-lg:flex-grow max-md:basis-full cursor-pointer h-[287.69px]'>
-                                    <img src={api_urls + 'uploads/' + value?.image} className='h-[178px] w-full rounded-t-[24.61px] border-b object-center' />
+                                <div key={index} onClick={() => handleViewBlog(value)} className='relative flex flex-col border border-primary rounded-[24.61px] lg:basis-[31.5%] max-lg:basis-[47.5%] max-lg:flex-grow max-md:basis-full cursor-pointer'>
+                                    <img src={api_urls + 'uploads/' + value?.image} className='h-[175px] w-full rounded-t-[24.61px] border-b object-center' />
                                     <div className='absolute top-[10px] right-[10px] flex items-center justify-between px-4 w-[95px] h-[23px] rounded-[18px] text-sm bg-white text-[#C9C9C9]'><ViewSvg /> <span className='text-black'>{value?.viewsCount}</span></div>
 
-                                    <div className="p-3 text-[#545353] flex flex-col gap-2.5">
-                                        <h2 className="text-[16.77px] font-semibold line-clamp-2 min-h-12">{value?.title}</h2>
-                                        <div className="flex items-center justify-between text-[15px]">
+                                    <div className="px-3 pt-2.5 pb-4 text-[#545353] flex flex-col gap-2">
+                                        <h2 className="text-[16.77px] font-[500] line-clamp-2">{value?.title}</h2>
+                                        <div className="flex items-center justify-between text-[14px]">
                                             <p>{value?.created_by}</p>
                                             <p>{moment(value?.createdAt)?.format('MMMM DD, YYYY')}</p>
                                         </div>
@@ -91,11 +89,7 @@ const Blog = () => {
                             ))}
                         </main>
 
-                        {astroBlogData?.results?.length <= 0 && (
-                            <div className="flex justify-center items-center h-96  border-gray-300 bg-[#FDFDFDD5] text-primary text-lg rounded-lg p-4">
-                                <p className="text-gray-500">No Record Found</p>
-                            </div>
-                        )}
+                        {astroBlogData?.results?.length <= 0 && (<RecordNotFound />)}
 
                         {astroBlogData?.results?.length > 0 && (
                             <section className='pt-14 flex justify-end'>
