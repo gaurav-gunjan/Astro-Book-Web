@@ -125,7 +125,7 @@ const Header = () => {
                             <div className='flex items-center gap-[30px]'>
                                 <NavLink to="/free-kundli" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-white" : "text-white"}>Free Kundli</NavLink>
                                 <NavLink to="/kundli-matching" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-white" : "text-white"}>Kundli Matching</NavLink>
-                                <NavLink to="" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-white" : "text-white"}>Horoscope</NavLink>
+                                <NavLink to="/horoscope/daily" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-white" : "text-white"}>Horoscope</NavLink>
                                 <NavLink to="" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-white" : "text-white"}>Eng</NavLink>
                                 {!userCustomerDataById && !userAstrologerDataById && <div onClick={handleOpenLoginCustomerModal} className='flex items-center gap-1.5 cursor-pointer bg-[#F1B646] px-3.5 py-1 rounded-full'><div className='-mt-1'><PersonSvg /></div><div>Login</div></div>}
 

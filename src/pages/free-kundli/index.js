@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { DeleteSvg } from '../../assets/svg';
+import { DeleteSvg, SearchSvg } from '../../assets/svg';
 import { ParseDateTime } from '../../utils/common-function';
 import TopHeaderSection from '../../components/common/TopHeaderSection';
 import * as KundliActions from '../../redux/actions/kundliAction';
@@ -101,86 +101,94 @@ const FreeKundli = () => {
 
     return (
         <>
-            <TopHeaderSection title={'Free Kundli'} />
+            <TopHeaderSection />
 
-            <div className="w-full mt-10 mb-10 max-w-3xl mx-auto bg-white rounded-lg shadow-lg p-6">
-                <div className="flex justify-between border-b-2 mb-6">
-                    <button onClick={() => setActiveTab('generate')} className={`w-1/2 py-2 text-center font-semibold rounded-t-lg ${activeTab === 'generate' ? 'bg-primary text-white' : 'bg-gray-200 text-gray-700'}`}>GENERATE KUNDLI</button>
-                    <button onClick={() => setActiveTab('saved')} className={`w-1/2 py-2 text-center font-semibold rounded-t-lg ${activeTab === 'saved' ? 'bg-primary text-white' : 'bg-gray-200 text-gray-700'}`} >SAVED KUNDLI</button>
-                </div>
+            <section className='px-[80px] max-md:px-[20px] py-10'>
+                <main className='flex justify-between max-md:flex-wrap gap-5'>
+                    <div className='bg-[#F1B646] text-black px-12 max-md:px-10 py-2.5 font-[500] text-[16px] rounded-md flex items-center justify-center self-start text-nowrap'>Free Kundli</div>
 
-                {activeTab === 'generate' ?
-                    <>
-                        <form className='px-5 my-8 flex flex-wrap justify-between gap-6'>
-                            <div className='basis-[45%] max-md:basis-full flex flex-col gap-1'>
-                                <label className='text-grey text-sm'>Full Name</label>
-                                <input name='name' value={inputFieldDetail?.name} onChange={handleInputFieldDetail} type='text' placeholder='Full Name' className='w-[100%] outline-none bg-greybg px-5 py-[10px] rounded-md text-sm' />
-                            </div>
+                    <div className='border border-[#DDDDDD] rounded-md flex items-center max-sm:w-[90vw]'>
+                        <input type='search' placeholder='Serach Kundli By Name..' className='outline-none px-3 py-2 text-[16px] max-md:text-[16px] rounded-md h-full w-[330px] max-xl:w-[300px] max-lg:w-[100%]' />
+                        <button className='bg-[#F1B646] border-[#F1B646] rounded-e-md flex items-center justify-center p-2 px-3 w-[50px] h-full'><SearchSvg w='20' h='20' /></button>
+                    </div>
+                </main>
+            </section>
 
-                            <div className='basis-[45%] max-md:basis-full flex flex-col gap-1'>
-                                <label className='text-grey text-sm'>Gender</label>
-                                <select name="gender" value={inputFieldDetail?.gender} onChange={handleInputFieldDetail} id="gender" className='w-[100%] outline-none bg-greybg px-5 py-[10px] rounded-md text-sm'>
-                                    <option value="">Select Gender</option>
-                                    <option value="Male">Male</option>
-                                    <option value="Female">Female</option>
-                                    <option value="Other">Other</option>
-                                </select>
-                            </div>
-                            <div className='basis-[45%] max-md:basis-full flex flex-col gap-1'>
-                                <label className='text-grey text-sm'>Date of Birth</label>
-                                <input name='date_of_birth' value={inputFieldDetail?.date_of_birth} onChange={handleInputFieldDetail} type='date' className='w-[100%] outline-none bg-greybg px-5 py-[10px] rounded-md text-sm' />
-                            </div>
-                            <div className='basis-[45%] max-md:basis-full flex flex-col gap-1'>
-                                <label className='text-grey text-sm'>Time of Birth</label>
-                                <input name='time_of_birth' value={inputFieldDetail?.time_of_birth} onChange={handleInputFieldDetail} type='time' className='w-[100%] outline-none bg-greybg px-5 py-[10px] rounded-md text-sm' />
-                            </div>
-
-                            <div className='basis-[45%] max-md:basis-full flex flex-col gap-1'>
-                                <label className='text-grey text-sm'>Place of Birth</label>
-                                <Autocomplete
-                                    onLoad={(ref) => (autocompleteRef.current = ref)}
-                                    onPlaceChanged={handlePlaceSelect}
-                                >
-                                    <input
-                                        type='text'
-                                        name='place_of_birth'
-                                        value={inputFieldDetail.place_of_birth}
-                                        onChange={handleInputFieldDetail}
-                                        className='w-[100%] outline-none bg-greybg px-5 py-[10px] rounded-md text-sm'
-                                        placeholder='Enter place of birth'
-                                    />
-                                </Autocomplete>
-                            </div>
-
-                            <div onClick={(e) => {
-                                if (userCustomerDataById) {
-                                    handleSubmit(e);
-                                } else {
-                                    alert('Please login')
-                                }
-                            }} className='basis-full bg-primary text-center text-white rounded-lg p-2 text-sm cursor-pointer'>Generate Kundli</div>
-                        </form>
-                    </>
-                    : <div className="flex flex-col gap-2">
-                        {kundliData?.map((data, index) => (
-                            <div key={index} className="shadow-lg p-4 bg-white flex justify-between">
-                                <div onClick={() => navigate(`/free-kundli/${data?._id}`)} className='flex-1'>
-                                    <div className="font-bold text-xl mb-2">{data?.name}</div>
-                                    <p className="text-gray-700 text-base">
-                                        {moment(data?.dob).format('DD-MMM-YYYY')} at {moment(data?.tob).format('hh:mm a')}
-                                    </p>
-                                    <p className="text-gray-700 text-base">{data?.place}</p>
+            <section className='px-[80px] max-md:px-[20px] py-10'>
+                <article>
+                    <main className='flex gap-[5%]'>
+                        <div className='flex-1 border-r pr-[5%]'>
+                            <form className='px-5 my-8 flex flex-wrap justify-between gap-6'>
+                                <div className='basis-[45%] max-md:basis-full flex flex-col gap-1'>
+                                    <label className='text-grey text-sm'>Full Name</label>
+                                    <input name='name' value={inputFieldDetail?.name} onChange={handleInputFieldDetail} type='text' placeholder='Full Name' className='w-[100%] outline-none bg-greybg px-5 py-[10px] rounded-md text-sm' />
                                 </div>
 
-                                <div onClick={() => dispatch(KundliActions?.deleteKundli({ kundliId: data?._id, customerId: userCustomerDataById?._id }))} className='cursor-pointer'><DeleteSvg /></div>
-                            </div>
-                        ))}
+                                <div className='basis-[45%] max-md:basis-full flex flex-col gap-1'>
+                                    <label className='text-grey text-sm'>Gender</label>
+                                    <select name="gender" value={inputFieldDetail?.gender} onChange={handleInputFieldDetail} id="gender" className='w-[100%] outline-none bg-greybg px-5 py-[10px] rounded-md text-sm'>
+                                        <option value="">Select Gender</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                                <div className='basis-[45%] max-md:basis-full flex flex-col gap-1'>
+                                    <label className='text-grey text-sm'>Date of Birth</label>
+                                    <input name='date_of_birth' value={inputFieldDetail?.date_of_birth} onChange={handleInputFieldDetail} type='date' className='w-[100%] outline-none bg-greybg px-5 py-[10px] rounded-md text-sm' />
+                                </div>
+                                <div className='basis-[45%] max-md:basis-full flex flex-col gap-1'>
+                                    <label className='text-grey text-sm'>Time of Birth</label>
+                                    <input name='time_of_birth' value={inputFieldDetail?.time_of_birth} onChange={handleInputFieldDetail} type='time' className='w-[100%] outline-none bg-greybg px-5 py-[10px] rounded-md text-sm' />
+                                </div>
 
-                        {kundliData?.length <= 0 && <div className='text-center py-5'>No Data Available</div>}
-                    </div>
-                }
+                                <div className='basis-[45%] max-md:basis-full flex flex-col gap-1'>
+                                    <label className='text-grey text-sm'>Place of Birth</label>
+                                    <Autocomplete
+                                        onLoad={(ref) => (autocompleteRef.current = ref)}
+                                        onPlaceChanged={handlePlaceSelect}
+                                    >
+                                        <input
+                                            type='text'
+                                            name='place_of_birth'
+                                            value={inputFieldDetail.place_of_birth}
+                                            onChange={handleInputFieldDetail}
+                                            className='w-[100%] outline-none bg-greybg px-5 py-[10px] rounded-md text-sm'
+                                            placeholder='Enter place of birth'
+                                        />
+                                    </Autocomplete>
+                                </div>
 
-            </div>
+                                <div onClick={(e) => {
+                                    if (userCustomerDataById) {
+                                        handleSubmit(e);
+                                    } else {
+                                        alert('Please login')
+                                    }
+                                }} className='basis-full bg-primary text-center text-white rounded-lg p-2 text-sm cursor-pointer'>Generate Kundli</div>
+                            </form>
+                        </div>
+
+                        <div className='flex-1 flex-col gap-2'>
+                            {kundliData?.map((data, index) => (
+                                <div key={index} className="p-4 bg-white flex justify-between">
+                                    <div onClick={() => navigate(`/free-kundli/${data?._id}`)} className='flex-1'>
+                                        <div className="font-bold text-xl mb-2">{data?.name}</div>
+                                        <p className="text-gray-700 text-base">
+                                            {moment(data?.dob).format('DD-MMM-YYYY')} at {moment(data?.tob).format('hh:mm a')}
+                                        </p>
+                                        <p className="text-gray-700 text-base">{data?.place}</p>
+                                    </div>
+
+                                    <div onClick={() => dispatch(KundliActions?.deleteKundli({ kundliId: data?._id, customerId: userCustomerDataById?._id }))} className='cursor-pointer'><DeleteSvg /></div>
+                                </div>
+                            ))}
+
+                            {kundliData?.length <= 0 && <div className='text-center py-5'>No Data Available</div>}
+                        </div>
+                    </main>
+                </article>
+            </section>
         </>
     )
 }

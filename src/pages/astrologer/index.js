@@ -65,14 +65,14 @@ const ChatWithAstrologer = () => {
                 <section className='px-[80px] py-7 max-sm:px-[20px]'>
                     <article className='flex flex-col gap-7'>
                         <main className='flex gap-4 flex-wrap items-center justify-between'>
-                            <div className='bg-[#F1B646] text-black px-12 max-md:px-10 py-2 font-[500] text-[20px] rounded-md flex items-center justify-center self-start text-nowrap'>Talk with Astrologer</div>
+                            <div className='bg-[#F1B646] text-black px-12 max-md:px-10 py-2.5 font-[500] text-[16px] rounded-md flex items-center justify-center self-start text-nowrap'>Talk with Astrologer</div>
                             <div>{userCustomerDataById && <div>Available balance: {IndianRupee(userCustomerDataById?.wallet_balance)}</div>}</div>
 
                             <div className='flex gap-4 flex-wrap'>
                                 <div onClick={() => navigate('/recharge')} className='border border-green-500 text-green-500 px-5 rounded-md flex items-center justify-center max-md:py-1 cursor-pointer'>Recharge</div>
 
                                 <div className='border border-[#DDDDDD] rounded-md flex items-center max-sm:w-[90vw]'>
-                                    <input type='search' autoFocus value={search} onChange={(e) => handleSearch(e.target.value)} placeholder='Search here..' className='outline-none px-3 py-3.5 text-[16px] max-md:text-[16px] rounded-md h-full w-[200px] max-lg:w-[200px] max-md:w-[100%]' />
+                                    <input type='search' autoFocus value={search} onChange={(e) => handleSearch(e.target.value)} placeholder='Search here..' className='outline-none px-3 py-2.5 text-[16px] max-md:text-[16px] rounded-md h-full w-[200px] max-lg:w-[200px] max-md:w-[100%]' />
                                     <button className='bg-[#F1B646] border-[#F1B646] rounded-e-md flex items-center justify-center p-2 px-3 w-[50px] h-full'><SearchSvg w='20' h='20' /></button>
                                 </div>
                             </div>
