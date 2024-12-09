@@ -4,13 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { api_urls } from '../../utils/api-urls/index.js';
-import { RightArrowHeadSvg, SearchSvg } from '../../assets/svg';
+import { RightArrowHeadSvg, SearchSvg } from '../../assets/svg/index.js';
 import { DeepSearchSpace } from '../../utils/common-function/index.js';
-import TopHeaderSection from '../../components/common/TopHeaderSection';
+import TopHeaderSection from '../../components/common/TopHeaderSection.jsx';
 import * as EcommerceAction from "../../redux/actions/ecommerceActions.js"
 import RecordNotFound from '../../components/features/RecordNotFound.jsx';
 
-const BookPuja = () => {
+const RegisterPuja = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { pujaData } = useSelector(state => state?.ecommerceReducer);
@@ -55,7 +55,7 @@ const BookPuja = () => {
                 <>
                     <section className='px-[80px] max-md:px-[20px] py-10'>
                         <main className='flex justify-between max-md:flex-wrap gap-5'>
-                            <div className='bg-[#F1B646] text-black px-12 max-md:px-10 py-2 font-[500] text-[20px] rounded-md flex items-center justify-center self-start text-nowrap'>Book a Puja</div>
+                            <div className='bg-[#F1B646] text-black px-12 max-md:px-10 py-2 font-[500] text-[20px] rounded-md flex items-center justify-center self-start text-nowrap'>Register Puja</div>
 
                             <div className='border border-[#DDDDDD] rounded-md flex items-center max-sm:w-[90vw]'>
                                 <input type='search' onChange={handleSearch} placeholder='Let’s find what you’re looking for..' className='outline-none px-3 py-3.5 text-[16px] max-md:text-[16px] rounded-md h-full w-[330px] max-xl:w-[300px] max-lg:w-[100%]' />
@@ -101,4 +101,4 @@ const BookPuja = () => {
     )
 }
 
-export default BookPuja;
+export default RegisterPuja;

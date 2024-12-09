@@ -24,7 +24,7 @@ const MyAccount = () => {
         <>
             <TopHeaderSection title={'My Account'} />
 
-            <section className='px-[100px] py-7 max-sm:px-[20px]'>
+            <section className='px-[80px] py-7 max-sm:px-[20px]'>
                 <article className='flex flex-col gap-5'>
                     <div className='py-5 px-5 bg-orange-100 border border-primary rounded-md flex items-center justify-between flex-wrap gap-10'>
                         <div className='flex gap-10 items-end justify-between flex-wrap'>
@@ -57,7 +57,7 @@ const MyAccount = () => {
                 </article>
             </section>
 
-            <section className='px-[100px] py-7 max-sm:px-[20px]'>
+            <section className='px-[80px] py-7 max-sm:px-[20px]'>
                 <article>
                     <main>
                         <div className='bg-primary py-3 px-10 max-md:px-5 relative rounded-t-md'>

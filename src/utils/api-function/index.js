@@ -62,7 +62,7 @@ export const razorpayPayment = async ({ amount = 0, name = '', email = '', conta
     }
 
     let options = {
-        key: razorpay_live_key,
+        key: razorpay_test_key,
         name,
         currency: 'INR',
         amount: data?.data?.amount,

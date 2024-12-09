@@ -58,6 +58,10 @@ export const get_custoemer_booked_pooja = 'ecommerce/get_custoemer_booked_pooja'
 export const get_puja = 'api/ecommerce/get_puja';
 export const book_puja = 'api/ecommerce/book_puja';
 
+//* This is for astrologer side UI
+export const get_puja_created = 'api/ecommerce/';
+export const register_puja = 'api/ecommerce/';
+
 //! Blog
 export const get_astro_blog_category = 'api/admin/blog-category-list';
 export const get_astro_blog = (page = 1, limit = 10, categoryId = '', search = '') => `api/customers/all_blogs?page=${page}&limit=${limit}&blogCategoryId=${categoryId}&search=${search}`;

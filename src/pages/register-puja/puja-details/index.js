@@ -20,10 +20,23 @@ const PujaDetails = () => {
     const puja = location.state && location?.state?.pujaData;
     const { userCustomerDataById } = useSelector(state => state?.userReducer);
 
-    const handleBookPuja = () => {
+    const [inputFieldDetail, setInputFieldDetail] = useState({ pujaDateTime: '', duration: '' });
+    const handleInputFieldDetail = (event) => setInputFieldDetail({ ...inputFieldDetail, [event?.target?.name]: event?.target?.value });
+
+    const handleRegisterPuja = () => {
+        const { pujaDateTime, duration } = inputFieldDetail;
+        if (!pujaDateTime) {
+            toaster?.info({ text: 'Please enter date and time' })
+            return
+        };
+        if (!duration) {
+            toaster?.info({ text: 'Please enter duration' })
+            return
+        };
+
         const payload = {
             amount: puja?.price,
-            data: { userId: userCustomerDataById?._id, pujaId: puja?._id, mode: 'online' },
+            data: { userId: userCustomerDataById?._id, pujaId: puja?._id, date: pujaDateTime, time: pujaDateTime, mode: 'online' },
             user: userCustomerDataById,
             onComplete: () => navigate('/my-order?active-tab=book-history')
         };
@@ -44,15 +57,15 @@ const PujaDetails = () => {
 
             <section className='px-[80px] py-7 max-sm:px-[20px]'>
                 <main className='flex flex-wrap gap-7 pb-10 border-b border-black'>
-                    <img src={api_urls + 'uploads/' + puja?.image} alt="puja" className='flex-1 rounded-md w-full h-auto sm:h-60 border-2 border-gray-500' />
-                    <div className='flex-1 flex flex-col gap-3 items-start'>
+                    <img src={api_urls + 'uploads/' + puja?.image} alt="puja" className='flex-1 rounded-md w-full h-auto sm:h-64 border-2 border-gray-500' />
+                    <div className='flex-1 flex flex-col gap-4 items-start'>
                         <h4 className='text-lg sm:text-2xl font-bold'> {puja?.pujaName} </h4>
                         <h4 className='text-lg sm:text-xl font-[500]'>Price : <span className='text-[#009E43] text-base'>{IndianRupee(puja?.price)}</span></h4>
-                        <div className='flex items-center gap-3'>
-                            <div className='bg-black text-white text-sm font-[500] py-2 px-14'>05h : 19m : 49s left</div>
-                            <div className='text-[#009E43]'>05 hours left</div>
+                        <div className='flex flex-col gap-3'>
+                            <input name='pujaDateTime' onChange={handleInputFieldDetail} type='datetime-local' className='outline-none border border-black px-5 py-1.5 w-60' />
+                            <input name='duration' onChange={handleInputFieldDetail} type='text' placeholder='duration' className='outline-none border border-black px-5 py-1.5 w-48' />
                         </div>
-                        <button onClick={() => handleBookPuja()} className='bg-black hover:bg-primary text-white text-sm font-[500] py-3.5 px-14 transition-all duration-300 ease-in'>Buy Now</button>
+                        <button onClick={() => handleRegisterPuja()} className='bg-black hover:bg-primary text-white text-sm font-[500] py-3.5 text-center transition-all duration-300 ease-in w-36'>Register Puja</button>
                     </div>
                 </main>
             </section>

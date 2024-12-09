@@ -67,7 +67,9 @@ const YearlyHoroscope = lazy(() => import('./pages/horoscope/yearly-horoscope'))
 
 //! Book Puja
 const BookPuja = lazy(() => import('./pages/book-puja'));
-const PujaDetails = lazy(() => import('./pages/book-puja/puja-details'));
+const BookPujaDetails = lazy(() => import('./pages/book-puja/puja-details'));
+const RegisterPuja = lazy(() => import('./pages/register-puja'));
+const RegisterPujaDetails = lazy(() => import('./pages/register-puja/puja-details'));
 
 //! Astromall 
 const AstroMall = lazy(() => import('./pages/astro-mall'));
@@ -206,7 +208,11 @@ const App = () => {
 
               {/* Book Puja */}
               <Route path='/book-puja' element={<BookPuja />} />
-              <Route path='/book-puja/:name' element={<PujaDetails />} />
+              <Route path='/book-puja/:name' element={<BookPujaDetails />} />
+
+              {/* Register Puja */}
+              <Route path='/register-puja' element={<RegisterPuja />} />
+              <Route path='/register-puja/:name' element={<RegisterPujaDetails />} />
 
               {/* Astromall */}
               <Route path='/astro-mall' element={<AstroMall />} />

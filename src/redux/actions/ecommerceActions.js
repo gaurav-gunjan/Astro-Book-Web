@@ -47,3 +47,16 @@ export const setPuja = payload => ({
 export const bookPuja = payload => ({
     type: actionTypes.BOOK_PUJA, payload
 });
+
+//* This is for astrologer side UI
+export const getPujaCreated = payload => ({
+    type: actionTypes.GET_PUJA_CREATED, payload
+});
+
+export const setPujaCreated = payload => ({
+    type: actionTypes.SET_PUJA_CREATED, payload
+});
+
+export const registerPuja = payload => ({
+    type: actionTypes.REGISTER_PUJA, payload
+});

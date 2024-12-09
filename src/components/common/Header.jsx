@@ -9,6 +9,7 @@ import AstrologerLoginModal from '../modal/AstrologerLoginModal';
 import * as AuthActions from '../../redux/actions/authAction';
 import { generateTokenByRequestPermission } from '../../config/firebase-config';
 import Logo from '../../assets/images/logo/logo.png';
+import { api_urls } from '../../utils/api-urls';
 
 Modal.setAppElement('#root');
 
@@ -127,10 +128,49 @@ const Header = () => {
                                 <NavLink to="" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-white" : "text-white"}>Horoscope</NavLink>
                                 <NavLink to="" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-white" : "text-white"}>Eng</NavLink>
                                 {!userCustomerDataById && !userAstrologerDataById && <div onClick={handleOpenLoginCustomerModal} className='flex items-center gap-1.5 cursor-pointer bg-[#F1B646] px-3.5 py-1 rounded-full'><div className='-mt-1'><PersonSvg /></div><div>Login</div></div>}
+
+                                {userAstrologerDataById &&
+                                    <div className='group relative text-black'>
+                                        <div className='flex items-center gap-1 cursor-pointer'>{userAstrologerDataById?.profileImage ? <img src={api_urls + userAstrologerDataById?.profileImage} className='h-9 w-9 rounded-full' /> : <ProfileSvg />}</div>
+
+                                        <div className='font-normal absolute overflow-hidden top-20 right-0 bg-white w-52 h-0 rounded-lg group-hover:h-[350px] transition-all duration-500 ease-in group-hover:border-b-[5px] border-primary shadow-2xl'>
+                                            <div className='flex flex-col items-center gap-1.5 py-5'>
+                                                {userAstrologerDataById?.profileImage ? <img src={api_urls + userAstrologerDataById?.profileImage} className='h-11 w-11 rounded-full' /> : <ProfileSvg h='40' w='40' />}
+                                                <div className='text-[16px]'>{userAstrologerDataById?.astrologerName}</div>
+                                                <div className='text-sm'>XXXXXX{userAstrologerDataById?.phoneNumber?.toString()?.substring(6, 10)}</div>
+                                            </div>
+                                            <div onClick={() => navigate('/astrologer-dashboard/my-account')} className='flex items-center gap-3 border-t py-2 px-5 cursor-pointer'><div>My Account</div></div>
+                                            <div onClick={() => navigate('/astrologer-dashboard/wallet-history')} className='flex items-center gap-3 border-t py-2 px-5 cursor-pointer'><div>Wallet History</div></div>
+                                            <div onClick={() => navigate('/astrologer-dashboard/transaction-history')} className='flex items-center gap-3 border-t py-2 px-5 cursor-pointer'><div>Transaction History</div></div>
+                                            <div onClick={() => navigate('/astrologer-dashboard/assign-puja-history')} className='flex items-center gap-3 border-t py-2 px-5 cursor-pointer'><div>Assign Puja History</div></div>
+                                            <div onClick={() => dispatch(AuthActions.userLogout({ onComplete: () => navigate('/') }))} className='flex items-center gap-3 border-t py-2 px-5 cursor-pointer'><div>Logout</div></div>
+                                        </div>
+                                    </div>
+                                }
+
+                                {userCustomerDataById &&
+                                    <div className='group relative text-black'>
+                                        <div className='flex items-center gap-1 cursor-pointer text-white'>{userCustomerDataById?.image ? <img src={api_urls + 'uploads/' + userCustomerDataById?.image} className='h-9 w-9 object-contain rounded-full' /> : <ProfileSvg />} <div className='capitalize'>{userCustomerDataById?.customerName}</div></div>
+
+                                        <div className='font-normal absolute overflow-hidden top-20 right-0 bg-white w-52 h-0 rounded-lg group-hover:h-[390px] transition-all duration-500 ease-in group-hover:border-b-[5px] border-primary shadow-2xl'>
+                                            <div className='flex flex-col items-center gap-3 py-5'>
+                                                {userCustomerDataById?.image ? <img src={api_urls + 'uploads/' + userCustomerDataById?.image} className='h-11 w-11 object-contain rounded-full' /> : <ProfileSvg h='40' w='40' />}
+                                                <div>XXXXXX{userCustomerDataById?.phoneNumber?.toString()?.substring(6, 10)}</div>
+                                            </div>
+                                            <div onClick={() => navigate('/my-account?active-tab=update-profile')} className='flex items-center gap-3 border-t py-2 px-5 cursor-pointer'><div>My Account</div></div>
+                                            <div onClick={() => navigate('/wallet-history')} className='flex items-center gap-3 border-t py-2 px-5 cursor-pointer'><div>My Wallet</div></div>
+                                            <div onClick={() => navigate('/transaction-history')} className='flex items-center gap-3 border-t py-2 px-5 cursor-pointer'><div>My Transaction</div></div>
+                                            <div onClick={() => navigate('/my-order?active-tab=order-history')} className='flex items-center gap-3 border-t py-2 px-5 cursor-pointer'><div>My Order</div></div>
+                                            <div onClick={() => navigate('/astro-mall')} className='flex items-center gap-3 border-t py-2 px-5 cursor-pointer'><div>Astromall</div></div>
+                                            <div onClick={() => navigate('/book-puja')} className='flex items-center gap-3 border-t py-2 px-5 cursor-pointer'><div>Book Puja</div></div>
+                                            <div onClick={() => dispatch(AuthActions.userLogout({ onComplete: () => navigate('/') }))} className='flex items-center gap-3 border-t py-2 px-5 cursor-pointer'><div>Logout</div></div>
+                                        </div>
+                                    </div>
+                                }
                             </div>
                             <div className='flex items-center gap-[30px]'>
                                 <NavLink to="/astrologer" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-white" : "text-white"}>Talk to Astrologer</NavLink>
-                                <NavLink to="/book-puja" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-white" : "text-white"}>Book a Puja</NavLink>
+                                {userCustomerDataById ? <NavLink to="/book-puja" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-white" : "text-white"}>Book a Puja</NavLink> : <NavLink to="/register-puja" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-white" : "text-white"}>Register Puja</NavLink>}
                                 <NavLink to="/astro-mall" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-white" : "text-white"}>Astromall</NavLink>
                                 <NavLink to="" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-white" : "text-white"}>Astrotalk Store</NavLink>
                                 <NavLink to="/blog" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-white" : "text-white"}>Blog</NavLink>

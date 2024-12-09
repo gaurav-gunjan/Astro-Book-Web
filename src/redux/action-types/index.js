@@ -154,6 +154,11 @@ export const GET_PUJA = 'GET_PUJA';
 export const SET_PUJA = 'SET_PUJA';
 export const BOOK_PUJA = 'BOOK_PUJA';
 
+//* This is for astrologer side UI
+export const GET_PUJA_CREATED = 'GET_PUJA_CREATED';
+export const SET_PUJA_CREATED = 'SET_PUJA_CREATED';
+export const REGISTER_PUJA = 'REGISTER_PUJA';
+
 //!Astromall
 export const GET_ASTROMALL_DATA = 'GET_ASTRO_MALL_DATA'
 export const SET_ASTROMALL_POOJA_DATA = 'SET_ASTROMALL_POOJA_DATA'

@@ -107,7 +107,7 @@ const Footer = ({ scrollToSection }) => {
 
                         <main className='flex flex-col gap-3'>
                             <span className='text-[17px] font-[500] border-b-2 border-[#F0DF20] inline-block pb-1 self-start'>Astrologer</span>
-                            <Link to=''>Astrologer Login</Link>
+                            <div onClick={handleOpenLoginAstrologerModal} className='cursor-pointer'>Astrologer Login</div>
                             <Link to=''>Astrologer Registration</Link>
                         </main>
 

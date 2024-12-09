@@ -1,7 +1,7 @@
 import { call, delay, put, select, takeLeading } from 'redux-saga/effects'
 import * as actionTypes from '../action-types'
 import { getAPI, postAPI, razorpayPayment } from '../../utils/api-function'
-import { add_to_cart, book_puja, get_customer_cart, get_product_category, get_products, get_puja, order_product, update_cart_item_quantity } from '../../utils/api-routes'
+import { add_to_cart, book_puja, get_customer_cart, get_product_category, get_products, get_puja, get_puja_created, order_product, register_puja, update_cart_item_quantity } from '../../utils/api-routes'
 import { api_urls } from '../../utils/api-urls';
 import Swal from 'sweetalert2';
 import { toaster } from '../../utils/services/toast-service';
@@ -172,6 +172,45 @@ function* bookPuja(action) {
         toaster?.error({ text: 'Payment Failed.' });
         console.log("Order Cart Saga Error ::: ", error);
     }
+};
+
+//* This is for astrologer side UI
+function* getPujaCreated() {
+    try {
+        yield put({ type: actionTypes.SET_IS_LOADING, payload: true })
+        yield delay(100);
+        const { data } = yield getAPI(get_puja_created);
+        console.log("Get Puja Created Saga Response ::: ", data);
+
+        if (data?.success) {
+            yield put({ type: actionTypes.SET_PUJA_CREATED, payload: data?.pooja });
+        }
+        yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
+
+    } catch (error) {
+        console.log("Get Puja Created Saga Error ::: ", error);
+        yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
+    }
+};
+
+function* registerPuja(action) {
+    try {
+        const { payload } = action;
+        console.log("Register Puja Payload ::: ", payload);
+
+        const { data } = yield postAPI(register_puja, payload?.data);
+        console.log("Register Puja Saga Response ::: ", data);
+
+        if (data?.success) {
+            toaster({ text: data?.message });
+            yield call(payload?.onComplete);
+        }
+        yield put({ type: actionTypes.SET_IS_LOADING, payload: false })
+
+    } catch (error) {
+        console.log("Register Puja Saga Error ::: ", error);
+        yield put({ type: actionTypes.SET_IS_LOADING, payload: false })
+    }
 }
 
 export default function* ecommerceSaga() {
@@ -184,4 +223,8 @@ export default function* ecommerceSaga() {
 
     yield takeLeading(actionTypes.GET_PUJA, getPuja);
     yield takeLeading(actionTypes.BOOK_PUJA, bookPuja);
+
+    //* This is for astrologer side UI
+    yield takeLeading(actionTypes.GET_PUJA_CREATED, getPujaCreated);
+    yield takeLeading(actionTypes.REGISTER_PUJA, registerPuja);
 };
