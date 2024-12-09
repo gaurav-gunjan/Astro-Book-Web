@@ -67,7 +67,7 @@ const BookPuja = () => {
                     <section className='px-[80px] max-md:px-[20px] pb-10'>
                         <main className='flex flex-wrap gap-[2.5%] gap-y-[40px]'>
                             {filteredData && filteredData?.map((value, index) => (
-                                <div key={index} className='lg:basis-[31.5%] max-lg:basis-[47.5%] max-lg:flex-grow max-md:basis-full rounded-xl capitalize bg-transparent'>
+                                <div key={index} onClick={() => navigate(`${value?.pujaName?.toLowerCase()?.split(' ')?.join('-')}`, { state: { pujaData: value } })} className='lg:basis-[31.5%] max-lg:basis-[47.5%] max-lg:flex-grow max-md:basis-full rounded-xl capitalize bg-transparent cursor-pointer'>
                                     <div className='mb-3 flex items-center'>
                                         <div className='text-xs text-center'>
                                             <div className='h-8 w-8 rounded-full border flex items-center justify-center'>{moment(value?.createdAt)?.format('DD')}</div>
@@ -86,7 +86,7 @@ const BookPuja = () => {
 
                                         <div className='text-gray-600 text-[14px] flex justify-between px-5 py-2 font-[500]'>
                                             <div className=''>{moment(value?.createdAt)?.format('DD MMM YYYY')}</div>
-                                            <div onClick={() => navigate(`${value?.pujaName?.toLowerCase()?.split(' ')?.join('-')}`, { state: { pujaData: value } })} className='flex items-center  cursor-pointer'>Book Now <RightArrowHeadSvg w={20} h={20} /></div>
+                                            <div className='flex items-center'>Book Now <RightArrowHeadSvg w={20} h={20} /></div>
                                         </div>
                                     </div>
                                 </div>

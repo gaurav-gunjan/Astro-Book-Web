@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { api_urls } from '../../../utils/api-urls';
@@ -34,6 +34,10 @@ const PujaDetails = () => {
         //! Dispatch API for Booking Puja
         dispatch(EcommerceActions?.bookPuja(payload));
     };
+
+    useEffect(() => {
+        !puja && navigate('/book-puja')
+    }, []);
 
     return (
         <>

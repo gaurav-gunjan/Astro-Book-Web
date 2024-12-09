@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { CrossSvg } from '../../assets/svg';
 import Logo from '../../assets/images/logo/logo.png';
-import LoginImage from '../../assets/images/auth/Login-Image.png';
+import LoginImage from '../../assets/images/auth/login-image.png';
 import * as AuthActions from '../../redux/actions/authAction';
 
 Modal.setAppElement('#root');
