@@ -15,3 +15,15 @@ export const getAstroblog = payload => ({
 export const setAstroblog = payload => ({
     type: actionTypes.SET_ASTRO_BLOG, payload
 });
+
+export const getRecentAstroblog = payload => ({
+    type: actionTypes.GET_RECENT_ASTRO_BLOG, payload
+});
+
+export const setRecentAstroblog = payload => ({
+    type: actionTypes.SET_RECENT_ASTRO_BLOG, payload
+});
+
+export const incrementAstroBlogViewCount = payload => ({
+    type: actionTypes.INCREMENT_ASTRO_BLOG_VIEW_COUNT, payload
+});

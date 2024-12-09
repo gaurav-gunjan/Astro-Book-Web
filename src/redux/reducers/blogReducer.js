@@ -2,7 +2,8 @@ import * as actionTypes from '../action-types'
 
 const initialState = {
     astroblogCategoryData: [],
-    astroBlogData: []
+    astroBlogData: [],
+    recentAstroBlogData: []
 };
 
 const blogreducer = (state = initialState, actions) => {
@@ -14,6 +15,9 @@ const blogreducer = (state = initialState, actions) => {
 
         case actionTypes.SET_ASTRO_BLOG:
             return { ...state, astroBlogData: payload };
+
+        case actionTypes.SET_RECENT_ASTRO_BLOG:
+            return { ...state, recentAstroBlogData: payload };
 
         default:
             return state;

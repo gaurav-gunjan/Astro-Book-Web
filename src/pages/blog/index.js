@@ -5,8 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { api_urls } from '../../utils/api-urls/index.js';
 import { HomeSvg, SearchSvg, ViewSvg } from '../../assets/svg';
 import TopHeaderSection from '../../components/common/TopHeaderSection';
-import * as BlogActions from "../../redux/actions/blogAction";
 import CustomPagination from '../../components/features/CustomPagination.jsx';
+import * as BlogActions from "../../redux/actions/blogAction";
 
 const Blog = () => {
     const navigate = useNavigate();
@@ -17,9 +17,14 @@ const Blog = () => {
     const query = new URLSearchParams(searchParams);
     const page = query.get('page') || 1;
     const search = searchParams.get('search') || '';
+    const category = searchParams.get('category') || '';
+    const id = searchParams.get('id') || '';
 
-    const handleSearch = async (text) => {
-        setSearchParams(`page=1&search=${text.toLowerCase().split(' ').join('')}`);
+    const handleSearch = async (text) => setSearchParams(`page=1&search=${text.toLowerCase().split(' ').join('')}&category=${category}&id=${id}`);
+
+    const handleViewBlog = (data) => {
+        dispatch(BlogActions?.incrementAstroBlogViewCount({ blogId: data?._id }))
+        navigate('/blog/blog-details', { state: { astroBlogData: data } })
     };
 
     useEffect(() => {
@@ -29,41 +34,41 @@ const Blog = () => {
 
     useEffect(() => {
         //! Dispatching API for Get Blog
-        dispatch(BlogActions.getAstroblog({ page, size: 10, search }));
-    }, [page, search]);
+        dispatch(BlogActions.getAstroblog({ page, limit: 9, search, categoryId: id }));
+    }, [page, search, id]);
 
     return (
         <>
             <TopHeaderSection />
 
             <section className='px-[80px] max-md:px-[20px] pt-10 pb-5 text-center'>
-                <h1 className='text-[37px] font-semibold tracking-wider'>Blog</h1>
-                <p className='text-[#ADADAD] text-[28.4px] font-semibold tracking-wide'>Shop Best Online Astrology Products And Services</p>
+                <h1 className='text-[30px] max-md:text-[25px] font-[500] tracking-wider'>Blog</h1>
+                <p className='text-[#ADADAD] text-[24px] max-md:text-[20px] font-[500] tracking-wide'>Shop Best Online Astrology Products And Services</p>
             </section>
 
-            <section className='px-[80px] max-md:px-[20px] pb-5'>
+            <section className='px-[80px] max-md:px-[20px] pb-5 max-md:pb-0'>
                 <main className='flex justify-end'>
                     <div className='border border-[#DDDDDD] rounded-md flex items-center max-sm:w-[90vw]'>
-                        <input type='search' value={search} onChange={(e) => handleSearch(e.target.value)} placeholder='Let’s find what you’re looking for..' className='outline-none px-3 py-3.5 text-[20.11px] rounded-md h-full w-[350px] max-xl:w-[330px] max-lg:w-[300px] max-md:w-[100%]' />
-                        <button className='bg-[#F1B646] border-[#F1B646] rounded-e-md flex items-center justify-center p-2 px-3 w-[65px] h-full'><SearchSvg w='30' h='30' /></button>
+                        <input type='search' value={search} onChange={(e) => handleSearch(e.target.value)} placeholder='Let’s find what you’re looking for..' className='outline-none px-3 py-3.5 text-[16px] max-md:text-[16px] rounded-md h-full w-[330px] max-xl:w-[300px] max-lg:w-[100%]' />
+                        <button className='bg-[#F1B646] border-[#F1B646] rounded-e-md flex items-center justify-center p-2 px-3 w-[50px] h-full'><SearchSvg w='20' h='20' /></button>
                     </div>
                 </main>
             </section>
 
             <section className='px-[80px] max-md:px-[20px] pt-5 pb-14'>
-                <article className='flex gap-5'>
-                    <div className='flex flex-col pr-5 border-r border-[#B0B0B0] basis-[15%]'>
-                        <div className='flex items-center gap-4 border-b border-[#B0B0B0] border-dashed pb-5'>
+                <article className='flex gap-5 max-lg:flex-col'>
+                    <div className='flex flex-col pr-5 max-md:pr-0 border-r border-[#B0B0B0] max-md:border-none basis-[15%]'>
+                        <div className='flex items-center gap-4 border-b border-[#B0B0B0] border-dashed pb-5 max-lg:hidden'>
                             <div className='bg-black h-14 w-14 rounded-full flex items-center justify-center'><HomeSvg w='35' h='35' /></div>
                             <div>
                                 <div className='text-[21px]'>Categories</div>
                                 <div className='text-[14px] text-[#B0B0B0]'>Select Topic</div>
                             </div>
                         </div>
-                        <div className='flex flex-col gap-3 py-8'>
-                            <Link to={'/blog'} className='text-[21px]'>Home</Link>
+                        <div className='flex flex-col max-lg:flex-row text-nowrap gap-3 pt-8 text-[17px] max-md:py-5 max-lg:overflow-x-scroll'>
+                            <Link to={'/blog'}>Home</Link>
                             {astroblogCategoryData?.map((value, index) => (
-                                <Link to={`/blog?category=${value?.blog_category?.split(' ')?.join('-')?.toLowerCase()}`} key={index} className='text-[21px]'>{value?.blog_category}</Link>
+                                <Link to={`/blog?page=1&search=&category=${value?.blog_category?.split(' ')?.join('-')?.toLowerCase()}&id=${value?._id}`} key={index}>{value?.blog_category}</Link>
                             ))}
                         </div>
                     </div>
@@ -71,9 +76,9 @@ const Blog = () => {
                     <div className='flex-1'>
                         <main className='flex flex-wrap gap-[2.5%] gap-y-[40px]'>
                             {astroBlogData?.results?.map((value, index) => (
-                                <div key={index} onClick={() => navigate('/blog/blog-details', { state: { astroBlogData: value } })} className='relative flex flex-col border border-primary pb-4 rounded-[24.61px] lg:basis-[31.5%] max-lg:basis-[47.5%] max-lg:flex-grow max-md:basis-full cursor-pointer h-[287.69px]'>
+                                <div key={index} onClick={() => handleViewBlog(value)} className='relative flex flex-col border border-primary pb-4 rounded-[24.61px] lg:basis-[31.5%] max-lg:basis-[47.5%] max-lg:flex-grow max-md:basis-full cursor-pointer h-[287.69px]'>
                                     <img src={api_urls + 'uploads/' + value?.image} className='h-[178px] w-full rounded-t-[24.61px] border-b object-center' />
-                                    <div className='absolute top-[10px] right-[10px] flex items-center justify-between px-4 w-[95px] h-[23px] rounded-[18px] text-sm bg-white text-[#C9C9C9]'><ViewSvg /> <span className='text-black'>1869</span></div>
+                                    <div className='absolute top-[10px] right-[10px] flex items-center justify-between px-4 w-[95px] h-[23px] rounded-[18px] text-sm bg-white text-[#C9C9C9]'><ViewSvg /> <span className='text-black'>{value?.viewsCount}</span></div>
 
                                     <div className="p-3 text-[#545353] flex flex-col gap-2.5">
                                         <h2 className="text-[16.77px] font-semibold line-clamp-2 min-h-12">{value?.title}</h2>
@@ -85,7 +90,18 @@ const Blog = () => {
                                 </div>
                             ))}
                         </main>
-                        <CustomPagination count="10" totalDocuments={astroBlogData?.totalResults} />
+
+                        {astroBlogData?.results?.length <= 0 && (
+                            <div className="flex justify-center items-center h-96  border-gray-300 bg-[#FDFDFDD5] text-primary text-lg rounded-lg p-4">
+                                <p className="text-gray-500">No Record Found</p>
+                            </div>
+                        )}
+
+                        {astroBlogData?.results?.length > 0 && (
+                            <section className='pt-14 flex justify-end'>
+                                <CustomPagination count="9" totalDocuments={astroBlogData?.totalResults} />
+                            </section>
+                        )}
                     </div>
                 </article>
             </section>
