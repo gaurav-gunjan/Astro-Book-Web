@@ -53,8 +53,15 @@ const PujaDetails = () => {
                         <h4 className='text-lg sm:text-xl font-[500]'>Price : <span className='text-[#009E43] text-base'>{IndianRupee(pujaData?.price)}</span></h4>
                         <div className='flex items-center gap-3'>
                             {!timeLeft ? <div className='animate-spin p-2 border-2 border-black -mt-1 mr-3'></div> : <div className='bg-black text-white text-sm font-[500] py-2 px-14'>{timeLeft} left</div>}
-                            <div className='text-[#009E43] text-sm'>{moment(pujaData?.poojaDate).diff(moment(new Date()), 'hours')} hours left</div>
+                            <div className='text-[#009E43] text-sm'>{moment(pujaData?.poojaDate)?.diff(moment?.utc(), 'hours')} hours left</div>
+                            {/*   <div className='text-[#009E43] text-sm'>{moment('2024-12-10T20:00:00.000Z')?.local().diff(moment().local(), 'hours')} hours left</div>
+                            <div className='text-[#009E43] text-sm'>{moment('2024-12-10T20:00:00.000Z').utcOffset(130).diff(moment().utcOffset(130), 'hours')} hours left</div>
+                            <div>{moment("2024-12-10T20:00:00.000Z", "YYYYMMDD").fromNow()}</div> */}
                         </div>
+                        {/* <div>{moment(pujaData?.poojaDate)?.utc()?.format('hh:mm:ss a')}</div>
+                        <div>{moment(pujaData?.poojaDate)?.utc()?.format('DD MMM YYYY hh:mm:ss a')}</div>
+                        <div>{moment(new Date())?.utc()?.format('DD MMM YYYY hh:mm:ss a')}</div>
+                        <div>{moment(new Date())?.format('DD MMM YYYY hh:mm:ss a')}</div> */}
                         <button onClick={() => handleBookPuja()} className='bg-black hover:bg-secondary text-white text-sm font-[500] py-3.5 px-14 transition-all duration-300 ease-in'>Buy Now</button>
                     </div>
                 </main>

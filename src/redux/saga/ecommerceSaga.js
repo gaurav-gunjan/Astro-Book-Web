@@ -158,6 +158,8 @@ function* registerCreatedPuja(action) {
         if (data?.success) {
             toaster({ text: data?.message });
             yield call(payload?.onComplete);
+        } else {
+            toaster({ text: data?.message });
         }
         yield put({ type: actionTypes.SET_IS_LOADING, payload: false })
 

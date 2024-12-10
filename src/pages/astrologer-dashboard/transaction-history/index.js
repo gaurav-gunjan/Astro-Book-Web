@@ -1,15 +1,18 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import TopHeaderSection from '../../../components/common/TopHeaderSection';
-import * as UserActions from '../../../redux/actions/userAction';
 import moment from 'moment';
-import { SecondToHMS } from '../../../utils/common-function';
-import PageHeading from '../../../components/common/PageHeading';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { SearchSvg } from '../../../assets/svg';
+import PageHeading from '../../../components/common/PageHeading';
+import TopHeaderSection from '../../../components/common/TopHeaderSection';
+import { DeepSearchSpace, SecondToHMS } from '../../../utils/common-function';
+import * as UserActions from '../../../redux/actions/userAction';
 
 const TransactionHistory = () => {
     const dispatch = useDispatch();
     const { userAstrologerDataById, userAstrologerTransactionHistoryData } = useSelector(state => state?.userReducer);
+
+    const [searchText, setSearchText] = useState('');
+    const filteredData = DeepSearchSpace(userAstrologerTransactionHistoryData, searchText);
 
     useEffect(() => {
         userAstrologerDataById && dispatch(UserActions?.getUserAstrologerTransactionHistory());
@@ -24,7 +27,7 @@ const TransactionHistory = () => {
                     <PageHeading title={'Transaction History'} />
 
                     <div className='border border-[#DDDDDD] rounded-md flex items-center max-sm:w-[90vw]'>
-                        <input type='search' placeholder='Search here..' className='outline-none px-3 text-[16px] max-md:text-[16px] rounded-md h-full w-[330px] max-xl:w-[300px] max-lg:w-[100%]' />
+                        <input value={searchText} onChange={(e) => setSearchText(e?.target?.value)} type='search' placeholder='Search here..' className='outline-none px-3 text-[16px] max-md:text-[16px] rounded-md h-full w-[330px] max-xl:w-[300px] max-lg:w-[100%]' />
                         <button className='bg-[#F1B646] border-[#F1B646] rounded-e-md flex items-center justify-center p-2 px-3 w-[50px] h-full'><SearchSvg w='18' h='18' /></button>
                     </div>
                 </main>

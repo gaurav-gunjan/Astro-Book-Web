@@ -1,16 +1,19 @@
 import moment from 'moment/moment';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { SearchSvg } from '../../../assets/svg';
 import { api_urls } from '../../../utils/api-urls';
 import PageHeading from '../../../components/common/PageHeading';
 import TopHeaderSection from '../../../components/common/TopHeaderSection';
-import { IndianRupee, SecondToHMS } from '../../../utils/common-function';
+import { DeepSearchSpace, IndianRupee, SecondToHMS } from '../../../utils/common-function';
 import * as UserActions from '../../../redux/actions/userAction';
 
 const AssignPujaHistory = () => {
     const dispatch = useDispatch();
     const { userAstrologerDataById, userAstrologerBookedPujaHistoryData } = useSelector(state => state?.userReducer);
+
+    const [searchText, setSearchText] = useState('');
+    const filteredData = DeepSearchSpace(userAstrologerBookedPujaHistoryData, searchText);
 
     useEffect(() => {
         userAstrologerDataById && dispatch(UserActions?.getUserAstrologerBookedPujaHistory());
@@ -25,7 +28,7 @@ const AssignPujaHistory = () => {
                     <PageHeading title={'Book Puja History'} />
 
                     <div className='border border-[#DDDDDD] rounded-md flex items-center max-sm:w-[90vw]'>
-                        <input type='search' placeholder='Search here..' className='outline-none px-3 text-[16px] max-md:text-[16px] rounded-md h-full w-[330px] max-xl:w-[300px] max-lg:w-[100%]' />
+                        <input value={searchText} onChange={(e) => setSearchText(e?.target?.value)} type='search' placeholder='Search here..' className='outline-none px-3 text-[16px] max-md:text-[16px] rounded-md h-full w-[330px] max-xl:w-[300px] max-lg:w-[100%]' />
                         <button className='bg-[#F1B646] border-[#F1B646] rounded-e-md flex items-center justify-center p-2 px-3 w-[50px] h-full'><SearchSvg w='18' h='18' /></button>
                     </div>
                 </main>

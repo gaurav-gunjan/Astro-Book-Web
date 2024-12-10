@@ -149,9 +149,14 @@ export const SecondToHMS = (duration) => {
 };
 
 export const CalculateTimeDifference = (date) => {
-    const current_date = moment();
+    const current_date = moment(new Date())?.local();
     const upcoming_date = moment(date);
     const duration = moment.duration(upcoming_date.diff(current_date));
+    console.log('Duration ::: ', duration);
+
+    console.log('current_date', current_date?.format('DD MMM YYYY hh:mm:ss a'));
+    console.log('upcoming_date', upcoming_date?.format('DD MMM YYYY hh:mm:ss a'));
+    console.log('upcoming_date with utc', upcoming_date?.utc()?.format('DD MMM YYYY hh:mm:ss a'));
 
     const days = duration.days();
     const hours = duration.hours();
@@ -160,3 +165,33 @@ export const CalculateTimeDifference = (date) => {
 
     return `${days}d : ${hours}h : ${minutes}m : ${seconds}s`;
 };
+
+
+// export const CalculateTimeDifference = (endDate) => {
+//     console.log(endDate)
+//     // Get the current date as the start date
+//     const startDate = new Date();
+
+//     // Get the difference in milliseconds
+//     let diffInMs = endDate - startDate;
+
+//     // If the endDate is in the past, the difference will be negative
+//     if (diffInMs < 0) {
+//         return "End date is in the past!";
+//     }
+
+//     // Calculate days, hours, minutes, and seconds
+//     const days = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+//     diffInMs -= days * 1000 * 60 * 60 * 24;
+
+//     const hours = Math.floor(diffInMs / (1000 * 60 * 60));
+//     diffInMs -= hours * 1000 * 60 * 60;
+
+//     const minutes = Math.floor(diffInMs / (1000 * 60));
+//     diffInMs -= minutes * 1000 * 60;
+
+//     const seconds = Math.floor(diffInMs / 1000);
+
+//     // Return the result as a formatted string
+//     return `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
+// };

@@ -3,18 +3,20 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { api_urls } from '../../../utils/api-urls';
-import { IndianRupee, SecondToHMS } from '../../../utils/common-function';
-import { SearchSvg, SwitchOffSvg, SwitchOnSvg, WalletSvg } from '../../../assets/svg';
+import PageHeading from '../../../components/common/PageHeading';
 import TopHeaderSection from '../../../components/common/TopHeaderSection';
+import { SearchSvg, SwitchOffSvg, SwitchOnSvg, WalletSvg } from '../../../assets/svg';
+import { DeepSearchSpace, IndianRupee, SecondToHMS } from '../../../utils/common-function';
 import UserAstrologerWithdrawalRequest from '../../../components/modal/UserAstrologerWithdrawalRequest';
 import * as UserActions from '../../../redux/actions/userAction';
-import PageHeading from '../../../components/common/PageHeading';
 
 const MyAccount = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { userAstrologerDataById, userAstrologerTransactionHistoryData } = useSelector(state => state?.userReducer);
 
+    const [searchText, setSearchText] = useState('');
+    const filteredData = DeepSearchSpace(userAstrologerTransactionHistoryData, searchText);
     const [withdrawalModelOpen, setWithdrawalModelOpen] = useState(false);
 
     useEffect(() => {
@@ -64,7 +66,7 @@ const MyAccount = () => {
 
                     <div className='flex items-center gap-3'>
                         <div className='border border-[#DDDDDD] rounded-md flex items-center max-sm:w-[90vw]'>
-                            <input type='search' placeholder='Search here..' className='outline-none px-3 text-[16px] max-md:text-[16px] rounded-md h-full w-[330px] max-xl:w-[300px] max-lg:w-[100%]' />
+                            <input value={searchText} onChange={(e) => setSearchText(e?.target?.value)} type='search' placeholder='Search here..' className='outline-none px-3 text-[16px] max-md:text-[16px] rounded-md h-full w-[330px] max-xl:w-[300px] max-lg:w-[100%]' />
                             <button className='bg-[#F1B646] border-[#F1B646] rounded-e-md flex items-center justify-center p-2 px-3 w-[50px] h-full'><SearchSvg w='18' h='18' /></button>
                         </div>
                         <button onClick={() => navigate('/astrologer-dashboard/transaction-history')} className='border border-secondary px-8 max-md:px-5 py-1.5 rounded-md text-secondary hover:bg-secondary hover:text-black bg-white text-sm transition-all duration-500 ease-in'>See more</button>

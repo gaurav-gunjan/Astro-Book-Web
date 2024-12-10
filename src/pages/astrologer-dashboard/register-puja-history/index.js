@@ -1,16 +1,19 @@
 import moment from 'moment/moment';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { SearchSvg } from '../../../assets/svg';
 import { api_urls } from '../../../utils/api-urls';
 import PageHeading from '../../../components/common/PageHeading';
 import TopHeaderSection from '../../../components/common/TopHeaderSection';
-import { IndianRupee, SecondToHMS } from '../../../utils/common-function';
+import { DeepSearchSpace, IndianRupee, SecondToHMS } from '../../../utils/common-function';
 import * as UserActions from '../../../redux/actions/userAction';
 
 const RegisterPujaHistory = () => {
     const dispatch = useDispatch();
     const { userAstrologerDataById, userAstrologerRegisteredPujaHistoryData } = useSelector(state => state?.userReducer);
+
+    const [searchText, setSearchText] = useState('');
+    const filteredData = DeepSearchSpace(userAstrologerRegisteredPujaHistoryData, searchText);
 
     useEffect(() => {
         userAstrologerDataById && dispatch(UserActions?.getUserAstrologerRegisteredPujaHistory());
@@ -25,12 +28,11 @@ const RegisterPujaHistory = () => {
                     <PageHeading title={'Register Puja History'} />
 
                     <div className='border border-[#DDDDDD] rounded-md flex items-center max-sm:w-[90vw]'>
-                        <input type='search' placeholder='Search here..' className='outline-none px-3 text-[16px] max-md:text-[16px] rounded-md h-full w-[330px] max-xl:w-[300px] max-lg:w-[100%]' />
+                        <input value={searchText} onChange={(e) => setSearchText(e?.target?.value)} type='search' placeholder='Search here..' className='outline-none px-3 text-[16px] max-md:text-[16px] rounded-md h-full w-[330px] max-xl:w-[300px] max-lg:w-[100%]' />
                         <button className='bg-[#F1B646] border-[#F1B646] rounded-e-md flex items-center justify-center p-2 px-3 w-[50px] h-full'><SearchSvg w='18' h='18' /></button>
                     </div>
                 </main>
             </section>
-
 
             <section className='px-[80px] pb-16 max-sm:px-[20px]'>
                 <article>
@@ -48,13 +50,13 @@ const RegisterPujaHistory = () => {
                                     </tr>
                                 </thead>
                                 <tbody className='text-gray-800'>
-                                    {userAstrologerRegisteredPujaHistoryData && userAstrologerRegisteredPujaHistoryData?.map((value, index) => (
+                                    {userAstrologerRegisteredPujaHistoryData && filteredData?.map((value, index) => (
                                         <tr key={index} className={`text-sm ${index % 2 !== 0 && 'bg-[#F6F6F6]'}`}>
                                             <td className="w-[200px] p-[8px_10px] box-border text-[14px] outline-none capitalize">{value?.poojaId?.pujaName}</td>
                                             <td className='rounded-full flex items-center justify-center py-0.5'><img src={api_urls + 'uploads/' + value?.poojaId?.image} className='rounded-full w-10 h-10 object-contain bg-gray-300' /></td>
                                             <td className="w-[200px] p-[8px_10px] box-border text-[14px] outline-none capitalize text-wrap h-full">{IndianRupee(value?.poojaId?.price)}</td>
                                             <td className="w-[200px] p-[8px_10px] box-border text-[14px] outline-none capitalize">{SecondToHMS(value?.duration || 0)}</td>
-                                            <td className="w-[200px] p-[8px_10px] box-border text-[14px] outline-none capitalize text-nowrap">{moment(value?.pujaDate).format('DD MMM YYYY') || 'N/A'}</td>
+                                            <td className="w-[200px] p-[8px_10px] box-border text-[14px] outline-none capitalize text-nowrap">{moment(value?.pujaDate)?.utc().format('DD MMM YYYY') || 'N/A'}</td>
                                             <td className="w-[200px] p-[8px_10px] box-border text-[14px] outline-none capitalize text-nowrap">{moment(value?.pujaTime).utc().format('hh:mm a') || 'N/A'}</td>
                                         </tr>
                                     ))}
