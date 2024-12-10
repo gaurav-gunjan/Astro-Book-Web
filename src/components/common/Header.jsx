@@ -133,7 +133,7 @@ const Header = () => {
                                     <div className='group relative text-black'>
                                         <div className='flex items-center gap-1 cursor-pointer'>{userAstrologerDataById?.profileImage ? <img src={api_urls + userAstrologerDataById?.profileImage} className='h-9 w-9 rounded-full' /> : <ProfileSvg />}</div>
 
-                                        <div className='font-normal absolute overflow-hidden top-20 right-0 bg-white w-52 h-0 rounded-lg group-hover:h-[350px] transition-all duration-500 ease-in group-hover:border-b-[5px] border-primary shadow-2xl'>
+                                        <div className='font-normal absolute overflow-hidden top-20 right-0 bg-white w-52 h-0 rounded-lg group-hover:h-[390px] transition-all duration-500 ease-in group-hover:border-b-[5px] border-primary shadow-2xl'>
                                             <div className='flex flex-col items-center gap-1.5 py-5'>
                                                 {userAstrologerDataById?.profileImage ? <img src={api_urls + userAstrologerDataById?.profileImage} className='h-11 w-11 rounded-full' /> : <ProfileSvg h='40' w='40' />}
                                                 <div className='text-[16px]'>{userAstrologerDataById?.astrologerName}</div>
@@ -142,7 +142,8 @@ const Header = () => {
                                             <div onClick={() => navigate('/astrologer-dashboard/my-account')} className='flex items-center gap-3 border-t py-2 px-5 cursor-pointer'><div>My Account</div></div>
                                             <div onClick={() => navigate('/astrologer-dashboard/wallet-history')} className='flex items-center gap-3 border-t py-2 px-5 cursor-pointer'><div>Wallet History</div></div>
                                             <div onClick={() => navigate('/astrologer-dashboard/transaction-history')} className='flex items-center gap-3 border-t py-2 px-5 cursor-pointer'><div>Transaction History</div></div>
-                                            <div onClick={() => navigate('/astrologer-dashboard/assign-puja-history')} className='flex items-center gap-3 border-t py-2 px-5 cursor-pointer'><div>Assign Puja History</div></div>
+                                            <div onClick={() => navigate('/astrologer-dashboard/register-puja-history')} className='flex items-center gap-3 border-t py-2 px-5 cursor-pointer'><div>Register Puja History</div></div>
+                                            <div onClick={() => navigate('/astrologer-dashboard/book-puja-history')} className='flex items-center gap-3 border-t py-2 px-5 cursor-pointer'><div>Book Puja History</div></div>
                                             <div onClick={() => dispatch(AuthActions.userLogout({ onComplete: () => navigate('/') }))} className='flex items-center gap-3 border-t py-2 px-5 cursor-pointer'><div>Logout</div></div>
                                         </div>
                                     </div>

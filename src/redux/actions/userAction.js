@@ -106,10 +106,18 @@ export const setUserAstrologerTransactionHistory = payload => ({
     type: actionTypes.SET_USER_ASTROLOGER_TRANSACTION_HISTORY, payload
 });
 
-export const getUserAstrologerAssignPujaHistory = payload => ({
-    type: actionTypes.GET_USER_ASTROLOGER_ASSIGN_PUJA_HISTORY, payload
+export const getUserAstrologerRegisteredPujaHistory = payload => ({
+    type: actionTypes.GET_USER_ASTROLOGER_REGISTERED_PUJA_HISTORY, payload
 });
 
-export const setUserAstrologerAssignPujaHistory = payload => ({
-    type: actionTypes.SET_USER_ASTROLOGER_ASSIGN_PUJA_HISTORY, payload
+export const setUserAstrologerRegisteredPujaHistory = payload => ({
+    type: actionTypes.SET_USER_ASTROLOGER_REGISTERED_PUJA_HISTORY, payload
+});
+
+export const getUserAstrologerBookedPujaHistory = payload => ({
+    type: actionTypes.GET_USER_ASTROLOGER_BOOKED_PUJA_HISTORY, payload
+});
+
+export const setUserAstrologerBookedPujaHistory = payload => ({
+    type: actionTypes.SET_USER_ASTROLOGER_BOOKED_PUJA_HISTORY, payload
 });

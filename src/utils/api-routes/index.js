@@ -30,7 +30,8 @@ export const change_user_astrologer_video_call_status = 'api/admin/change_videoc
 export const user_astrologer_withdrawal_request = 'api/astrologer/withdraw_request';
 export const get_user_astrologer_wallet_history = 'api/admin/astrologer_transaction_histroy';
 export const get_user_astrologer_transaction_history = 'api/astrologer/astrologer_service_transaction_history_by_id';
-export const get_user_astrologer_assign_puja_history = 'api/ecommerce/get_astrologer_registered_puja';
+export const get_user_astrologer_registered_puja_history = 'api/ecommerce/get_astrologer_registered_puja';
+export const get_user_astrologer_booked_puja_history = 'api/ecommerce/get_astrologer_registered_puja';
 
 //! Astrologer
 export const get_astrologer = 'api/astrologer/get_chat_astrologer';
@@ -50,17 +51,12 @@ export const get_customer_cart = 'api/ecommerce/get_customer_cart';
 export const update_cart_item_quantity = 'api/ecommerce/update_cart_item_quantity';
 export const order_product = 'api/ecommerce/order_product';
 
-export const get_pooja = 'api/ecommerce/get_pooja';
-export const get_astrolgoers_pooja = 'ecommerce/get_astrolgoers_pooja';
-export const order_astrologer_pooja = 'ecommerce/order_astrologer_pooja';
-export const get_custoemer_booked_pooja = 'ecommerce/get_custoemer_booked_pooja';
-
-export const get_puja = 'api/ecommerce/get_puja';
-export const book_puja = 'api/ecommerce/book_puja';
-
 //* This is for astrologer side UI
-export const get_puja_created = 'api/ecommerce/';
-export const register_puja = 'api/ecommerce/';
+export const get_created_puja = 'api/ecommerce/get_puja';
+export const register_created_puja = 'api/ecommerce/astrologer_register_for_puja';
+//* This is for customer side UI
+export const get_approved_created_puja = 'api/ecommerce/get_puja';
+export const book_approved_created_puja = 'api/ecommerce/get_puja';
 
 //! Blog
 export const get_astro_blog_category = 'api/admin/blog-category-list';

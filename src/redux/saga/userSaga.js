@@ -1,10 +1,10 @@
 import Swal from 'sweetalert2';
+import { Color } from '../../assets/colors';
 import * as actionTypes from "../action-types";
+import { toaster } from '../../utils/services/toast-service';
 import { call, put, select, takeLeading } from 'redux-saga/effects';
 import { postAPI, razorpayPayment } from '../../utils/api-function';
-import { change_user_astrologer_call_status, change_user_astrologer_chat_status, change_user_astrologer_video_call_status, create_user_customer_address, delete_user_customer_address, get_user_astrologer_assign_puja_history, get_user_astrologer_by_id, get_user_astrologer_transaction_history, get_user_astrologer_wallet_history, get_user_customer_address, get_user_customer_by_id, get_user_customer_order_history, get_user_customer_puja_book_history, get_user_customer_transaction_history, get_user_customer_wallet_history, recharge_user_customer_wallet, update_user_customer_address, user_astrologer_withdrawal_request } from '../../utils/api-routes';
-import { Color } from '../../assets/colors';
-import { toaster } from '../../utils/services/toast-service';
+import { change_user_astrologer_call_status, change_user_astrologer_chat_status, change_user_astrologer_video_call_status, create_user_customer_address, delete_user_customer_address, get_user_astrologer_booked_puja_history, get_user_astrologer_by_id, get_user_astrologer_registered_puja_history, get_user_astrologer_transaction_history, get_user_astrologer_wallet_history, get_user_customer_address, get_user_customer_by_id, get_user_customer_order_history, get_user_customer_puja_book_history, get_user_customer_transaction_history, get_user_customer_wallet_history, recharge_user_customer_wallet, update_user_customer_address, user_astrologer_withdrawal_request } from '../../utils/api-routes';
 
 //! Customer
 function* getUserCustomerById(action) {
@@ -369,21 +369,40 @@ function* getUserAstrologerTransactionHistory(action) {
     }
 };
 
-function* getUserAstrologerAssignPujaHistory() {
+function* getUserAstrologerRegisteredPujaHistory() {
     try {
         const userAstrologer = yield select(state => state?.userReducer?.userAstrologerDataById);
 
         yield put({ type: actionTypes.SET_IS_LOADING, payload: true });
-        const { data } = yield postAPI(get_user_astrologer_assign_puja_history, { astrologerId: userAstrologer?._id });
-        console.log("Get User Astrologer Assign Puja History Saga Response ::: ", data);
+        const { data } = yield postAPI(get_user_astrologer_registered_puja_history, { astrologerId: userAstrologer?._id });
+        console.log("Get User Astrologer Registered Puja History Saga Response ::: ", data);
 
         if (data?.success) {
-            yield put({ type: actionTypes.SET_USER_ASTROLOGER_ASSIGN_PUJA_HISTORY, payload: data?.pooja });
+            yield put({ type: actionTypes.SET_USER_ASTROLOGER_REGISTERED_PUJA_HISTORY, payload: data?.pooja });
         }
         yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
 
     } catch (error) {
-        console.log("Get User Astrologer Assign Puja History Saga Error ::: ", error?.response?.data);
+        console.log("Get User Astrologer Registered Puja History Saga Error ::: ", error?.response?.data);
+        yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
+    }
+};
+
+function* getUserAstrologerBookedPujaHistory() {
+    try {
+        const userAstrologer = yield select(state => state?.userReducer?.userAstrologerDataById);
+
+        yield put({ type: actionTypes.SET_IS_LOADING, payload: true });
+        const { data } = yield postAPI(get_user_astrologer_booked_puja_history, { astrologerId: userAstrologer?._id });
+        console.log("Get User Astrologer Booked Puja History Saga Response ::: ", data);
+
+        if (data?.success) {
+            yield put({ type: actionTypes.SET_USER_ASTROLOGER_BOOKED_PUJA_HISTORY, payload: data?.pooja });
+        }
+        yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
+
+    } catch (error) {
+        console.log("Get User Astrologer Booked Puja History Saga Error ::: ", error?.response?.data);
         yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
     }
 };
@@ -408,5 +427,6 @@ export default function* userSaga() {
     yield takeLeading(actionTypes?.USER_ASTROLOGER_WITHDRAWAL_REQUEST, userAstrologerWithdrawalRequest);
     yield takeLeading(actionTypes?.GET_USER_ASTROLOGER_WALLET_HISTORY, getUserAstrologerWalletHistory);
     yield takeLeading(actionTypes?.GET_USER_ASTROLOGER_TRANSACTION_HISTORY, getUserAstrologerTransactionHistory);
-    yield takeLeading(actionTypes?.GET_USER_ASTROLOGER_ASSIGN_PUJA_HISTORY, getUserAstrologerAssignPujaHistory);
+    yield takeLeading(actionTypes?.GET_USER_ASTROLOGER_REGISTERED_PUJA_HISTORY, getUserAstrologerRegisteredPujaHistory);
+    yield takeLeading(actionTypes?.GET_USER_ASTROLOGER_BOOKED_PUJA_HISTORY, getUserAstrologerBookedPujaHistory);
 };

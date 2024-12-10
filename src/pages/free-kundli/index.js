@@ -8,6 +8,7 @@ import { ParseDateTime } from '../../utils/common-function';
 import TopHeaderSection from '../../components/common/TopHeaderSection';
 import * as KundliActions from '../../redux/actions/kundliAction';
 import { Autocomplete } from '@react-google-maps/api';
+import PageHeading from '../../components/common/PageHeading';
 
 const FreeKundli = () => {
     const navigate = useNavigate();
@@ -105,7 +106,7 @@ const FreeKundli = () => {
 
             <section className='px-[80px] max-md:px-[20px] py-10'>
                 <main className='flex justify-between max-md:flex-wrap gap-5'>
-                    <div className='bg-[#F1B646] text-black px-12 max-md:px-10 py-2.5 font-[500] text-[16px] rounded-md flex items-center justify-center self-start text-nowrap'>Free Kundli</div>
+                    <PageHeading title={'Free Kundli'} />
 
                     <div className='border border-[#DDDDDD] rounded-md flex items-center max-sm:w-[90vw]'>
                         <input type='search' placeholder='Serach Kundli By Name..' className='outline-none px-3 py-2 text-[16px] max-md:text-[16px] rounded-md h-full w-[330px] max-xl:w-[300px] max-lg:w-[100%]' />

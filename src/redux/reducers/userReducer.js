@@ -13,7 +13,8 @@ const initialState = {
     userAstrologerWalletHistoryData: [],
     userAstrologerTransactionHistoryData: [],
     userAstrologerTransactionHistoryData: [],
-    userAstrologerAssignPujaHistoryData: []
+    userAstrologerRegisteredPujaHistoryData: [],
+    userAstrologerBookedPujaHistoryData: []
 };
 
 const userReducer = (state = initialState, actions) => {
@@ -49,8 +50,11 @@ const userReducer = (state = initialState, actions) => {
         case actionTypes.SET_USER_ASTROLOGER_TRANSACTION_HISTORY:
             return { ...state, userAstrologerTransactionHistoryData: payload };
 
-        case actionTypes.SET_USER_ASTROLOGER_ASSIGN_PUJA_HISTORY:
-            return { ...state, userAstrologerAssignPujaHistoryData: payload };
+        case actionTypes.SET_USER_ASTROLOGER_REGISTERED_PUJA_HISTORY:
+            return { ...state, userAstrologerRegisteredPujaHistoryData: payload };
+
+        case actionTypes.SET_USER_ASTROLOGER_BOOKED_PUJA_HISTORY:
+            return { ...state, userAstrologerBookedPujaHistoryData: payload };
 
         default:
             return state;

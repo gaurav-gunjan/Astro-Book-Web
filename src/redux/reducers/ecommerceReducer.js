@@ -4,9 +4,10 @@ const initialState = {
     productCategoryData: [],
     productsData: [],
     cartData: {},
-    pujaData: [],
     //* This is for astrologer side UI
-    pujaCreatedData: []
+    createdPujaData: [],
+    //* This is for customer side UI
+    approvedCreatedPujaData: [],
 }
 
 const ecommerceReducer = (state = initialState, actions) => {
@@ -21,12 +22,13 @@ const ecommerceReducer = (state = initialState, actions) => {
         case actionTypes.SET_CART_DATA:
             return { ...state, cartData: payload };
 
-        case actionTypes.SET_PUJA:
-            return { ...state, pujaData: payload };
-
         //* This is for astrologer side UI
-        case actionTypes.SET_PUJA_CREATED:
-            return { ...state, pujaCreatedData: payload };
+        case actionTypes.SET_CREATED_PUJA:
+            return { ...state, createdPujaData: payload };
+
+        //* This is for customer side UI
+        case actionTypes.SET_APPROVED_CREATED_PUJA:
+            return { ...state, approvedCreatedPujaData: payload };
 
         default:
             return state;

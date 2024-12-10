@@ -7,18 +7,13 @@ import { toaster } from '../../../utils/services/toast-service';
 import TopHeaderSection from '../../../components/common/TopHeaderSection';
 import * as EcommerceActions from '../../../redux/actions/ecommerceActions';
 
-const aboutPuja = [
-    { heading: 'What are the benefits?', bulletPoint: ['Helps in better bonding with partner', 'Helps in increasing faithfulness with partner', 'Stabilizes your emotional energy system', 'Fulfils desired relationship goals'] },
-    { heading: 'What are the benefits?', bulletPoint: ['Helps in better bonding with partner', 'Helps in increasing faithfulness with partner', 'Stabilizes your emotional energy system', 'Fulfils desired relationship goals'] },
-    { heading: 'What are the benefits?', bulletPoint: ['Helps in better bonding with partner', 'Helps in increasing faithfulness with partner', 'Stabilizes your emotional energy system', 'Fulfils desired relationship goals'] }
-];
-
 const PujaDetails = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const location = useLocation();
     const puja = location.state && location?.state?.pujaData;
-    const { userCustomerDataById } = useSelector(state => state?.userReducer);
+
+    const { userAstrologerDataById } = useSelector(state => state?.userReducer);
 
     const [inputFieldDetail, setInputFieldDetail] = useState({ pujaDateTime: '', duration: '' });
     const handleInputFieldDetail = (event) => setInputFieldDetail({ ...inputFieldDetail, [event?.target?.name]: event?.target?.value });
@@ -35,20 +30,18 @@ const PujaDetails = () => {
         };
 
         const payload = {
-            amount: puja?.price,
-            data: { userId: userCustomerDataById?._id, pujaId: puja?._id, date: pujaDateTime, time: pujaDateTime, mode: 'online' },
-            user: userCustomerDataById,
-            onComplete: () => navigate('/my-order?active-tab=book-history')
+            data: { astrologerId: userAstrologerDataById?._id, pujaId: puja?._id, duration: duration * 60, pujaStartDate: pujaDateTime, pujaStartTime: pujaDateTime, mode: 'online' },
+            onComplete: () => navigate('/astrologer-dashboard/register-puja-history')
         };
 
-        console.log("Book Puja Payload: ", payload);
+        console.log("Register Puja Payload: ", payload);
 
-        //! Dispatch API for Booking Puja
-        dispatch(EcommerceActions?.bookPuja(payload));
+        //! Dispatch API for Register Puja
+        dispatch(EcommerceActions?.registerCreatedPuja(payload));
     };
 
     useEffect(() => {
-        !puja && navigate('/book-puja')
+        !puja && navigate('/register-puja')
     }, []);
 
     return (
@@ -63,7 +56,7 @@ const PujaDetails = () => {
                         <h4 className='text-lg sm:text-xl font-[500]'>Price : <span className='text-[#009E43] text-base'>{IndianRupee(puja?.price)}</span></h4>
                         <div className='flex flex-col gap-3'>
                             <input name='pujaDateTime' onChange={handleInputFieldDetail} type='datetime-local' className='outline-none border border-black px-5 py-1.5 w-60' />
-                            <input name='duration' onChange={handleInputFieldDetail} type='text' placeholder='duration' className='outline-none border border-black px-5 py-1.5 w-48' />
+                            <input name='duration' onChange={handleInputFieldDetail} type='text' placeholder='duration (in min)' className='outline-none border border-black px-5 py-1.5 w-48' />
                         </div>
                         <button onClick={() => handleRegisterPuja()} className='bg-black hover:bg-primary text-white text-sm font-[500] py-3.5 text-center transition-all duration-300 ease-in w-36'>Register Puja</button>
                     </div>
@@ -82,8 +75,8 @@ const PujaDetails = () => {
                         </div>
                         <div>Rama understands the problems of the customers and gives them clarity and insight regarding life</div>
                     </div>
-                    {aboutPuja?.map((value, index) => (
-                        <div key={index} className={`basis-[47.5%] max-md:basis-full ${index % 2 == 0 && 'md:border-l border-black pl-5'}`}>
+                    {puja?.about?.map((value, index) => (
+                        <div key={index} className={`basis-[47.5%] max-md:basis-full ${index % 2 == 0 && 'md:border-l border-black md:pl-5'}`}>
                             <div className='text-lg font-[500] mb-2.5'>{value?.heading}</div>
                             <ul className='px-8'>{value?.bulletPoint?.map((bullet, index) => (
                                 <li key={index} className='list-disc'>{bullet}</li>

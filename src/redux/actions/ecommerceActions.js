@@ -36,27 +36,28 @@ export const orderCart = payload => ({
     type: actionTypes.ORDER_CART, payload
 });
 
-export const getPuja = payload => ({
-    type: actionTypes.GET_PUJA, payload
-});
-
-export const setPuja = payload => ({
-    type: actionTypes.SET_PUJA, payload
-});
-
-export const bookPuja = payload => ({
-    type: actionTypes.BOOK_PUJA, payload
-});
-
 //* This is for astrologer side UI
-export const getPujaCreated = payload => ({
-    type: actionTypes.GET_PUJA_CREATED, payload
+export const getCreatedPuja = payload => ({
+    type: actionTypes.GET_CREATED_PUJA, payload
 });
 
-export const setPujaCreated = payload => ({
-    type: actionTypes.SET_PUJA_CREATED, payload
+export const setCreatedPuja = payload => ({
+    type: actionTypes.SET_CREATED_PUJA, payload
 });
 
-export const registerPuja = payload => ({
-    type: actionTypes.REGISTER_PUJA, payload
+export const registerCreatedPuja = payload => ({
+    type: actionTypes.REGISTER_CREATED_PUJA, payload
+});
+
+//* This is for customer side UI
+export const getApprovedCreatedPuja = payload => ({
+    type: actionTypes.GET_APPROVED_CREATED_PUJA, payload
+});
+
+export const setApprovedCreatedPuja = payload => ({
+    type: actionTypes.SET_APPROVED_CREATED_PUJA, payload
+});
+
+export const bookApprovedCreatedPuja = payload => ({
+    type: actionTypes.BOOK_APPROVED_CREATED_PUJA, payload
 });

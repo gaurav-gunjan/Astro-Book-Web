@@ -9,6 +9,7 @@ import { api_urls } from '../../utils/api-urls';
 import TopHeaderSection from '../../components/common/TopHeaderSection';
 import CustomPagination from '../../components/features/CustomPagination';
 import * as AstrologerActions from '../../redux/actions/astrologerAction';
+import PageHeading from '../../components/common/PageHeading';
 
 const ChatWithAstrologer = () => {
 
@@ -65,7 +66,8 @@ const ChatWithAstrologer = () => {
                 <section className='px-[80px] py-7 max-sm:px-[20px]'>
                     <article className='flex flex-col gap-7'>
                         <main className='flex gap-4 flex-wrap items-center justify-between'>
-                            <div className='bg-[#F1B646] text-black px-12 max-md:px-10 py-2.5 font-[500] text-[16px] rounded-md flex items-center justify-center self-start text-nowrap'>Talk with Astrologer</div>
+                            <PageHeading title={'Talk with Astrologer'} />
+
                             <div>{userCustomerDataById && <div>Available balance: {IndianRupee(userCustomerDataById?.wallet_balance)}</div>}</div>
 
                             <div className='flex gap-4 flex-wrap'>

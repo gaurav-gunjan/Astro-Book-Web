@@ -40,9 +40,10 @@ const PaymentDetail = lazy(() => import('./pages/recharge/payment-detail'));
 const AstrologerMyAccount = lazy(() => import('./pages/astrologer-dashboard/my-account'));
 const AstrologerTransactionHistory = lazy(() => import('./pages/astrologer-dashboard/transaction-history'));
 const AstrologerWalletHistory = lazy(() => import('./pages/astrologer-dashboard/wallet-history'));
-const AstrologerAssignPujaHistory = lazy(() => import('./pages/astrologer-dashboard/assign-puja-history'));
+const AstrologerRegisterPujaHistory = lazy(() => import('./pages/astrologer-dashboard/register-puja-history'));
+const AstrologerBookPujaHistory = lazy(() => import('./pages/astrologer-dashboard/book-puja-history'));
 
-//! Astrologer 
+//! Astrologer
 const Astrologer = lazy(() => import('./pages/astrologer'));
 const SingleAstrologer = lazy(() => import('./pages/astrologer/name'));
 const CustomerAcceptReject = lazy(() => import('./pages/chat/customer-accept-reject'));
@@ -181,7 +182,8 @@ const App = () => {
               <Route path='/astrologer-dashboard/my-account' element={<AstrologerMyAccount />} />
               <Route path='/astrologer-dashboard/transaction-history' element={<AstrologerTransactionHistory />} />
               <Route path='/astrologer-dashboard/wallet-history' element={<AstrologerWalletHistory />} />
-              <Route path='/astrologer-dashboard/assign-puja-history' element={<AstrologerAssignPujaHistory />} />
+              <Route path='/astrologer-dashboard/register-puja-history' element={<AstrologerRegisterPujaHistory />} />
+              <Route path='/astrologer-dashboard/book-puja-history' element={<AstrologerBookPujaHistory />} />
 
               {/* Astrologer */}
               <Route path='/astrologer' element={<Astrologer />} />

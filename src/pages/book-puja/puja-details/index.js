@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { api_urls } from '../../../utils/api-urls';
 import { IndianRupee } from '../../../utils/common-function';
-import { toaster } from '../../../utils/services/toast-service';
 import TopHeaderSection from '../../../components/common/TopHeaderSection';
 import * as EcommerceActions from '../../../redux/actions/ecommerceActions';
 
@@ -31,7 +30,7 @@ const PujaDetails = () => {
         console.log("Book Puja Payload: ", payload);
 
         //! Dispatch API for Booking Puja
-        dispatch(EcommerceActions?.bookPuja(payload));
+        dispatch(EcommerceActions?.bookApprovedCreatedPuja(payload));
     };
 
     useEffect(() => {
