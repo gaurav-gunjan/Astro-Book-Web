@@ -31,7 +31,7 @@ const AssignPujaHistory = () => {
                 </main>
             </section>
 
-            <section className='px-[100px] py-7 max-sm:px-[20px]'>
+            <section className='px-[80px] pb-16 max-sm:px-[20px]'>
                 <article>
                     <main>
                         <div className="border w-full border-gray-100 flex items-start rounded-md min-h-[150px] overflow-x-scroll custom-scrollbar">
