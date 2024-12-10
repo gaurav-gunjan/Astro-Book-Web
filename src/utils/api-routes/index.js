@@ -55,7 +55,7 @@ export const order_product = 'api/ecommerce/order_product';
 export const get_created_puja = 'api/ecommerce/get_puja';
 export const register_created_puja = 'api/ecommerce/astrologer_register_for_puja';
 //* This is for customer side UI
-export const get_approved_created_puja = 'api/ecommerce/get_puja';
+export const get_approved_created_puja = 'api/ecommerce/get_verified_puja';
 export const book_approved_created_puja = 'api/ecommerce/get_puja';
 
 //! Blog

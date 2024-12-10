@@ -18,7 +18,8 @@ const RegisterPuja = () => {
     const { isLoading } = useSelector(state => state?.commonReducer);
     const { userAstrologerDataById, userAstrologerRegisteredPujaHistoryData } = useSelector(state => state?.userReducer);
     const { createdPujaData } = useSelector(state => state?.ecommerceReducer);
-
+    console.log("Isloading...", isLoading);
+    
     const [searchText, setSearchText] = useState('');
     const handleSearch = (event) => setSearchText(event?.target?.value);
     const filteredData = DeepSearchSpace(createdPujaData, searchText);
@@ -28,7 +29,7 @@ const RegisterPuja = () => {
         dispatch(EcommerceActions?.getCreatedPuja());
 
         //! Dispatching API for Get User Astrologer Registered Puja History
-        userAstrologerDataById && dispatch(UserActions?.getUserAstrologerRegisteredPujaHistory());
+        dispatch(UserActions?.getUserAstrologerRegisteredPujaHistory());
     }, []);
 
     return (

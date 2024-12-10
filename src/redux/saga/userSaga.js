@@ -12,17 +12,14 @@ function* getUserCustomerById(action) {
         const { payload } = action;
         // console.log("Get User Customer By Id Payload ::: ", payload);
 
-        yield put({ type: actionTypes.SET_IS_LOADING, payload: true });
         const { data } = yield postAPI(get_user_customer_by_id, payload);
         // console.log("Get User Customer By Id Saga Response ::: ", data);
 
         if (data?.success) {
             yield put({ type: actionTypes.SET_USER_CUSTOMER_BY_ID, payload: data?.customersDetail });
-            yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
         }
 
     } catch (error) {
-        yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
         console.log("Get User Customer By Id Saga Error ::: ", error);
     }
 };
@@ -215,17 +212,14 @@ function* getUserAstrologerById(action) {
         const { payload } = action;
         // console.log("Get User Astrologer By Payload ::: ", payload);
 
-        yield put({ type: actionTypes.SET_IS_LOADING, payload: true });
         const { data } = yield postAPI(get_user_astrologer_by_id, payload);
         // console.log("Get User Astrologer By Id Saga Response ::: ", data);
 
         if (data?.success) {
             yield put({ type: actionTypes.SET_USER_ASTROLOGER_BY_ID, payload: data?.astrologer });
-            yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
         }
 
     } catch (error) {
-        yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
         console.log("Get User Astrologer By Id Saga Error ::: ", error);
     }
 };
@@ -373,18 +367,18 @@ function* getUserAstrologerRegisteredPujaHistory() {
     try {
         const userAstrologer = yield select(state => state?.userReducer?.userAstrologerDataById);
 
-        yield put({ type: actionTypes.SET_IS_LOADING, payload: true });
+        // yield put({ type: actionTypes.SET_IS_LOADING, payload: true });
         const { data } = yield postAPI(get_user_astrologer_registered_puja_history, { astrologerId: userAstrologer?._id });
         console.log("Get User Astrologer Registered Puja History Saga Response ::: ", data);
 
         if (data?.success) {
             yield put({ type: actionTypes.SET_USER_ASTROLOGER_REGISTERED_PUJA_HISTORY, payload: data?.pooja });
         }
-        yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
+        // yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
 
     } catch (error) {
         console.log("Get User Astrologer Registered Puja History Saga Error ::: ", error?.response?.data);
-        yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
+        // yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
     }
 };
 

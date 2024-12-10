@@ -147,3 +147,16 @@ export const SecondToHMS = (duration) => {
 
     return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
 };
+
+export const CalculateTimeDifference = (date) => {
+    const current_date = moment();
+    const upcoming_date = moment(date);
+    const duration = moment.duration(upcoming_date.diff(current_date));
+
+    const days = duration.days();
+    const hours = duration.hours();
+    const minutes = duration.minutes();
+    const seconds = duration.seconds();
+
+    return `${days}d : ${hours}h : ${minutes}m : ${seconds}s`;
+};

@@ -7,6 +7,7 @@ const initialState = {
 
 const commonReducer = (state = initialState, actions) => {
     const { payload, type } = actions;
+    // console.log("Type ::: ", type);
 
     switch (type) {
         case actionTypes.SET_IS_LOADING:

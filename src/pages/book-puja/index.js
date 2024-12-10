@@ -40,7 +40,7 @@ const BookPuja = () => {
                             </main>
 
                             <main className='flex flex-wrap justify-between max-md:flex-col gap-x-5 gap-y-24 rounded-xl'>
-                                {Array(6)?.fill('')?.map((index) => (<div key={index} className='flex-grow rounded-xl h-[220px] max-md:h-[250px] max-md:w-full w-[370px]'>
+                                {Array(6)?.fill('')?.map((value, index) => (<div key={index} className='flex-grow rounded-xl h-[220px] max-md:h-[250px] max-md:w-full w-[370px]'>
                                     <div className='flex items-center gap-4 mb-5'>
                                         <div className='h-10 w-10'><Skeleton height={'100%'} style={{ borderRadius: '100%' }} /></div>
                                         <div className='flex-1 h-1 mb-4'><Skeleton height={2} width={'100%'} /></div>
@@ -68,25 +68,25 @@ const BookPuja = () => {
                     <section className='px-[80px] max-md:px-[20px] pb-10'>
                         <main className='flex flex-wrap gap-[2.5%] gap-y-[40px]'>
                             {filteredData && filteredData?.map((value, index) => (
-                                <div key={index} onClick={() => navigate(`${value?.pujaName?.toLowerCase()?.split(' ')?.join('-')}`, { state: { pujaData: value } })} className='lg:basis-[31.5%] max-lg:basis-[47.5%] max-lg:flex-grow max-md:basis-full rounded-xl capitalize bg-transparent cursor-pointer'>
+                                <div key={index} onClick={() => navigate(`${value?.poojaId?.pujaName?.toLowerCase()?.split(' ')?.join('-')}`, { state: { pujaData: value } })} className='lg:basis-[31.5%] max-lg:basis-[47.5%] max-lg:flex-grow max-md:basis-full rounded-xl capitalize bg-transparent cursor-pointer'>
                                     <div className='mb-3 flex items-center'>
                                         <div className='text-xs text-center'>
-                                            <div className='h-8 w-8 rounded-full border flex items-center justify-center'>{moment(value?.createdAt)?.format('DD')}</div>
-                                            <div>{moment(value?.createdAt)?.format('MMM')}</div>
+                                            <div className='h-8 w-8 rounded-full border flex items-center justify-center'>{moment(value?.poojaId?.createdAt)?.format('DD')}</div>
+                                            <div>{moment(value?.poojaId?.createdAt)?.format('MMM')}</div>
                                         </div>
                                         <div className='w-full h-0.5 bg-primary'></div>
                                     </div>
 
                                     <div className='bg-white rounded-lg' style={{ boxShadow: "0 0 10px #bdb5b5" }}>
-                                        <div className='h-44 w-full bg-cover bg-no-repeat rounded-t-lg flex items-end' style={{ backgroundImage: `url('${api_urls + 'uploads/' + value?.image}')` }}>
+                                        <div className='h-44 w-full bg-cover bg-no-repeat rounded-t-lg flex items-end' style={{ backgroundImage: `url('${api_urls + 'uploads/' + value?.poojaId?.image}')` }}>
                                             <div className='text-white text-sm px-5 py-3 bg-black bg-opacity-40 w-full'>
-                                                <div>{value?.pujaName}</div>
-                                                <div className='capitalize text-xs line-clamp-1'>{value?.description}</div>
+                                                <div>{value?.poojaId?.pujaName}</div>
+                                                <div className='capitalize text-xs line-clamp-1'>{value?.poojaId?.description}</div>
                                             </div>
                                         </div>
 
                                         <div className='text-gray-600 text-[14px] flex justify-between px-5 py-2 font-[500]'>
-                                            <div className=''>{moment(value?.createdAt)?.format('DD MMM YYYY')}</div>
+                                            <div className=''>{moment(value?.poojaId?.createdAt)?.format('DD MMM YYYY')}</div>
                                             <div className='flex items-center'>Book Now <RightArrowHeadSvg w={20} h={20} /></div>
                                         </div>
                                     </div>

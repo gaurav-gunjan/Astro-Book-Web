@@ -177,7 +177,7 @@ function* getApprovedCreatedPuja() {
         console.log("Get Approved Created Puja Saga Response ::: ", data);
 
         if (data?.success) {
-            yield put({ type: actionTypes.SET_APPROVED_CREATED_PUJA, payload: data?.pooja });
+            yield put({ type: actionTypes.SET_APPROVED_CREATED_PUJA, payload: data?.results });
         }
         yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
 

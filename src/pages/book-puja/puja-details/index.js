@@ -1,28 +1,25 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { api_urls } from '../../../utils/api-urls';
-import { IndianRupee } from '../../../utils/common-function';
+import { CalculateTimeDifference, IndianRupee } from '../../../utils/common-function';
 import TopHeaderSection from '../../../components/common/TopHeaderSection';
 import * as EcommerceActions from '../../../redux/actions/ecommerceActions';
-
-const aboutPuja = [
-    { heading: 'What are the benefits?', bulletPoint: ['Helps in better bonding with partner', 'Helps in increasing faithfulness with partner', 'Stabilizes your emotional energy system', 'Fulfils desired relationship goals'] },
-    { heading: 'What are the benefits?', bulletPoint: ['Helps in better bonding with partner', 'Helps in increasing faithfulness with partner', 'Stabilizes your emotional energy system', 'Fulfils desired relationship goals'] },
-    { heading: 'What are the benefits?', bulletPoint: ['Helps in better bonding with partner', 'Helps in increasing faithfulness with partner', 'Stabilizes your emotional energy system', 'Fulfils desired relationship goals'] }
-];
+import moment from 'moment';
 
 const PujaDetails = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const location = useLocation();
-    const puja = location.state && location?.state?.pujaData;
+    const pujaData = location.state && location?.state?.pujaData;
+    const [timeLeft, setTimeLeft] = useState(null);
+
     const { userCustomerDataById } = useSelector(state => state?.userReducer);
 
     const handleBookPuja = () => {
         const payload = {
-            amount: puja?.price,
-            data: { userId: userCustomerDataById?._id, pujaId: puja?._id, mode: 'online' },
+            amount: pujaData?.price,
+            data: { userId: userCustomerDataById?._id, pujaId: pujaData?._id, mode: 'online' },
             user: userCustomerDataById,
             onComplete: () => navigate('/my-order?active-tab=book-history')
         };
@@ -30,11 +27,18 @@ const PujaDetails = () => {
         console.log("Book Puja Payload: ", payload);
 
         //! Dispatch API for Booking Puja
-        dispatch(EcommerceActions?.bookApprovedCreatedPuja(payload));
+        // dispatch(EcommerceActions?.bookApprovedCreatedPuja(payload));
     };
 
     useEffect(() => {
-        !puja && navigate('/book-puja')
+        !pujaData && navigate('/book-puja')
+
+        const updateInterval = setInterval(() => {
+            const difference = CalculateTimeDifference(pujaData?.poojaDate);
+            setTimeLeft(difference);
+        }, 1000);
+
+        return () => clearInterval(updateInterval);
     }, []);
 
     return (
@@ -43,15 +47,15 @@ const PujaDetails = () => {
 
             <section className='px-[80px] py-7 max-sm:px-[20px]'>
                 <main className='flex flex-wrap gap-7 pb-10 border-b border-black'>
-                    <img src={api_urls + 'uploads/' + puja?.image} alt="puja" className='flex-1 rounded-md w-full h-auto sm:h-60 border-2 border-gray-500' />
+                    <img src={api_urls + 'uploads/' + pujaData?.poojaId?.image} alt="puja" className='flex-1 rounded-md w-full h-auto sm:h-60 border-2 border-gray-500' />
                     <div className='flex-1 flex flex-col gap-3 items-start'>
-                        <h4 className='text-lg sm:text-2xl font-bold'> {puja?.pujaName} </h4>
-                        <h4 className='text-lg sm:text-xl font-[500]'>Price : <span className='text-[#009E43] text-base'>{IndianRupee(puja?.price)}</span></h4>
+                        <h4 className='text-lg sm:text-2xl font-bold'> {pujaData?.poojaId?.pujaName} </h4>
+                        <h4 className='text-lg sm:text-xl font-[500]'>Price : <span className='text-[#009E43] text-base'>{IndianRupee(pujaData?.price)}</span></h4>
                         <div className='flex items-center gap-3'>
-                            <div className='bg-black text-white text-sm font-[500] py-2 px-14'>05h : 19m : 49s left</div>
-                            <div className='text-[#009E43]'>05 hours left</div>
+                            {!timeLeft ? <div className='animate-spin p-2 border-2 border-black -mt-1 mr-3'></div> : <div className='bg-black text-white text-sm font-[500] py-2 px-14'>{timeLeft} left</div>}
+                            <div className='text-[#009E43] text-sm'>{moment(pujaData?.poojaDate).diff(moment(new Date()), 'hours')} hours left</div>
                         </div>
-                        <button onClick={() => handleBookPuja()} className='bg-black hover:bg-primary text-white text-sm font-[500] py-3.5 px-14 transition-all duration-300 ease-in'>Buy Now</button>
+                        <button onClick={() => handleBookPuja()} className='bg-black hover:bg-secondary text-white text-sm font-[500] py-3.5 px-14 transition-all duration-300 ease-in'>Buy Now</button>
                     </div>
                 </main>
             </section>
@@ -68,8 +72,8 @@ const PujaDetails = () => {
                         </div>
                         <div>Rama understands the problems of the customers and gives them clarity and insight regarding life</div>
                     </div>
-                    {aboutPuja?.map((value, index) => (
-                        <div key={index} className={`basis-[47.5%] max-md:basis-full ${index % 2 == 0 && 'md:border-l border-black pl-5'}`}>
+                    {pujaData?.poojaId?.about?.map((value, index) => (
+                        <div key={index} className={`basis-[47.5%] max-md:basis-full ${index % 2 == 0 && 'md:border-l border-black md:pl-5'}`}>
                             <div className='text-lg font-[500] mb-2.5'>{value?.heading}</div>
                             <ul className='px-8'>{value?.bulletPoint?.map((bullet, index) => (
                                 <li key={index} className='list-disc'>{bullet}</li>
