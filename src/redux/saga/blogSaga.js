@@ -30,9 +30,7 @@ function* getAstroblog(action) {
         const { data } = yield getAPI(get_astro_blog(payload?.page, payload?.limit, payload?.categoryId, payload?.search));
         console.log("Get Astroblog Saga Response ::: ", data);
 
-        if (data?.success) {
-            yield put({ type: actionTypes.SET_ASTRO_BLOG, payload: data });
-        }
+        if (data?.success) yield put({ type: actionTypes.SET_ASTRO_BLOG, payload: data });
         yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
 
     } catch (error) {

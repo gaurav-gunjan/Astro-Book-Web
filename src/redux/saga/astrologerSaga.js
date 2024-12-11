@@ -8,17 +8,18 @@ import { toaster } from '../../utils/services/toast-service';
 function* getAstrologer(action) {
     try {
         const { payload } = action;
+        console.log("Get Astrologer Payload ::: ", payload);
 
         yield put({ type: actionTypes.SET_IS_LOADING, payload: true });
-        yield delay(100);
         const { data } = yield postAPI(get_astrologer, payload);
-        console.log('Get Astrologer Saga Response ::: ',data);
+        console.log('Get Astrologer Saga Response ::: ', data);
 
         if (data?.success) yield put({ type: actionTypes.SET_ASTROLOGER, payload: data });
         yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
 
     } catch (error) {
         yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
+        console.log("Get Astrologer Saga Error ::: ", error);
     }
 };
 

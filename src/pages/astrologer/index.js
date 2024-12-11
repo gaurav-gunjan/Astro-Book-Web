@@ -6,10 +6,11 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { IndianRupee } from '../../utils/common-function';
 import { CallSvg, ChatSvg, SearchSvg } from '../../assets/svg';
 import { api_urls } from '../../utils/api-urls';
+import PageHeading from '../../components/common/PageHeading';
 import TopHeaderSection from '../../components/common/TopHeaderSection';
 import CustomPagination from '../../components/features/CustomPagination';
 import * as AstrologerActions from '../../redux/actions/astrologerAction';
-import PageHeading from '../../components/common/PageHeading';
+import * as CommonActions from '../../redux/actions/commonAction';
 
 const ChatWithAstrologer = () => {
 
@@ -62,7 +63,9 @@ const ChatWithAstrologer = () => {
                         </SkeletonTheme>
                     </article>
                 </section>
-                : */}
+                : 
+            } */}
+
             <section className='px-[80px] py-7 max-sm:px-[20px]'>
                 <article className='flex flex-col gap-7'>
                     <main className='flex gap-4 flex-wrap items-center justify-between'>
@@ -82,7 +85,7 @@ const ChatWithAstrologer = () => {
 
                     <main className='flex flex-wrap gap-[2.5%] gap-y-[40px]'>
                         {astrologerData?.astrologer?.map((value, index) => (
-                            <div key={index} onClick={() => navigate(`/astrologer/${value?.astrologerName?.split(' ')[0]?.toLowerCase()}`, { state: { stateData: value } })} className='basis-[31.5%] max-xl:basis-[47.5%] max-xl:flex-grow max-md:basis-full flex items-center gap-[20px] rounded-xl px-2 pt-1 pb-3 cursor-pointer capitalize' style={{ boxShadow: "0 0 10px #bdb5b5" }}>
+                            <div key={index} className='basis-[31.5%] max-xl:basis-[47.5%] max-xl:flex-grow max-md:basis-full flex items-center gap-[20px] rounded-xl px-2 pt-1 pb-3 capitalize' style={{ boxShadow: "0 0 10px #bdb5b5" }}>
                                 <div className='h-36 max-lg:h-32 w-36 max-lg:w-32 '><img className='h-full w-full rounded-full border border-[#F1B646]' src={api_urls + value?.profileImage} /></div>
                                 <div className='flex-1'>
                                     <div className='flex flex-col items-end text-center'>
@@ -99,9 +102,15 @@ const ChatWithAstrologer = () => {
 
                                     <hr className='my-3' />
                                     <div className='flex items-center gap-2'>
-                                        {Array(3)?.fill('')?.map((value, index) => (
-                                            <div key={index} className='flex flex-col justify-center items-center px-3 flex-1 border border-[#27AE60] rounded-[7.49px]'>
-                                                <div className='text-[#27AE60] text-[13px]'>Chat</div>
+                                        {['Chat', 'Call', 'Video']?.map((curr, index) => (
+                                            <div onClick={() => {
+                                                if (curr == 'Video') {
+                                                    dispatch(CommonActions?.openDownloadOurAppModal());
+                                                } else {
+                                                    navigate(`/astrologer/${value?.astrologerName?.split(' ')[0]?.toLowerCase()}`, { state: { stateData: value } })
+                                                }
+                                            }} key={index} className='flex flex-col justify-center items-center px-3 flex-1 border border-[#27AE60] rounded-[7.49px] cursor-pointer'>
+                                                <div className='text-[#27AE60] text-[13px]'>{curr}</div>
                                                 <div className='text-[10px]'>25/min</div>
                                             </div>
                                         ))}
@@ -119,8 +128,7 @@ const ChatWithAstrologer = () => {
 
                     {!!astrologerData && astrologerData?.astrologer?.length > 0 && <CustomPagination count={astrologerData?.pagination?.limit} totalDocuments={astrologerData?.pagination?.total} />}
                 </article>
-            </section>
-            {/* } */}
+            </section >
         </>
     )
 }
