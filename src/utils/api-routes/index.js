@@ -32,6 +32,7 @@ export const get_user_astrologer_wallet_history = 'api/admin/astrologer_transact
 export const get_user_astrologer_transaction_history = 'api/astrologer/astrologer_service_transaction_history_by_id';
 export const get_user_astrologer_registered_puja_history = 'api/ecommerce/get_astrologer_registered_puja';
 export const get_user_astrologer_booked_puja_history = 'api/ecommerce/get_customer_booked_puja_by_astrologerId';
+export const complete_booked_puja_history = 'api/ecommerce/complete_astrologer_pooja';
 
 //! Astrologer
 export const get_astrologer = 'api/astrologer/get_chat_astrologer';

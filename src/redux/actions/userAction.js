@@ -121,3 +121,7 @@ export const getUserAstrologerBookedPujaHistory = payload => ({
 export const setUserAstrologerBookedPujaHistory = payload => ({
     type: actionTypes.SET_USER_ASTROLOGER_BOOKED_PUJA_HISTORY, payload
 });
+
+export const completeBookedPujaHistory = payload => ({
+    type: actionTypes.COMPLETE_BOOKED_PUJA_HISTORY, payload
+});
