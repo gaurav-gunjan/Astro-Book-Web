@@ -153,7 +153,7 @@ const Header = () => {
                                     <div className='group relative text-black'>
                                         <div className='flex items-center gap-1 cursor-pointer text-white'>{userCustomerDataById?.image ? <img src={api_urls + 'uploads/' + userCustomerDataById?.image} className='h-9 w-9 object-contain rounded-full bg-gray-100' /> : <ProfileSvg />}</div>
 
-                                        <div className='font-normal absolute overflow-hidden top-[85px] right-0 bg-white w-52 h-0 rounded-lg group-hover:h-[390px] transition-all duration-500 ease-in group-hover:border-b-[5px] group-hover:border-t border-primary shadow-2xl'>
+                                        <div className='font-normal absolute overflow-hidden top-[85px] right-0 bg-white w-52 h-0 rounded-lg group-hover:h-[430px] transition-all duration-500 ease-in group-hover:border-b-[5px] group-hover:border-t border-primary shadow-2xl'>
                                             <div className='flex flex-col items-center gap-1.5 py-5'>
                                                 {userCustomerDataById?.image ? <img src={api_urls + 'uploads/' + userCustomerDataById?.image} className='h-11 w-11 object-contain rounded-full bg-gray-100' /> : <ProfileSvg h='40' w='40' />}
                                                 <div className='text-[16px]'>{userCustomerDataById?.customerName}</div>
