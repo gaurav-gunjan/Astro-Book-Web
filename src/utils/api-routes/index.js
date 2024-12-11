@@ -17,7 +17,7 @@ export const recharge_user_customer_wallet = 'api/customers/check_razorpay_payme
 export const get_user_customer_wallet_history = 'api/customers/get-customer-recharge-history';
 export const get_user_customer_transaction_history = 'api/customers/customer_service_transaction_history_by_id';
 export const get_user_customer_order_history = 'api/ecommerce/get_product_order_history';
-export const get_user_customer_puja_book_history = 'api/ecommerce/get_customer_puja_history';
+export const get_user_customer_puja_book_history = 'api/ecommerce/get_customer_booked_puja';
 export const get_user_customer_address = 'api/ecommerce/get_address_cart';
 export const create_user_customer_address = 'api/ecommerce/create_address_cart';
 export const update_user_customer_address = 'api/ecommerce/update_address_cart';
@@ -31,7 +31,7 @@ export const user_astrologer_withdrawal_request = 'api/astrologer/withdraw_reque
 export const get_user_astrologer_wallet_history = 'api/admin/astrologer_transaction_histroy';
 export const get_user_astrologer_transaction_history = 'api/astrologer/astrologer_service_transaction_history_by_id';
 export const get_user_astrologer_registered_puja_history = 'api/ecommerce/get_astrologer_registered_puja';
-export const get_user_astrologer_booked_puja_history = 'api/ecommerce/get_astrologer_registered_puja';
+export const get_user_astrologer_booked_puja_history = 'api/ecommerce/get_customer_booked_puja_by_astrologerId';
 
 //! Astrologer
 export const get_astrologer = 'api/astrologer/get_chat_astrologer';
@@ -56,7 +56,7 @@ export const get_created_puja = 'api/ecommerce/get_puja';
 export const register_created_puja = 'api/ecommerce/astrologer_register_for_puja';
 //* This is for customer side UI
 export const get_approved_created_puja = 'api/ecommerce/get_verified_puja';
-export const book_approved_created_puja = 'api/ecommerce/get_puja';
+export const book_approved_created_puja = 'api/ecommerce/razorpay_payment_status_for_book_puja';
 
 //! Blog
 export const get_astro_blog_category = 'api/admin/blog-category-list';

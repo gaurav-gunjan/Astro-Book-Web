@@ -152,11 +152,11 @@ export const CalculateTimeDifference = (date) => {
     const current_date = moment(new Date())?.local();
     const upcoming_date = moment(date);
     const duration = moment.duration(upcoming_date.diff(current_date));
-    console.log('Duration ::: ', duration);
+    // console.log('Duration ::: ', duration);
 
-    console.log('current_date', current_date?.format('DD MMM YYYY hh:mm:ss a'));
-    console.log('upcoming_date', upcoming_date?.format('DD MMM YYYY hh:mm:ss a'));
-    console.log('upcoming_date with utc', upcoming_date?.utc()?.format('DD MMM YYYY hh:mm:ss a'));
+    // console.log('current_date', current_date?.format('DD MMM YYYY hh:mm:ss a'));
+    // console.log('upcoming_date', upcoming_date?.format('DD MMM YYYY hh:mm:ss a'));
+    // console.log('upcoming_date with utc', upcoming_date?.utc()?.format('DD MMM YYYY hh:mm:ss a'));
 
     const days = duration.days();
     const hours = duration.hours();

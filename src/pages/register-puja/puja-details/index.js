@@ -12,6 +12,7 @@ const PujaDetails = () => {
     const dispatch = useDispatch();
     const location = useLocation();
     const puja = location.state && location?.state?.pujaData;
+    console.log("Puja Data ::: ", puja);
 
     const { userAstrologerDataById } = useSelector(state => state?.userReducer);
 
@@ -31,6 +32,7 @@ const PujaDetails = () => {
 
         const payload = {
             data: { astrologerId: userAstrologerDataById?._id, pujaId: puja?._id, duration: duration * 60, pujaStartDate: pujaDateTime, pujaStartTime: pujaDateTime, mode: 'online' },
+            // price: puja?.price, adminCommission: puja?.adminCommission 
             onComplete: () => navigate('/astrologer-dashboard/register-puja-history')
         };
 
@@ -54,6 +56,7 @@ const PujaDetails = () => {
                     <div className='flex-1 flex flex-col gap-4 items-start'>
                         <h4 className='text-lg sm:text-2xl font-bold'> {puja?.pujaName} </h4>
                         <h4 className='text-lg sm:text-xl font-[500]'>Price : <span className='text-[#009E43] text-base'>{IndianRupee(puja?.price)}</span></h4>
+                        <h4 className='font-[500]'>Admin Commission : <span className='text-[#009E43] text-base'>{puja?.adminCommission}%</span></h4>
                         <div className='flex flex-col gap-3'>
                             <input name='pujaDateTime' onChange={handleInputFieldDetail} type='datetime-local' className='outline-none border border-black px-5 py-1.5 w-60' />
                             <input name='duration' onChange={handleInputFieldDetail} type='text' placeholder='duration (in min)' className='outline-none border border-black px-5 py-1.5 w-48' />

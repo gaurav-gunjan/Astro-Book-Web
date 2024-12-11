@@ -95,24 +95,4 @@ export const razorpayPayment = async ({ amount = 0, name = '', email = '', conta
         });
         razorpay.open();
     });
-
-    // return new Promise((resolve, reject) => {
-    //     options.handler = function (response) {
-    //         console.log('Handler Response ::: ', response);
-    //         resolve(response);
-    //     };
-
-    //     options.modal = {
-    //         ondismiss: function () {
-    //             console.log("Payment Dismissed")
-    //             return 'Payment dismissed';
-    //         }
-    //     };
-
-    //     const razorpay = new window.Razorpay(options);
-    //     razorpay.on('payment.failed', function (response) {
-    //         reject(response);
-    //     });
-    //     razorpay.open();
-    // });
 };

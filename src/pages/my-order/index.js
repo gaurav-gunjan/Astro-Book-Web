@@ -6,6 +6,8 @@ import TopHeaderSection from '../../components/common/TopHeaderSection';
 import * as UserActions from '../../redux/actions/userAction';
 import { RightArrowSvg } from '../../assets/svg';
 import OrderHistoryProductDetailModal from '../../components/modal/OrderHistoryProductDetailModal';
+import { api_urls } from '../../utils/api-urls';
+import { IndianRupee, SecondToHMS } from '../../utils/common-function';
 
 const MyOrder = () => {
     const navigate = useNavigate();
@@ -77,23 +79,32 @@ const MyOrder = () => {
                             <table className="w-full text-left border-separate border-spacing-2 text-nowrap">
                                 <thead>
                                     <tr className="text-sm shadow-md text-nowrap">
+                                        <th className="p-[12px_9px] font-[600]">Astrologer</th>
                                         <th className="p-[12px_9px] font-[600]">Puja</th>
+                                        <th className="p-[12px_9px] font-[600]">Image</th>
                                         <th className="p-[12px_9px] font-[600]">Amount</th>
+                                        <th className="p-[12px_9px] font-[600]">Duration</th>
                                         <th className="p-[12px_9px] font-[600]">Puja Date</th>
                                         <th className="p-[12px_9px] font-[600]">Puja Time</th>
-                                        <th className="p-[12px_9px] font-[600]">Mode</th>
-                                        <th className="p-[12px_9px] font-[600]">Status</th>
+                                        <th className="p-[12px_9px] font-[600]">Invoice Id</th>
+                                        <th className="p-[12px_9px] font-[600]">Order Id</th>
+                                        <th className="p-[12px_9px] font-[600]">Payment Status</th>
                                     </tr>
                                 </thead>
                                 <tbody className='text-gray-800'>
                                     {userCustomerPujaBookHistoryData && userCustomerPujaBookHistoryData?.map((value, index) => (
                                         <tr key={index} className={`text-sm`}>
-                                            <td className="w-[200px] bg-[#F6F6F6] p-[8px_10px] box-border text-[14px] outline-none capitalize">{value?.poojaId?.pujaName}</td>
-                                            <td className="w-[200px] bg-[#F6F6F6] p-[8px_10px] box-border text-[14px] outline-none capitalize">{value?.price}</td>
-                                            <td className="w-[200px] bg-[#F6F6F6] p-[8px_10px] box-border text-[14px] outline-none capitalize text-nowrap">{moment(value?.poojaDate).format('DD MMM YYYY') || 'N/A'}</td>
-                                            <td className="w-[200px] bg-[#F6F6F6] p-[8px_10px] box-border text-[14px] outline-none capitalize text-nowrap">{moment(value?.poojaTime).utc().format('hh:mm a') || 'N/A'}</td>
-                                            <td className="w-[200px] bg-[#F6F6F6] p-[8px_10px] box-border text-[14px] outline-none capitalize">{value?.mode?.toLowerCase()}</td>
-                                            <td className="w-[200px] bg-[#F6F6F6] p-[8px_10px] box-border text-[14px] outline-none capitalize">{value?.status?.toLowerCase()}</td>
+                                            <td className="w-[200px] bg-[#F6F6F6] p-[8px_10px] box-border text-[14px] outline-none capitalize">{value?.astrologerId?.astrologerName}</td>
+                                            <td className="w-[200px] bg-[#F6F6F6] p-[8px_10px] box-border text-[14px] outline-none capitalize">{value?.pujaId?.pujaName}</td>
+                                            <td className='rounded-full flex items-center justify-center py-0.5'><img src={api_urls + 'uploads/' + value?.pujaId?.image} className='rounded-full w-10 h-10 object-contain bg-gray-300' /></td>
+                                            <td className="w-[200px] bg-[#F6F6F6] p-[8px_10px] box-border text-[14px] outline-none capitalize">{IndianRupee(value?.amount)}</td>
+                                            <td className="w-[200px] p-[8px_10px] box-border text-[14px] outline-none capitalize">{SecondToHMS(value?.duration || 0)}</td>
+                                            <td className="w-[200px] bg-[#F6F6F6] p-[8px_10px] box-border text-[14px] outline-none capitalize text-nowrap">{moment(value?.pujaDate)?.utc()?.format('DD MMM YYYY') || 'N/A'}</td>
+                                            <td className="w-[200px] bg-[#F6F6F6] p-[8px_10px] box-border text-[14px] outline-none capitalize text-nowrap">{moment(value?.pujaTime).utc().format('hh:mm a') || 'N/A'}</td>
+                                            <td className="w-[200px] bg-[#F6F6F6] p-[8px_10px] box-border text-[14px] outline-none capitalize">{value?.invoice_id}</td>
+                                            <td className="w-[200px] bg-[#F6F6F6] p-[8px_10px] box-border text-[14px] outline-none capitalize">{value?.orderId}</td>
+                                            <td className="w-[200px] bg-[#F6F6F6] p-[8px_10px] box-border text-[14px] outline-none capitalize">{value.payment_status || 'N/A'}</td>
+                                            {/* <td className="w-[200px] bg-[#F6F6F6] p-[8px_10px] box-border text-[14px] outline-none capitalize">{value?.status?.toLowerCase()}</td> */}
                                         </tr>
                                     ))}
                                 </tbody>

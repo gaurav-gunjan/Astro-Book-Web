@@ -391,7 +391,7 @@ function* getUserAstrologerBookedPujaHistory() {
         console.log("Get User Astrologer Booked Puja History Saga Response ::: ", data);
 
         if (data?.success) {
-            yield put({ type: actionTypes.SET_USER_ASTROLOGER_BOOKED_PUJA_HISTORY, payload: data?.pooja });
+            yield put({ type: actionTypes.SET_USER_ASTROLOGER_BOOKED_PUJA_HISTORY, payload: data?.results?.reverse() });
         }
         yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
 

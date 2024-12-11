@@ -193,27 +193,24 @@ function* bookApprovedCreatedPuja(action) {
     try {
         const { payload } = action;
         console.log("Book Approved Created Puja Payload ::: ", payload);
+        console.log("Payload ::: ", { amount: payload?.amount, name: payload?.user?.customerName, email: payload?.user?.email, contact: payload?.user?.phoneNumber });
 
         const razorpayResponse = yield razorpayPayment({ amount: payload?.amount, name: payload?.user?.customerName, email: payload?.user?.email, contact: payload?.user?.phoneNumber })
         console.log("Razor Pay Response ::: ", razorpayResponse);
 
         if (razorpayResponse?.status) {
-            const { data } = yield postAPI(book_approved_created_puja, payload?.data);
+            const { data } = yield postAPI(book_approved_created_puja, { ...payload?.data, paymentId: razorpayResponse?.result?.razorpay_payment_id });
             console.log("Book Approved Created Puja Saga Response ::: ", data);
-            if (data?.success) {
+
+            if (data?.status) {
                 toaster({ text: data?.message });
                 yield call(payload?.onComplete);
             }
-            yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
-
-        } else {
-            toaster?.error({ text: 'Payment Failed.' });
-            yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
-        }
+        } else toaster?.error({ text: 'Payment Failed.' });
 
     } catch (error) {
+        toaster?.error({ text: 'Payment Failed.' });
         console.log("Book Approved Created Puja Saga Error ::: ", error);
-        yield put({ type: actionTypes.SET_IS_LOADING, payload: false })
     }
 };
 
