@@ -14,7 +14,6 @@ import * as CommonActions from '../../redux/actions/commonAction';
 import { useState } from 'react';
 
 const ChatWithAstrologer = () => {
-
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { isLoading } = useSelector(state => state?.commonReducer);
@@ -22,7 +21,7 @@ const ChatWithAstrologer = () => {
     const { astrologerData } = useSelector(state => state?.astrologerReducer);
 
     const [astrologerLocalData, setAstrologerLocalData] = useState([]);
-    console.log('AstrologerLocalData :::', astrologerLocalData)
+    console.log('AstrologerLocalData :::', astrologerLocalData);
 
     let [searchParams, setSearchParams] = useSearchParams();
     const query = new URLSearchParams(searchParams);
@@ -32,7 +31,7 @@ const ChatWithAstrologer = () => {
     const handleSearch = async (text) => setSearchParams(`page=1&search=${text.toLowerCase().split(' ').join('')}`);
 
     useEffect(() => {
-        //! Dispatching API For Getting Astrologer 
+        //! Dispatching API For Getting Astrologer
         dispatch(AstrologerActions.getAstrologer({ page, search }));
     }, [page, search]);
 
