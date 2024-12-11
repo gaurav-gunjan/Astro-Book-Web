@@ -55,7 +55,7 @@ const MyAccount = () => {
                             <div className='flex items-center gap-3'><WalletSvg /> Total Earning : {IndianRupee(userAstrologerDataById?.wallet_balance)}</div>
                         </div>
 
-                        <div onClick={() => setWithdrawalModelOpen(true)} className='cursor-pointer bg-primary border border-primary hover:bg-orange-400 text-center text-sm rounded-md text-white font-light px-4 py-1.5 transition-all duration-500'>Withdraw</div>
+                        <div onClick={() => setWithdrawalModelOpen(true)} className='cursor-pointer bg-secondary border border-secondary text-center text-sm rounded-md text-white font-light px-4 py-1.5 transition-all duration-500'>Withdraw</div>
                     </div>
                 </article>
             </section>

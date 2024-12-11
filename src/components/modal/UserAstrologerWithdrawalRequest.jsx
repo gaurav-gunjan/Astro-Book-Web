@@ -69,7 +69,7 @@ const UserAstrologerWithdrawalRequest = ({ isOpen, handleClose }) => {
                     <textarea name='reason' onChange={handleInputFieldDetail} placeholder='Reason' rows={5} className='bg-[#f9f9fa] text-primary_bg_dark border border-transparent focus:border-primary outline-none w-full rounded-sm px-5 py-1.5' />
                 </div>
 
-                <div onClick={handleSubmit} className='bg-primary text-white py-1.5 pt-2 rounded-sm text-center cursor-pointer text-[15px]'>Submit</div>
+                <div onClick={handleSubmit} className='bg-secondary text-white py-1.5 pt-2 rounded-sm text-center cursor-pointer text-[15px]'>Submit</div>
             </div>
         </Modal>
     )

@@ -11,6 +11,7 @@ import TopHeaderSection from '../../components/common/TopHeaderSection';
 import CustomPagination from '../../components/features/CustomPagination';
 import * as AstrologerActions from '../../redux/actions/astrologerAction';
 import * as CommonActions from '../../redux/actions/commonAction';
+import { useState } from 'react';
 
 const ChatWithAstrologer = () => {
 
@@ -19,6 +20,9 @@ const ChatWithAstrologer = () => {
     const { isLoading } = useSelector(state => state?.commonReducer);
     const { userCustomerDataById } = useSelector(state => state?.userReducer);
     const { astrologerData } = useSelector(state => state?.astrologerReducer);
+
+    const [astrologerLocalData, setAstrologerLocalData] = useState([]);
+    console.log('AstrologerLocalData :::', astrologerLocalData)
 
     let [searchParams, setSearchParams] = useSearchParams();
     const query = new URLSearchParams(searchParams);
@@ -31,6 +35,10 @@ const ChatWithAstrologer = () => {
         //! Dispatching API For Getting Astrologer 
         dispatch(AstrologerActions.getAstrologer({ page, search }));
     }, [page, search]);
+
+    useEffect(() => {
+        astrologerData && setAstrologerLocalData([])
+    }, [astrologerData]);
 
     return (
         <>

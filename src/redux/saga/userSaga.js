@@ -411,6 +411,7 @@ function* completeBookedPujaHistory(action) {
 
         if (data?.success) {
             toaster?.success({ text: 'Puja completed successfully.' });
+            yield put({ type: actionTypes.GET_USER_ASTROLOGER_BOOKED_PUJA_HISTORY, payload: null});
             yield call(payload?.onComplete);
         }
 

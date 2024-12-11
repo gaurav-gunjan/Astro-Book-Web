@@ -53,11 +53,11 @@ const AssignPujaHistory = () => {
 
     //! Handle Submit : Uplaoding File
     const handleSubmit = () => {
-        console.log({ images, video, description, orderId: modalData?.modalData?.orderId });
+        console.log({ images, video, description, Id: modalData?.modalData?._id });
 
         const formData = new FormData();
 
-        formData.append('orderId', modalData?.modalData?.orderId);
+        formData.append('Id', modalData?.modalData?._id);
         formData.append('description', description);
         formData.append('videos', video?.bytes);
         images.forEach((image, index) => {
@@ -138,7 +138,10 @@ const AssignPujaHistory = () => {
                                         <th className="p-[12px_9px] font-[600]">Invoice Id</th>
                                         <th className="p-[12px_9px] font-[600]">Your Price</th>
                                         <th className="p-[12px_9px] font-[600]">Admin Price</th>
+                                        <th className="p-[12px_9px] font-[600]">Images</th>
+                                        <th className="p-[12px_9px] font-[600]">Video</th>
                                         <th className="p-[12px_9px] font-[600]">Upload File</th>
+                                        <th className="p-[12px_9px] font-[600]">Status</th>
                                     </tr>
                                 </thead>
                                 <tbody className='text-gray-800'>
@@ -146,7 +149,7 @@ const AssignPujaHistory = () => {
                                         <tr key={index} className={`text-sm ${index % 2 !== 0 && 'bg-[#F6F6F6]'}`}>
                                             <td className="w-[200px] p-[8px_10px] box-border text-[14px] outline-none capitalize">{value?.customerId?.customerName || 'N/A'}</td>
                                             <td className="w-[200px] p-[8px_10px] box-border text-[14px] outline-none capitalize">{value?.pujaId?.pujaName}</td>
-                                            <td className='rounded-full flex items-center justify-center py-0.5'><img src={api_urls + 'uploads/' + value?.pujaId?.image} className='rounded-full w-10 h-10 object-contain bg-gray-300' /></td>
+                                            <td className='w-[200px] p-[8px_10px] box-border text-[14px] outline-none capitalize'><div className='flex items-center justify-center w-20'><img src={api_urls + 'uploads/' + value?.pujaId?.image} className='rounded-full w-10 h-10 object-contain bg-gray-300' /></div></td>
                                             <td className="w-[200px] p-[8px_10px] box-border text-[14px] outline-none capitalize text-wrap h-full">{IndianRupee(value?.amount)}</td>
                                             <td className="w-[200px] p-[8px_10px] box-border text-[14px] outline-none capitalize">{SecondToHMS(value?.duration || 0)}</td>
                                             <td className="w-[200px] p-[8px_10px] box-border text-[14px] outline-none capitalize text-nowrap">{moment(value?.pujaDate)?.utc()?.format('DD MMM YYYY') || 'N/A'}</td>
@@ -154,7 +157,10 @@ const AssignPujaHistory = () => {
                                             <td className="w-[200px] p-[8px_10px] box-border text-[14px] outline-none capitalize">{value?.invoice_id || 'N/A'}</td>
                                             <td className="w-[200px] p-[8px_10px] box-border text-[14px] outline-none capitalize text-wrap h-full">{IndianRupee(value?.astrologerPrice)}</td>
                                             <td className="w-[200px] p-[8px_10px] box-border text-[14px] outline-none capitalize text-wrap h-full">{IndianRupee(value?.adminCommission)}</td>
+                                            <td className="w-[200px] p-[8px_10px] box-border text-[14px] outline-none capitalize"><div className='flex gap-3 h-full justify-center items-center w-60'>{value?.images?.map((image, idx) => <img key={idx} src={api_urls + image} className='h-10 w-10 rounded-full' />)}</div></td >
+                                            <td className="w-[200px] p-[8px_10px] box-border text-[14px] outline-none capitalize">{value?.videos[0] &&  <video controls className='h-20 min-w-24'><source src={api_urls + value?.videos[0]} /></video>}</td >
                                             <td className="w-[200px] p-[8px_10px] box-border text-[14px] outline-none capitalize text-wrap h-full cursor-pointer" onClick={() => setModalData({ ismodalOpen: true, modalData: value })}><UploadSvg /></td>
+                                            <td className="w-[200px] p-[8px_10px] box-border text-[14px] outline-none capitalize">{value?.status?.toLowerCase() || 'N/A'}</td>
                                         </tr>
                                     ))}
                                 </tbody>

@@ -52,7 +52,7 @@ const MyOrder = () => {
                     <main className='px-7 flex justify-center gap-4 pb-10'>
                         {['order-history', 'book-history']?.map((value, index) => <div onClick={() => setSearchParams(`active-tab=${value.toLowerCase().split(' ').join('-')}`)} key={index} className={`w-32 text-sm border text-center border-secondary ${activeHead == value && 'bg-secondary text-white'} hover:scale-105 py-2 rounded-md cursor-pointer flex items-center justify-center transition-all duration-300 capitalize`}>{value?.split('-')?.join(' ')}</div>)}
                     </main>
-                    
+
                     <section className='px-[80px] pb-16 max-sm:px-[20px]'>
                         <article>
                             <main>
@@ -121,6 +121,8 @@ const MyOrder = () => {
                                                 <th className="p-[12px_9px] font-[600]">Puja Time</th>
                                                 <th className="p-[12px_9px] font-[600]">Invoice Id</th>
                                                 <th className="p-[12px_9px] font-[600]">Order Id</th>
+                                                <th className="p-[12px_9px] font-[600]">Images</th>
+                                                <th className="p-[12px_9px] font-[600]">Video</th>
                                                 <th className="p-[12px_9px] font-[600]">Payment Status</th>
                                             </tr>
                                         </thead>
@@ -129,13 +131,15 @@ const MyOrder = () => {
                                                 <tr key={index} className={`text-sm ${index % 2 !== 0 && 'bg-[#F6F6F6]'}`}>
                                                     <td className="w-[200px] p-[8px_10px] box-border text-[14px] outline-none capitalize">{value?.astrologerId?.astrologerName}</td>
                                                     <td className="w-[200px] p-[8px_10px] box-border text-[14px] outline-none capitalize">{value?.pujaId?.pujaName}</td>
-                                                    <td className='rounded-full flex items-center justify-center py-0.5'><img src={api_urls + 'uploads/' + value?.pujaId?.image} className='rounded-full w-10 h-10 object-contain bg-gray-300' /></td>
+                                                    <td className='w-[200px] p-[8px_10px] box-border text-[14px] outline-none capitalize'><div className='flex items-center justify-center w-20'><img src={api_urls + 'uploads/' + value?.pujaId?.image} className='rounded-full w-10 h-10 object-contain bg-gray-300' /></div></td>
                                                     <td className="w-[200px] p-[8px_10px] box-border text-[14px] outline-none capitalize">{IndianRupee(value?.amount)}</td>
                                                     <td className="w-[200px] p-[8px_10px] box-border text-[14px] outline-none capitalize">{SecondToHMS(value?.duration || 0)}</td>
                                                     <td className="w-[200px] p-[8px_10px] box-border text-[14px] outline-none capitalize text-nowrap">{moment(value?.pujaDate)?.utc()?.format('DD MMM YYYY') || 'N/A'}</td>
                                                     <td className="w-[200px] p-[8px_10px] box-border text-[14px] outline-none capitalize text-nowrap">{moment(value?.pujaTime).utc().format('hh:mm a') || 'N/A'}</td>
                                                     <td className="w-[200px] p-[8px_10px] box-border text-[14px] outline-none capitalize">{value?.invoice_id}</td>
                                                     <td className="w-[200px] p-[8px_10px] box-border text-[14px] outline-none capitalize">{value?.orderId}</td>
+                                                    <td className="w-[200px] p-[8px_10px] box-border text-[14px] outline-none capitalize"><div className='flex gap-3 h-full justify-center items-center w-60'>{value?.images?.map((image, idx) => <img key={idx} src={api_urls + image} className='h-10 w-10 rounded-full' />)}</div></td >
+                                                    <td className="w-[200px] p-[8px_10px] box-border text-[14px] outline-none capitalize">{value?.videos[0] &&  <video controls className='h-20 min-w-24'><source src={api_urls + value?.videos[0]} /></video>}</td >
                                                     <td className="w-[200px] p-[8px_10px] box-border text-[14px] outline-none capitalize">{value.payment_status || 'N/A'}</td>
                                                     {/* <td className="w-[200px] p-[8px_10px] box-border text-[14px] outline-none capitalize">{value?.status?.toLowerCase()}</td> */}
                                                 </tr>
