@@ -133,7 +133,7 @@ const Header = () => {
                                     <div className='group relative text-black'>
                                         <div className='flex items-center gap-1 cursor-pointer'>{userAstrologerDataById?.profileImage ? <img src={api_urls + userAstrologerDataById?.profileImage} className='h-9 w-9 rounded-full' /> : <ProfileSvg />}</div>
 
-                                        <div className='font-normal absolute overflow-hidden top-20 right-0 bg-white w-52 h-0 rounded-lg group-hover:h-[390px] transition-all duration-500 ease-in group-hover:border-b-[5px] border-primary shadow-2xl'>
+                                        <div className='font-normal absolute overflow-hidden top-[85px] right-0 bg-white w-52 h-0 rounded-lg group-hover:h-[390px] transition-all duration-500 ease-in group-hover:border-b-[5px] group-hover:border-t border-primary shadow-2xl'>
                                             <div className='flex flex-col items-center gap-1.5 py-5'>
                                                 {userAstrologerDataById?.profileImage ? <img src={api_urls + userAstrologerDataById?.profileImage} className='h-11 w-11 rounded-full' /> : <ProfileSvg h='40' w='40' />}
                                                 <div className='text-[16px]'>{userAstrologerDataById?.astrologerName}</div>
@@ -151,12 +151,13 @@ const Header = () => {
 
                                 {userCustomerDataById &&
                                     <div className='group relative text-black'>
-                                        <div className='flex items-center gap-1 cursor-pointer text-white'>{userCustomerDataById?.image ? <img src={api_urls + 'uploads/' + userCustomerDataById?.image} className='h-9 w-9 object-contain rounded-full' /> : <ProfileSvg />} <div className='capitalize'>{userCustomerDataById?.customerName}</div></div>
+                                        <div className='flex items-center gap-1 cursor-pointer text-white'>{userCustomerDataById?.image ? <img src={api_urls + 'uploads/' + userCustomerDataById?.image} className='h-9 w-9 object-contain rounded-full bg-gray-100' /> : <ProfileSvg />}</div>
 
-                                        <div className='font-normal absolute overflow-hidden top-20 right-0 bg-white w-52 h-0 rounded-lg group-hover:h-[390px] transition-all duration-500 ease-in group-hover:border-b-[5px] border-primary shadow-2xl'>
-                                            <div className='flex flex-col items-center gap-3 py-5'>
-                                                {userCustomerDataById?.image ? <img src={api_urls + 'uploads/' + userCustomerDataById?.image} className='h-11 w-11 object-contain rounded-full' /> : <ProfileSvg h='40' w='40' />}
-                                                <div>XXXXXX{userCustomerDataById?.phoneNumber?.toString()?.substring(6, 10)}</div>
+                                        <div className='font-normal absolute overflow-hidden top-[85px] right-0 bg-white w-52 h-0 rounded-lg group-hover:h-[390px] transition-all duration-500 ease-in group-hover:border-b-[5px] group-hover:border-t border-primary shadow-2xl'>
+                                            <div className='flex flex-col items-center gap-1.5 py-5'>
+                                                {userCustomerDataById?.image ? <img src={api_urls + 'uploads/' + userCustomerDataById?.image} className='h-11 w-11 object-contain rounded-full bg-gray-100' /> : <ProfileSvg h='40' w='40' />}
+                                                <div className='text-[16px]'>{userCustomerDataById?.customerName}</div>
+                                                <div className='text-sm'>XXXXXX{userCustomerDataById?.phoneNumber?.toString()?.substring(6, 10)}</div>
                                             </div>
                                             <div onClick={() => navigate('/my-account?active-tab=update-profile')} className='flex items-center gap-3 border-t py-2 px-5 cursor-pointer'><div>My Account</div></div>
                                             <div onClick={() => navigate('/wallet-history')} className='flex items-center gap-3 border-t py-2 px-5 cursor-pointer'><div>My Wallet</div></div>

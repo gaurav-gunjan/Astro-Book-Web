@@ -68,14 +68,6 @@ const MyAccount = () => {
             toaster.warning({ text: 'Please Select Gender' });
             return isValid = false
         }
-        // if (!date_of_birth) {
-        //     toaster.warning({ text: 'Please Enter Date Of Birth' });
-        //     return isValid = false
-        // }
-        // if (!time_of_birth) {
-        //     toaster.warning({ text: 'Please Enter Time Of Birth' });
-        //     return isValid = false
-        // }
         if (!date_of_birth_and_time) {
             toaster.warning({ text: 'Please Enter Date Of Birth And Time' });
             return isValid = false
@@ -103,7 +95,7 @@ const MyAccount = () => {
     //! Handle Submit : Update Profile
     const handleSubmit = async () => {
         console.log({ ...inputFieldDetail });
-        const { first_name, last_name, email, gender, date_of_birth, time_of_birth, date_of_birth_and_time, place_of_birth, marital_status, type_of_concern, description, latitude, longitude } = inputFieldDetail;
+        const { first_name, last_name, email, gender, date_of_birth_and_time, place_of_birth, marital_status, type_of_concern, description, latitude, longitude } = inputFieldDetail;
 
         const payload = {
             customerId: userCustomerDataById?._id,
@@ -153,46 +145,46 @@ const MyAccount = () => {
             <TopHeaderSection title={'My Account'} />
 
             <section className='px-[100px] py-7 max-sm:px-[20px]'>
-                <article className='shadow-xl p-3 py-10 overflow-hidden bg-[#EFEFEF] rounded-md relative'>
+                <article className='shadow-xl p-3 py-10 overflow-hidden bg-[#E5D18E90] rounded-md relative'>
                     <div className='text-[#666373] text-center text-sm'>View and update your profile in your {website_name} Astro account.</div>
                     <main className='px-7 flex justify-center gap-4 py-[20px]'>
-                        {['update-profile', 'change-picture']?.map((value, index) => <div onClick={() => setSearchParams(`active-tab=${value.toLowerCase().split(' ').join('-')}`)} key={index} className={`w-32 text-sm border text-center border-primary ${activeHead == value && 'bg-primary text-white'} hover:scale-105 py-2 rounded-md cursor-pointer flex items-center justify-center transition-all duration-300 capitalize`}>{value?.split('-')?.join(' ')}</div>)}
+                        {['update-profile', 'change-picture']?.map((value, index) => <div onClick={() => setSearchParams(`active-tab=${value.toLowerCase().split(' ').join('-')}`)} key={index} className={`w-32 text-sm border text-center border-secondary ${activeHead == value && 'bg-secondary text-white'} hover:scale-105 py-2 rounded-md cursor-pointer flex items-center justify-center transition-all duration-300 capitalize`}>{value?.split('-')?.join(' ')}</div>)}
                     </main>
 
 
                     {activeHead == 'update-profile' && <main className='px-10 py-5 text-[14px] text-[#666373] flex flex-col gap-8'>
                         <div className='flex max-lg:flex-col gap-[20px] max-lg:gap-[15px]'>
                             <div className='basis-[45%] max-lg:basis-full flex-grow flex flex-col gap-[15px]'>
-                                <input name='first_name' value={inputFieldDetail?.first_name} onChange={(e) => handleInputFieldDetail(e)} placeholder='First Name' className='bg-[#f9f9fa] text-primary_bg_dark border border-transparent focus:border-white outline-none w-full rounded-sm px-5 py-1.5' />
-                                <input name='last_name' value={inputFieldDetail?.last_name} onChange={(e) => handleInputFieldDetail(e)} placeholder='Last Name' className='bg-[#f9f9fa] text-primary_bg_dark border border-transparent focus:border-white outline-none w-full rounded-sm px-5 py-1.5' />
-                                <input name='email' type='email' value={inputFieldDetail?.email} onChange={(e) => handleInputFieldDetail(e)} placeholder='Email' className='bg-[#f9f9fa] text-primary_bg_dark border border-transparent focus:border-white outline-none w-full rounded-sm px-5 py-1.5' />
-                                <input name='phone' readOnly value={inputFieldDetail?.phone} placeholder='Phone' className='bg-[#f9f9fa] text-primary_bg_dark border border-transparent focus:border-white outline-none w-full rounded-sm px-5 py-1.5' />
-                                <select name='gender' value={inputFieldDetail?.gender} onChange={(e) => handleInputFieldDetail(e)} placeholder='Gender' className='bg-[#f9f9fa] text-primary_bg_dark border border-transparent focus:border-white outline-none w-full rounded-sm px-5 py-[7px]' >
+                                <input name='first_name' value={inputFieldDetail?.first_name} onChange={(e) => handleInputFieldDetail(e)} placeholder='First Name' className='bg-gray-100 text-primary_bg_dark border border-transparent focus:border-white outline-none w-full rounded-sm px-5 py-1.5' />
+                                <input name='last_name' value={inputFieldDetail?.last_name} onChange={(e) => handleInputFieldDetail(e)} placeholder='Last Name' className='bg-gray-100 text-primary_bg_dark border border-transparent focus:border-white outline-none w-full rounded-sm px-5 py-1.5' />
+                                <input name='email' type='email' value={inputFieldDetail?.email} onChange={(e) => handleInputFieldDetail(e)} placeholder='Email' className='bg-gray-100 text-primary_bg_dark border border-transparent focus:border-white outline-none w-full rounded-sm px-5 py-1.5' />
+                                <input name='phone' readOnly value={inputFieldDetail?.phone} placeholder='Phone' className='bg-gray-100 text-primary_bg_dark border border-transparent focus:border-white outline-none w-full rounded-sm px-5 py-1.5' />
+                                <select name='gender' value={inputFieldDetail?.gender} onChange={(e) => handleInputFieldDetail(e)} placeholder='Gender' className='bg-gray-100 text-primary_bg_dark border border-transparent focus:border-white outline-none w-full rounded-sm px-5 py-[7px]' >
                                     <option value="" className='text-gray-400'>----------Select Gender----------</option>
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
                                     <option value="Other">Other</option>
                                 </select>
-                                <input name='date_of_birth_and_time' value={inputFieldDetail?.date_of_birth_and_time} onChange={(e) => handleInputFieldDetail(e)} placeholder='Date of Birth' type='datetime-local' className='bg-[#f9f9fa] text-primary_bg_dark border border-transparent focus:border-white outline-none w-full rounded-sm px-5 py-[7PX]' />
-                                {/* <input name='time_of_birth' value={inputFieldDetail?.time_of_birth} onChange={(e) => handleInputFieldDetail(e)} placeholder='Time of Birth' type='time' cla ssName='bg-[#f9f9fa] text-primary_bg_dark border border-transparent focus:border-white outline-none w-full rounded-sm px-5 py-[7PX]' /> */}
+                                <input name='date_of_birth_and_time' value={inputFieldDetail?.date_of_birth_and_time} onChange={(e) => handleInputFieldDetail(e)} placeholder='Date of Birth' type='datetime-local' className='bg-gray-100 text-primary_bg_dark border border-transparent focus:border-white outline-none w-full rounded-sm px-5 py-[7PX]' />
+                                {/* <input name='time_of_birth' value={inputFieldDetail?.time_of_birth} onChange={(e) => handleInputFieldDetail(e)} placeholder='Time of Birth' type='time' cla ssName='bg-gray-100 text-primary_bg_dark border border-transparent focus:border-white outline-none w-full rounded-sm px-5 py-[7PX]' /> */}
                                 <Autocomplete onLoad={(ref) => (autocompleteRef.current = ref)} onPlaceChanged={handlePlaceSelect} >
-                                    <input name='place_of_birth' value={inputFieldDetail?.place_of_birth} onChange={(e) => handleInputFieldDetail(e)} placeholder='Place of Birth' className='bg-[#f9f9fa] text-primary_bg_dark border border-transparent focus:border-white outline-none w-full rounded-sm px-5 py-1.5' />
+                                    <input name='place_of_birth' value={inputFieldDetail?.place_of_birth} onChange={(e) => handleInputFieldDetail(e)} placeholder='Place of Birth' className='bg-gray-100 text-primary_bg_dark border border-transparent focus:border-white outline-none w-full rounded-sm px-5 py-1.5' />
                                 </Autocomplete>
                             </div>
                             <div className='basis-[45%] max-lg:basis-full flex-grow flex flex-col gap-[15px]'>
-                                <select name='marital_status' value={inputFieldDetail?.marital_status} onChange={(e) => handleInputFieldDetail(e)} placeholder='marital status' className='bg-[#f9f9fa] text-primary_bg_dark border border-transparent focus:border-white outline-none w-full rounded-sm px-5 py-[7px]' >
+                                <select name='marital_status' value={inputFieldDetail?.marital_status} onChange={(e) => handleInputFieldDetail(e)} placeholder='marital status' className='bg-gray-100 text-primary_bg_dark border border-transparent focus:border-white outline-none w-full rounded-sm px-5 py-[7px]' >
                                     <option value="" className='text-gray-400'>----------Select Marital Status----------</option>
                                     <option value="Married">Married</option>
                                     <option value="Unmarried">Unmarried</option>
                                     <option value="Other">Other</option>
                                 </select>
-                                <select name='type_of_concern' value={inputFieldDetail?.type_of_concern} onChange={(e) => handleInputFieldDetail(e)} placeholder='type of concern' className='bg-[#f9f9fa] text-primary_bg_dark border border-transparent focus:border-white outline-none w-full rounded-sm px-5 py-[7px]' >
+                                <select name='type_of_concern' value={inputFieldDetail?.type_of_concern} onChange={(e) => handleInputFieldDetail(e)} placeholder='type of concern' className='bg-gray-100 text-primary_bg_dark border border-transparent focus:border-white outline-none w-full rounded-sm px-5 py-[7px]' >
                                     <option value="" className='text-gray-400'>----------Select Type of Concern----------</option>
                                     <option value="Career">Career</option>
                                     <option value="Business">Business</option>
                                 </select>
-                                <textarea name='description' rows={8} value={inputFieldDetail?.description} onChange={(e) => handleInputFieldDetail(e)} placeholder='Description' className='bg-[#f9f9fa] text-primary_bg_dark border border-transparent focus:border-white outline-none w-full rounded-sm px-5 py-[8px]' />
-                                <div onClick={() => handleSubmit()} className='cursor-pointer bg-primary border border-primary hover:bg-orange-400 text-center text-white font-semibold rounded-sm px-5 py-2 transition-all duration-500'>Update Profile</div>
+                                <textarea name='description' rows={8} value={inputFieldDetail?.description} onChange={(e) => handleInputFieldDetail(e)} placeholder='Description' className='bg-gray-100 text-primary_bg_dark border border-transparent focus:border-white outline-none w-full rounded-sm px-5 py-[8px]' />
+                                <div onClick={() => handleSubmit()} className='cursor-pointer bg-secondary border border-secondary text-center text-white font-semibold rounded-sm px-5 py-2 transition-all duration-500'>Update Profile</div>
                             </div>
                         </div>
                     </main>}
@@ -201,8 +193,8 @@ const MyAccount = () => {
                         <div className='flex items-center max-lg:flex-col gap-[50px] max-lg:gap-[15px]'>
                             <div className='h-40 w-40 border border-white rounded-md'><img src={image?.file ? image?.file : Logo} alt='Profile' className='h-full w-full object-contain' /></div>
                             <div className='flex flex-col flex-1 gap-5'>
-                                <input type='file' onChange={handleImage} className='cursor-pointer bg-[#f9f9fa] text-primary_bg_dark border border-transparent focus:border-white outline-none w-full rounded-sm px-5 py-1.5' />
-                                <div onClick={() => handleChangePicture()} className='self-end cursor-pointer bg-primary border border-primary hover:bg-orange-400 text-center text-white font-semibold rounded-md px-5 py-2 transition-all duration-500'>Change Picture</div>
+                                <input type='file' onChange={handleImage} className='cursor-pointer bg-gray-100 text-primary_bg_dark border border-transparent focus:border-white outline-none w-full rounded-sm px-5 py-1.5' />
+                                <div onClick={() => handleChangePicture()} className='self-end cursor-pointer bg-secondary border border-secondary text-center text-white font-semibold rounded-md px-5 py-2 transition-all duration-500'>Change Picture</div>
                             </div>
                         </div>
                     </main>}
