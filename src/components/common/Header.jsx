@@ -131,14 +131,14 @@ const Header = () => {
                                 </div>
                                 <div className='flex items-center gap-[30px]'>
                                     <NavLink to="/astrologer" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-secondary" : "text-black"}>Talk to Astrologer</NavLink>
-                                    {userCustomerDataById ? <NavLink to="/book-puja" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-secondary" : "text-black"}>Book Puja</NavLink> : <NavLink to="/register-puja" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-secondary" : "text-black"}>Register Puja</NavLink>}
+                                    {userAstrologerDataById ? <NavLink to="/register-puja" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-secondary" : "text-black"}>Register Puja</NavLink> : <NavLink to="/book-puja" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-secondary" : "text-black"}>Book Puja</NavLink>}
                                     <NavLink to="/astro-mall" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-secondary" : "text-black"}>Astroshop</NavLink>
                                     <div className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-secondary" : "text-black"}>Astrotalk Store</div>
                                 </div>
                             </nav>
 
                             {userAstrologerDataById &&
-                                <div className='group relative text-black'>
+                                <div className='group relative text-black max-lg:hidden'>
                                     <div className='flex items-center gap-1 cursor-pointer'>{userAstrologerDataById?.profileImage ? <img src={api_urls + userAstrologerDataById?.profileImage} className='h-9 w-9 rounded-full' /> : <ProfileSvg />}</div>
 
                                     <div className='font-normal absolute overflow-hidden top-[85px] right-0 bg-white w-52 h-0 rounded-lg group-hover:h-[390px] transition-all duration-500 ease-in group-hover:border-b-[5px] group-hover:border-t border-primary shadow-2xl'>
@@ -158,7 +158,7 @@ const Header = () => {
                             }
 
                             {userCustomerDataById &&
-                                <div className='group relative text-black'>
+                                <div className='group relative text-black max-lg:hidden'>
                                     <div className='flex items-center gap-1 cursor-pointer text-black'>{userCustomerDataById?.image ? <img src={api_urls + 'uploads/' + userCustomerDataById?.image} className='h-14 w-14 object-contain rounded-full bg-secondary shadow-md' /> : <ProfileSvg />}</div>
 
                                     <div className='font-normal absolute overflow-hidden top-[85px] right-0 bg-white w-52 h-0 rounded-lg group-hover:h-[430px] transition-all duration-500 ease-in group-hover:border-b-[5px] group-hover:border-t border-primary shadow-2xl'>
