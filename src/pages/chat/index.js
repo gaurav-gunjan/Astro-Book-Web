@@ -114,7 +114,7 @@ const Chat = () => {
         }
 
 
-        intakeDetail && intakeInsertedCount == 1 && storeIntake()
+        intakeDetail && intakeInsertedCount == 1 && localStorage.getItem('user_type') === 'customer' && storeIntake();
     }, [intakeInsertedCount]);
 
     const handleSend = async (text) => {
@@ -186,10 +186,8 @@ const Chat = () => {
             event.returnValue = ''; // Required for modern browsers
         };
 
-        // Add the event listener
         window.addEventListener('beforeunload', handleBeforeUnload);
 
-        // Clean up the event listener on component unmount
         return () => {
             window.removeEventListener('beforeunload', handleBeforeUnload);
         };
@@ -200,52 +198,6 @@ const Chat = () => {
             <div className='h-[94.5px] max-md:h-[70.5px]'></div>
 
             <div className='flex'>
-                {localStorage.getItem('user_type') == 'astrologer' && <div className='basis-[30%] max-md:hidden min-h-full bg-gray-100 border-r border-primary'>
-                    <div className="px-4 py-[11px] text-lg font-semibold bg-primary text-white border-r">Intake Data</div>
-                    <div className="grid grid-cols-2 gap-4 px-4 py-5">
-                        <div>
-                            <label className="block font-medium text-gray-700">First Name</label>
-                            <p className="text-gray-900">{intakeDetail?.firstName}</p>
-                        </div>
-                        <div>
-                            <label className="block font-medium text-gray-700">Last Name</label>
-                            <p className="text-gray-900">{intakeDetail?.lastName}</p>
-                        </div>
-                        <div>
-                            <label className="block font-medium text-gray-700">Date of Birth</label>
-                            <p className="text-gray-900">{moment(intakeDetail?.dateOfBirth)?.format('DD-MMM-YYYY')}</p>
-                        </div>
-                        <div>
-                            <label className="block font-medium text-gray-700">Time of Birth</label>
-                            <p className="text-gray-900">{moment(intakeDetail?.timeOfBirth)?.format('hh:mm a')}</p>
-                        </div>
-                        <div>
-                            <label className="block font-medium text-gray-700">Topic of Concern</label>
-                            <p className="text-gray-900">{intakeDetail?.topic_of_concern}</p>
-                        </div>
-                        <div>
-                            <label className="block font-medium text-gray-700">Marital Status</label>
-                            <p className="text-gray-900">{intakeDetail?.maritalStatus}</p>
-                        </div>
-                        <div className="col-span-2">
-                            <label className="block font-medium text-gray-700">Place of Birth</label>
-                            <p className="text-gray-900">{intakeDetail?.placeOfBirth}</p>
-                        </div>
-                        <div>
-                            <label className="block font-medium text-gray-700">Latitude</label>
-                            <p className="text-gray-900">{intakeDetail?.latitude}</p>
-                        </div>
-                        <div>
-                            <label className="block font-medium text-gray-700">Longitude</label>
-                            <p className="text-gray-900">{intakeDetail?.longitude}</p>
-                        </div>
-                        <div className="col-span-2">
-                            <label className="block font-medium text-gray-700">Description</label>
-                            <p className="text-gray-900">{intakeDetail?.description}</p>
-                        </div>
-                    </div>
-                </div>}
-
                 <div className="flex-1 flex flex-col max-md:h-[calc(100vh-70.5px)] h-[calc(100vh-94.5px)]">
                     <Timer requestedData={localRequestedData} />
 

@@ -38,7 +38,7 @@ const Footer = ({ scrollToSection }) => {
                     <div className='text-justify'><span className='font-[500]'>AstroBook</span> is the best astrology website for online Astrology predictions. Talk to Astrologer on call and get answers to all your worries by seeing the future life through Astrology Kundli Predictions from the best Astrologers from India. Get best future predictions related to Marriage, love life, Career or Health over call, chat, query or report.</div>
                 </div>
                 <article className='flex flex-wrap justify-between gap-x-[1%] gap-y-10'>
-                    <main className='max-lg:basis-[45%] basis-[24%] flex flex-col gap-7'>
+                    <main className='max-lg:basis-[45%] max-md:basis-full basis-[24%] flex flex-col gap-7'>
                         <main className='flex flex-col gap-3'>
                             <span className='text-[17px] font-[500] border-b-2 border-[#F0DF20] inline-block pb-1 self-start'>Horoscope</span>
                             <Link to=''>Horoscope 2024</Link>
@@ -64,7 +64,7 @@ const Footer = ({ scrollToSection }) => {
                         </main>
                     </main>
 
-                    <main className='max-lg:basis-[45%] basis-[24%] flex flex-col gap-3'>
+                    <main className='max-lg:basis-[45%] max-md:basis-full basis-[24%] flex flex-col gap-3'>
                         <span className='text-[17px] font-[500] border-b-2 border-[#F0DF20] inline-block pb-1 self-start'>Important Links</span>
                         <Link to=''>Astromall</Link>
                         <Link to=''>Astrotalk Store</Link>
@@ -87,7 +87,7 @@ const Footer = ({ scrollToSection }) => {
                         <Link to=''>Promotion</Link>
                     </main>
 
-                    <main className='max-lg:basis-[45%] basis-[24%] flex flex-col gap-7'>
+                    <main className='max-lg:basis-[45%] max-md:basis-full basis-[24%] flex flex-col gap-7'>
                         <main className='flex flex-col gap-3'>
                             <span className='text-[17px] font-[500] border-b-2 border-[#F0DF20] inline-block pb-1 self-start'>Important Links</span>
                             <Link to=''>Blog</Link>
@@ -117,7 +117,7 @@ const Footer = ({ scrollToSection }) => {
                         </main>
                     </main>
 
-                    <main className='max-lg:basis-[45%] basis-[24%] flex flex-col gap-7'>
+                    <main className='max-lg:basis-[45%] max-md:basis-full basis-[24%] flex flex-col gap-7'>
                         <main className='flex flex-col gap-3'>
                             <span className='text-[17px] font-[500] border-b-2 border-[#F0DF20] inline-block pb-1 self-start'>Corporate Info</span>
                             <Link to=''>Terms & Conditions</Link>
