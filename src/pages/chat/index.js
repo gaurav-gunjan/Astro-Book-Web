@@ -76,6 +76,7 @@ const Chat = () => {
     }, [messages]);
 
     const [intakeDetail, setIntakeDetail] = useState({});
+    const [intakeInsertedCount, setIntakeInsertedCount] = useState(0);
 
     useEffect(() => {
         const fetchIntakeDetail = async () => {
@@ -83,20 +84,8 @@ const Chat = () => {
                 const { data } = await axios.post(api_urls + 'api/customers/get_linked_profile', { profileId });
                 if (data?.success) {
                     setIntakeDetail(data?.data);
-                    // const { firstName, lastName, dateOfBirth, timeOfBirth, placeOfBirth, maritalStatus, latitude, longitude, topic_of_concern, description } = data?.data;
-
-                    // const message = {
-                    //     _id: Math.random().toString(36).substr(2, 9),
-                    //     text: `Firstname: ${firstName},  Lastname: ${lastName}, DOB: ${moment(dateOfBirth)?.format('DD MMM YYYY')}, TOB: ${moment(timeOfBirth)?.format('hh:mm a')}, POB: ${placeOfBirth}, Marital Status: ${maritalStatus}, Latitude:${latitude}, Longitude:${longitude}, Topic of concer:${topic_of_concern}, description: ${description}`,
-                    //     user: currentUser,
-                    //     createdAt: new Date().getTime(),
-                    //     addedAt: serverTimestamp(),
-                    // };
-
-                    // const chatNode = push(ref(database, `ChatMessages/${chat_id}`));
-                    // const newKey = chatNode.key;
-                    // const chatRef = ref(database, `ChatMessages/${chat_id}/${newKey}`);
-                    // await set(chatRef, { ...message, pending: false, sent: true, received: false });
+                    const { firstName, lastName, dateOfBirth, timeOfBirth, placeOfBirth, maritalStatus, latitude, longitude, topic_of_concern, description } = data?.data;
+                    setIntakeInsertedCount(1)
                 }
             } catch (error) {
                 console.log("Error");
@@ -105,6 +94,28 @@ const Chat = () => {
 
         profileId && fetchIntakeDetail();
     }, []);
+
+    useEffect(() => {
+        const storeIntake = async () => {
+            const { firstName, lastName, dateOfBirth, timeOfBirth, placeOfBirth, maritalStatus, latitude, longitude, topic_of_concern, description } = intakeDetail;
+
+            const message = {
+                _id: Math.random().toString(36).substr(2, 9),
+                text: `Firstname: ${firstName},  Lastname: ${lastName}, DOB: ${moment(dateOfBirth)?.format('DD MMM YYYY')}, TOB: ${moment(timeOfBirth)?.format('hh:mm a')}, POB: ${placeOfBirth}, Marital Status: ${maritalStatus}, Latitude:${latitude}, Longitude:${longitude}, Topic of concer:${topic_of_concern}, description: ${description}`,
+                user: currentUser,
+                createdAt: new Date().getTime(),
+                addedAt: serverTimestamp(),
+            };
+
+            const chatNode = push(ref(database, `ChatMessages/${chat_id}`));
+            const newKey = chatNode.key;
+            const chatRef = ref(database, `ChatMessages/${chat_id}/${newKey}`);
+            await set(chatRef, { ...message, pending: false, sent: true, received: false });
+        }
+
+
+        intakeDetail && intakeInsertedCount == 1 && storeIntake()
+    }, [intakeInsertedCount]);
 
     const handleSend = async (text) => {
         if (!text.trim()) return;
@@ -171,7 +182,6 @@ const Chat = () => {
 
     useEffect(() => {
         const handleBeforeUnload = (event) => {
-            // Show a confirmation dialog to the user
             event.preventDefault();
             event.returnValue = ''; // Required for modern browsers
         };
