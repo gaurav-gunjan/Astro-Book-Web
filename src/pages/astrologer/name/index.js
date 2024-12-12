@@ -286,39 +286,21 @@ const SingleAstrologer = () => {
                                     <div className='flex max-lg:flex-wrap gap-[20px]'>
                                         <button onClick={async () => {
                                             if (Number(userCustomerDataById?.wallet_balance) < Number(astrologerDataById?.call_price) * 5) {
-                                                console.log(Number(userCustomerDataById?.wallet_balance));
-                                                console.log(Number(astrologerDataById?.call_price) * 5);
-                                                const result = await Swal.fire({
-                                                    icon: "warning", title: "Warning", text: "Please Recharge Your Wallet", showConfirmButton: true, timer: 20000,
-                                                    confirmButtonText: "Recharge", confirmButtonColor: Color.primary, cancelButtonText: "Cancel", showCancelButton: true, cancelButtonColor: Color.darkgrey
-                                                });
-                                                console.log('result', result)
-                                                if (result.isConfirmed) {
-                                                    navigate('/recharge')
-                                                }
+                                                const result = await Swal.fire({ icon: "warning", text: "Please Recharge Your Wallet", showConfirmButton: true, timer: 20000, confirmButtonText: "Recharge", confirmButtonColor: Color.primary, cancelButtonText: "Cancel", showCancelButton: true, cancelButtonColor: Color.darkgrey });
+                                                if (result.isConfirmed) navigate('/recharge');
                                             } else {
-                                                handleOpenChatIntakeFormModal('Call')
+                                                navigate(`/astrologer/intake-form/${astrologerDataById?._id}?type=call`);
                                             }
                                         }} disabled={astrologerDataById?.call_status != "online"} className={`flex items-center gap-2 bg-secondary text-black px-2 py-[7px] rounded-full w-[280px] ${astrologerDataById?.call_status != "online" && 'cursor-not-allowed'}`}><div className='bg-white p-2 rounded-full'><CallSvg h='25' w='25' /></div> <div className='line-clamp-1 text-center flex-1 pr-5'>Start Call</div></button>
-                                        {/* <div>{astrologerDataById?.call_status == "online" ? <OnlinePing /> : <OfflinePing />}</div> */}
 
                                         <button onClick={async () => {
                                             if (Number(userCustomerDataById?.wallet_balance) < Number(astrologerDataById?.chat_price) * 5) {
-                                                console.log(Number(userCustomerDataById?.wallet_balance));
-                                                console.log(Number(astrologerDataById?.chat_price) * 5);
-                                                const result = await Swal.fire({
-                                                    icon: "warning", title: "Warning", text: "Please Recharge Your Wallet", showConfirmButton: true, timer: 20000,
-                                                    confirmButtonText: "Recharge", confirmButtonColor: Color.primary, cancelButtonText: "Cancel", showCancelButton: true, cancelButtonColor: Color.darkgrey
-                                                });
-                                                console.log('result', result)
-                                                if (result.isConfirmed) {
-                                                    navigate('/recharge')
-                                                }
+                                                const result = await Swal.fire({ icon: "warning", text: "Please Recharge Your Wallet", showConfirmButton: true, timer: 20000, confirmButtonText: "Recharge", confirmButtonColor: Color.primary, cancelButtonText: "Cancel", showCancelButton: true, cancelButtonColor: Color.darkgrey });
+                                                if (result.isConfirmed) navigate('/recharge');
                                             } else {
-                                                handleOpenChatIntakeFormModal('Chat')
+                                                navigate(`/astrologer/intake-form/${astrologerDataById?._id}?type=chat`);
                                             }
                                         }} disabled={astrologerDataById?.chat_status != "online"} className={`flex items-center gap-2 bg-secondary text-black px-2 py-[7px] rounded-full w-[280px] ${astrologerDataById?.chat_status != "online" && 'cursor-not-allowed'}`}><div className='bg-white p-2 rounded-full'><ChatSvg h='25' w='25' /></div> <div className='line-clamp-1 text-center flex-1 pr-5'>Start Chat</div></button>
-                                        {/* <div>{astrologerDataById?.chat_status == "online" ? <OnlinePing /> : <OfflinePing />}</div> */}
                                     </div>
                                 </div>
                             </div>
@@ -377,58 +359,7 @@ const SingleAstrologer = () => {
                 </section>
             }
 
-            <Modal isOpen={chatIntakeFormModal} className="modal-content" overlayClassName="modal-overlay" closeTimeoutMS={200}>
-                <section className="relative shadow-2xl p-3 overflow-hidden bg-gray-200">
-                    <article>
-                        <main className='px-10 py-10 text-[14px] text-[#666373] flex flex-col gap-8'>
-                            <div onClick={() => handleCloseChatIntakeFormModal()} className='cursor-pointer bg-primary absolute top-4 right-4 flex items-center gap-2 text-white text-sm py-1 px-3 rounded-full'>Back to website <RightArrowSvg h='18' w='18' /> </div>
-                            <div className='flex flex-col gap-3'>
-                                <div className='flex flex-col items-center justify-end h-full'>
-                                    <div className='font-[500] text-3xl text-black'>Intake<span className='text-primary_text_dark'> Form</span></div>
-                                    <div className='flex items-center'><div className='w-[50px] h-[2px] bg-primary'></div><div className='w-[30px] h-[4px] bg-primary'></div><div className='w-[50px] h-[2px] bg-primary'></div></div>
-                                </div>
-                                <div className='text-[#666373] text-center'>Help Our Astrologer Know a little bit about you. Your details will kept completely confidentail.</div>
-                            </div>
-                            <div className='flex max-lg:flex-col gap-[20px] max-lg:gap-[15px]'>
-                                <div className='basis-[45%] max-lg:basis-full flex-grow flex flex-col gap-[15px]'>
-                                    <div className='flex items-center gap-2'>
-                                        <input name='first_name' value={chatIntakeDetail?.first_name} onChange={(e) => handleChatIntakeDetail(e)} placeholder='First Name' className='bg-[#f9f9fa] text-primary_bg_dark border border-transparent focus:border-white outline-none w-full rounded-sm px-5 py-1.5' /> <div onClick={() => handleOpenLinkedProfileModal(true)} className='text-green-600 bg-white h-full max-lg:h-[35px] w-10 rounded-sm flex items-center justify-center cursor-pointer'><SyncSvg /></div>
-                                    </div>
-                                    <input name='last_name' value={chatIntakeDetail?.last_name} onChange={(e) => handleChatIntakeDetail(e)} placeholder='Last Name' className='bg-[#f9f9fa] text-primary_bg_dark border border-transparent focus:border-white outline-none w-full rounded-sm px-5 py-1.5' />
-                                    <select name='gender' value={chatIntakeDetail?.gender} onChange={(e) => handleChatIntakeDetail(e)} placeholder='Gender' className='bg-[#f9f9fa] text-primary_bg_dark border border-transparent focus:border-white outline-none w-full rounded-sm px-5 py-1.5' >
-                                        <option value="" className='text-gray-400'>----------Select Gender----------</option>
-                                        <option value="Male">Male</option>
-                                        <option value="Female">Female</option>
-                                        <option value="Other">Other</option>
-                                    </select>
-                                    <input name='date_of_birth' value={chatIntakeDetail?.date_of_birth} onChange={(e) => handleChatIntakeDetail(e)} placeholder='Date of Birth' type='date' className='bg-[#f9f9fa] text-primary_bg_dark border border-transparent focus:border-white outline-none w-full rounded-sm px-5 py-1.5' />
-                                    <input name='time_of_birth' value={chatIntakeDetail?.time_of_birth} onChange={(e) => handleChatIntakeDetail(e)} placeholder='Time of Birth' type='time' className='bg-[#f9f9fa] text-primary_bg_dark border border-transparent focus:border-white outline-none w-full rounded-sm px-5 py-1.5' />
-                                    <Autocomplete onLoad={(ref) => (autocompleteRef.current = ref)} onPlaceChanged={handlePlaceSelect} >
-                                        <input name='place_of_birth' value={chatIntakeDetail?.place_of_birth} onChange={(e) => handleChatIntakeDetail(e)} placeholder='Place of Birth' className='bg-[#f9f9fa] text-primary_bg_dark border border-transparent focus:border-white outline-none w-full rounded-sm px-5 py-1.5' />
-                                    </Autocomplete>
-                                </div>
-                                <div className='basis-[45%] max-lg:basis-full flex-grow flex flex-col gap-[15px]'>
-                                    <select name='marital_status' value={chatIntakeDetail?.marital_status} onChange={(e) => handleChatIntakeDetail(e)} placeholder='marital status' className='bg-[#f9f9fa] text-primary_bg_dark border border-transparent focus:border-white outline-none w-full rounded-sm px-5 py-1.5' >
-                                        <option value="" className='text-gray-400'>----------Select Marital Status----------</option>
-                                        <option value="Married">Married</option>
-                                        <option value="Unmarried">Unmarried</option>
-                                        <option value="Other">Other</option>
-                                    </select>
-                                    <select name='type_of_concern' value={chatIntakeDetail?.type_of_concern} onChange={(e) => handleChatIntakeDetail(e)} placeholder='type of concern' className='bg-[#f9f9fa] text-primary_bg_dark border border-transparent focus:border-white outline-none w-full rounded-sm px-5 py-1.5' >
-                                        <option value="" className='text-gray-400'>----------Select Type of Concern----------</option>
-                                        <option value="Career">Career</option>
-                                        <option value="Business">Business</option>
-                                    </select>
-                                    <textarea name='description' rows={6} value={chatIntakeDetail?.description} onChange={(e) => handleChatIntakeDetail(e)} placeholder='Description' className='bg-[#f9f9fa] text-primary_bg_dark border border-transparent focus:border-white outline-none w-full rounded-sm px-5 py-1.5' />
-                                    <div onClick={() => handleSubmitChatIntakeForm()} className='cursor-pointer bg-primary border border-primary hover:bg-orange-400 text-center text-white font-semibold rounded-sm px-5 py-2 transition-all duration-500'>Start {connectionType}</div>
-                                </div>
-                            </div>
-                        </main>
-                    </article>
-                </section>
-            </Modal>
-
-            <Modal isOpen={linkedProfileModal} className="modal-content-small" overlayClassName="modal-overlay-small" closeTimeoutMS={200} >
+            {/* <Modal isOpen={linkedProfileModal} className="modal-content-small" overlayClassName="modal-overlay-small" closeTimeoutMS={200} >
                 <div className='bg-gray-100 text-white p-5 flex flex-col gap-2'>
                     <div className='text-center px-5 font-semibold flex justify-between items-center'>
                         <div className='p-3 px-4'></div>
@@ -455,7 +386,7 @@ const SingleAstrologer = () => {
                         else toaster.warning({ text: 'Please select a linked profile' });
                     }} className='bg-primary text-center py-1.5 rounded-[2px] cursor-pointer'>Select</div>
                 </div>
-            </Modal>
+            </Modal> */}
 
             {/* Download App */}
             <DownloadApp isOpen={callModal} handleCloseModal={handleCloseCallModal} />

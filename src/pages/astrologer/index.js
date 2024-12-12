@@ -10,6 +10,8 @@ import { api_urls } from '../../utils/api-urls';
 import PageHeading from '../../components/common/PageHeading';
 import TopHeaderSection from '../../components/common/TopHeaderSection';
 import * as CommonActions from '../../redux/actions/commonAction';
+import Swal from 'sweetalert2';
+import { Color } from '../../assets/colors';
 // import * as AstrologerActions from '../../redux/actions/astrologerAction';
 
 const ChatWithAstrologer = () => {
@@ -144,14 +146,30 @@ const ChatWithAstrologer = () => {
                                     <hr className='my-3' />
 
                                     <div className='flex items-center gap-2'>
-                                        <div onClick={() => navigate(`/astrologer/intake-form/${value?._id}?type=chat`)} className='flex flex-col justify-center items-center px-3 flex-1 border border-[#27AE60] rounded-[7.49px] cursor-pointer'>
+                                        <div onClick={async () => {
+                                            if (Number(userCustomerDataById?.wallet_balance) < Number(value?.chat_price) * 5) {
+                                                const result = await Swal.fire({ icon: "warning", text: "Please Recharge Your Wallet", showConfirmButton: true, timer: 20000, confirmButtonText: "Recharge", confirmButtonColor: Color.secondary, cancelButtonText: "Cancel", showCancelButton: true, cancelButtonColor: 'grey' });
+                                                if (result.isConfirmed) navigate('/recharge');
+                                            } else {
+                                                navigate(`/astrologer/intake-form/${value?._id}?type=chat`);
+                                            }
+                                        }} className='flex flex-col justify-center items-center px-3 flex-1 border border-[#27AE60] rounded-[7.49px] cursor-pointer'>
                                             <div className='text-[#27AE60] text-[13px]'>Chat</div>
                                             <div className='text-[10px]'>{value?.chat_price}/min</div>
                                         </div>
-                                        <div onClick={() => navigate(`/astrologer/intake-form/${value?._id}?type=call`)} className='flex flex-col justify-center items-center px-3 flex-1 border border-[#27AE60] rounded-[7.49px] cursor-pointer'>
+
+                                        <div onClick={async () => {
+                                            if (Number(userCustomerDataById?.wallet_balance) < Number(value?.call_price) * 5) {
+                                                const result = await Swal.fire({ icon: "warning", text: "Please Recharge Your Wallet", showConfirmButton: true, timer: 20000, confirmButtonText: "Recharge", confirmButtonColor: Color.secondary, cancelButtonText: "Cancel", showCancelButton: true, cancelButtonColor: 'grey' });
+                                                if (result.isConfirmed) navigate('/recharge');
+                                            } else {
+                                                navigate(`/astrologer/intake-form/${value?._id}?type=call`);
+                                            }
+                                        }} className='flex flex-col justify-center items-center px-3 flex-1 border border-[#27AE60] rounded-[7.49px] cursor-pointer'>
                                             <div className='text-[#27AE60] text-[13px]'>Call</div>
                                             <div className='text-[10px]'>{value?.call_price}/min</div>
                                         </div>
+
                                         <div onClick={() => dispatch(CommonActions?.openDownloadOurAppModal())} className='flex flex-col justify-center items-center px-3 flex-1 border border-[#27AE60] rounded-[7.49px] cursor-pointer'>
                                             <div className='text-[#27AE60] text-[13px]'>Video</div>
                                             <div className='text-[10px]'>{value?.normal_video_call_price}/min</div>
