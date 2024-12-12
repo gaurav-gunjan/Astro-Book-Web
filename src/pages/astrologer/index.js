@@ -1,17 +1,18 @@
 import axios from 'axios';
+import Swal from 'sweetalert2';
 import ReactStars from 'react-stars';
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
-import { IndianRupee } from '../../utils/common-function';
+import { Color } from '../../assets/colors';
 import { SearchSvg } from '../../assets/svg';
 import { api_urls } from '../../utils/api-urls';
+import { IndianRupee } from '../../utils/common-function';
+import { toaster } from '../../utils/services/toast-service';
 import PageHeading from '../../components/common/PageHeading';
 import TopHeaderSection from '../../components/common/TopHeaderSection';
 import * as CommonActions from '../../redux/actions/commonAction';
-import Swal from 'sweetalert2';
-import { Color } from '../../assets/colors';
 // import * as AstrologerActions from '../../redux/actions/astrologerAction';
 
 const ChatWithAstrologer = () => {
@@ -38,7 +39,6 @@ const ChatWithAstrologer = () => {
 
             // setAstrologerData((prevData) => [...prevData, ...newData]); //! Append new data to the existing data
             setAstrologerData((prevData) => {
-                // Deduplicate by filtering out astrologers with the same ID
                 const mergedData = [...prevData, ...newData];
                 const uniqueData = mergedData.filter(
                     (astrologer, index, self) =>
@@ -119,7 +119,6 @@ const ChatWithAstrologer = () => {
 
                             <div className='border border-[#DDDDDD] rounded-md flex items-center max-sm:w-[90vw]'>
                                 <input value={search} onChange={(e) => setSearch(e?.target?.value)} type='search' placeholder='Search here..' className='outline-none px-3 py-2.5 text-[16px] max-md:text-[16px] rounded-md h-full w-[200px] max-lg:w-[200px] max-md:w-[100%]' />
-                                {/* autoFocus value={search} onChange={(e) => handleSearch(e.target.value)} */}
                                 <button className='bg-[#F1B646] border-[#F1B646] rounded-e-md flex items-center justify-center p-2 px-3 w-[50px] h-full'><SearchSvg w='20' h='20' /></button>
                             </div>
                         </div>
@@ -137,7 +136,7 @@ const ChatWithAstrologer = () => {
                                     </div>
                                     <div>
                                         <div className='line-clamp-1 text-[18px]'>{value?.astrologerName}</div>
-                                        <div className='line-clamp-1 text-[12px]'>{value?.email}</div>
+                                        {/* <div className='line-clamp-1 text-[12px]'>{value?.email}</div> */}
                                         <div className='line-clamp-1 text-[13.24px] text-[#828282]'>Exp :  {value?.experience} Years</div>
                                         <div className='line-clamp-1 text-[13.24px] text-[#828282]'>{value?.language.length > 0 ? value?.language.join(', ') : "Hindi"}</div>
                                         <div className='line-clamp-1 text-[13.24px] text-[#828282]'>{value?.skill?.length > 0 && value?.skill?.map(item => item?.skill)?.join(' , ')}</div>
@@ -151,7 +150,21 @@ const ChatWithAstrologer = () => {
                                                 const result = await Swal.fire({ icon: "warning", text: "Please Recharge Your Wallet", showConfirmButton: true, timer: 20000, confirmButtonText: "Recharge", confirmButtonColor: Color.secondary, cancelButtonText: "Cancel", showCancelButton: true, cancelButtonColor: 'grey' });
                                                 if (result.isConfirmed) navigate('/recharge');
                                             } else {
-                                                navigate(`/astrologer/intake-form/${value?._id}?type=chat`);
+                                                if (!("Notification" in window)) {
+                                                    alert("This browser does not support desktop notifications.");
+                                                } else if (Notification.permission === "granted") {
+                                                    if (userCustomerDataById) {
+                                                        navigate(`/astrologer/intake-form/${value?._id}?type=chat`);
+                                                    } else {
+                                                        toaster.info({ text: 'Please login as a customer' })
+                                                    }
+                                                } else if (Notification.permission === "denied") {
+                                                    alert("You have blocked notifications. Please enable them in your browser settings.");
+
+                                                } else if (Notification.permission === "default") {
+                                                    console.log('Requesting Notification Permission');
+                                                    await Notification.requestPermission();
+                                                }
                                             }
                                         }} className='flex flex-col justify-center items-center px-3 flex-1 border border-[#27AE60] rounded-[7.49px] cursor-pointer'>
                                             <div className='text-[#27AE60] text-[13px]'>Chat</div>
@@ -163,7 +176,21 @@ const ChatWithAstrologer = () => {
                                                 const result = await Swal.fire({ icon: "warning", text: "Please Recharge Your Wallet", showConfirmButton: true, timer: 20000, confirmButtonText: "Recharge", confirmButtonColor: Color.secondary, cancelButtonText: "Cancel", showCancelButton: true, cancelButtonColor: 'grey' });
                                                 if (result.isConfirmed) navigate('/recharge');
                                             } else {
-                                                navigate(`/astrologer/intake-form/${value?._id}?type=call`);
+                                                if (!("Notification" in window)) {
+                                                    alert("This browser does not support desktop notifications.");
+                                                } else if (Notification.permission === "granted") {
+                                                    if (userCustomerDataById) {
+                                                        navigate(`/astrologer/intake-form/${value?._id}?type=call`);
+                                                    } else {
+                                                        toaster.info({ text: 'Please login as a customer' })
+                                                    }
+                                                } else if (Notification.permission === "denied") {
+                                                    alert("You have blocked notifications. Please enable them in your browser settings.");
+
+                                                } else if (Notification.permission === "default") {
+                                                    console.log('Requesting Notification Permission');
+                                                    await Notification.requestPermission();
+                                                }
                                             }
                                         }} className='flex flex-col justify-center items-center px-3 flex-1 border border-[#27AE60] rounded-[7.49px] cursor-pointer'>
                                             <div className='text-[#27AE60] text-[13px]'>Call</div>

@@ -20,9 +20,9 @@ const IntakeForm = () => {
     const { userCustomerDataById } = useSelector(state => state?.userReducer);
     const { astrologerDataById } = useSelector(state => state?.astrologerReducer);
 
+    const autocompleteRef = useRef(null);
     const [connectionType, setConnectionType] = useState(type);
     const [chatIntakeDetail, setChatIntakeDetail] = useState({ isNewProfile: true, first_name: userCustomerDataById?.customerName?.split(' ')[0] || '', last_name: userCustomerDataById?.customerName?.split(' ')[1] || '', gender: userCustomerDataById?.gender || '', date_of_birth: moment(userCustomerDataById?.dateOfBirth)?.format('YYYY-MM-DD') || '', time_of_birth: moment(userCustomerDataById?.timeOfBirth)?.format('HH:mm') || '', place_of_birth: userCustomerDataById?.address?.birthPlace || '', marital_status: '', type_of_concern: '', latitude: userCustomerDataById?.address?.latitude || '', longitude: userCustomerDataById?.address?.longitude || '', description: 'Description' });
-    const autocompleteRef = useRef(null);
 
     const handleChatIntakeDetail = (e) => setChatIntakeDetail({ ...chatIntakeDetail, [e.target?.name]: e.target?.value }) //* Handle Input : Chat Intake Form Data
 

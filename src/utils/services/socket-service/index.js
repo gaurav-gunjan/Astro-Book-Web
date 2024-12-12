@@ -7,14 +7,15 @@ const SOCKET_URL = api_urls;
 
 class SocketService {
 
-    static initializeSocket = async (dispatch, navigate) => {
+    static initializeSocket = async (dispatch, navigate, userId) => {
         try {
             this.socket = io(SOCKET_URL, {
                 transports: ['websocket'],
-                reconnection: true,                // Enable reconnection
-                reconnectionAttempts: Infinity,    // Retry indefinitely
-                reconnectionDelay: 1000,           // 1 second delay between reconnections
-                reconnectionDelayMax: 5000,        // Max delay of 5 seconds
+                query: { userId },
+                reconnection: true,
+                reconnectionAttempts: Infinity,
+                reconnectionDelay: 1000,
+                reconnectionDelayMax: 5000,
                 timeout: 20000,
             });
 

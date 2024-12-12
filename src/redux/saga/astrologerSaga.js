@@ -49,7 +49,7 @@ function* getAstrologerReviewById(action) {
         const { payload } = action;
 
         const { data } = yield postAPI(get_astrologer_review_by_id, payload);
-        if (data?.success) yield put({ type: actionTypes.SET_ASTROLOGER_REVIEW_BY_ID, payload: data?.reviews });
+        if (data?.success) yield put({ type: actionTypes.SET_ASTROLOGER_REVIEW_BY_ID, payload: data?.reviews?.reverse() });
 
     } catch (error) {
         yield put({ type: actionTypes.SET_ASTROLOGER_REVIEW_BY_ID, payload: [] });

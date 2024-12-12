@@ -1,28 +1,20 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useNavigate } from 'react-router-dom';
-import moment from 'moment';
+import Swal from 'sweetalert2';
 import Modal from 'react-modal';
 import ReactStars from 'react-stars';
-import { toast } from 'react-toastify';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
-import RadioButton from '../../../components/button/RadioButton';
-import { CallSvg, ChatSvg, CrossSvg, RightArrowHeadSvg, RightArrowSvg, StarSvg, SyncSvg, VerifySvg } from '../../../assets/svg';
-import { api_urls } from '../../../utils/api-urls';
-import { DateDifference, IndianRupee, ParseDateTime, YYYYMMDD } from '../../../utils/common-function';
-import * as ChatActions from '../../../redux/actions/chatAction';
-import * as AstrologerActions from '../../../redux/actions/astrologerAction';
-import Swal from 'sweetalert2';
-import DownloadApp from '../../../components/features/DownloadApp';
-import OnlinePing from '../../../components/features/OnlinePing';
-import OfflinePing from '../../../components/features/OfflinePing';
 import { Color } from '../../../assets/colors';
-import TopHeaderSection from '../../../components/common/TopHeaderSection';
-import { Autocomplete } from '@react-google-maps/api';
+import { api_urls } from '../../../utils/api-urls';
+import { IndianRupee } from '../../../utils/common-function';
 import { toaster } from '../../../utils/services/toast-service';
-import AstrologerGallerySwiper from '../../../components/swiper/AstrologerGallerySwiper';
-import '../../../assets/css/swiper.css';
+import { CallSvg, ChatSvg, RightArrowHeadSvg } from '../../../assets/svg';
 import RecordNotFound from '../../../components/features/RecordNotFound';
+import TopHeaderSection from '../../../components/common/TopHeaderSection';
+import AstrologerGallerySwiper from '../../../components/swiper/AstrologerGallerySwiper';
+import * as AstrologerActions from '../../../redux/actions/astrologerAction';
+import '../../../assets/css/swiper.css';
 
 Modal.setAppElement('#root');
 
@@ -34,162 +26,13 @@ const SingleAstrologer = () => {
 
     const dispatch = useDispatch();
     const { isLoading } = useSelector(state => state?.commonReducer);
-    const { astrologerDataById, astrologerReviewDataById } = useSelector(state => state?.astrologerReducer);
-    const reversedAstrologerReviewData = [...astrologerReviewDataById].reverse();
-    const { linkedProfileData } = useSelector(state => state?.chatReducer);
     const { userCustomerDataById } = useSelector(state => state?.userReducer);
+    const { astrologerDataById, astrologerReviewDataById } = useSelector(state => state?.astrologerReducer);
+
     const [isReadMore, setIsReadMore] = useState(false);
     const [slidesPerView, setSlidesPerView] = useState(4); //! For Swiper Slider 
 
-    //! Call Modal 
-    const [callModal, setCallModal] = useState(false);
-    const handleOpenCallModal = () => setCallModal(true);
-    const handleCloseCallModal = () => setCallModal(false);
-
-    // TODO : Linked profile
-    const [linkedProfileModal, setLinkedProfileModal] = useState(false);
-    const handleOpenLinkedProfileModal = () => setLinkedProfileModal(true);
-    const [selectedLinkedProfileData, setSelectedLinkedProfileData] = useState(null);
-
-    //* Handle Select : Linked Profile Data
-    const handleSelectedLinkedProfileData = (data) => {
-        setChatIntakeDetail({
-            isNewProfile: false, first_name: data?.firstName, last_name: data?.lastName, gender: data?.gender, date_of_birth: moment(data?.dateOfBirth).format('YYYY-MM-DD'), time_of_birth: moment(data?.timeOfBirth).format('HH:mm'), place_of_birth: data?.placeOfBirth, marital_status: data?.maritalStatus, type_of_concern: data?.topic_of_concern, latitude: data?.latitude, longitude: data?.longitude, description: data?.description
-        })
-        setSelectedLinkedProfileData(data);
-    };
-
-    // TODO : Chat Intake Form 
-    const [connectionType, setConnectionType] = useState(false);
-    const [chatIntakeFormModal, setChatIntakeFormModal] = useState(false);
-    const handleOpenChatIntakeFormModal = async (type) => {
-        if (!("Notification" in window)) {
-            alert("This browser does not support desktop notifications.");
-        } else if (Notification.permission === "granted") {
-            if (userCustomerDataById) {
-                setChatIntakeFormModal(true);
-                setConnectionType(type);
-            } else {
-                toaster.info({ text: 'Please login as a customer' })
-            }
-        } else if (Notification.permission === "denied") {
-            alert("You have blocked notifications. Please enable them in your browser settings.");
-
-        } else if (Notification.permission === "default") {
-            console.log('Requesting Notification Permission');
-            const permission = await Notification.requestPermission();
-        }
-    };
-
-    const handleCloseChatIntakeFormModal = () => {
-        setChatIntakeFormModal(false);
-        setChatIntakeDetail({
-            isNewProfile: true, first_name: '', last_name: '', gender: '', date_of_birth: '', time_of_birth: '', place_of_birth: '', marital_status: '', type_of_concern: '', latitude: '20.5937', longitude: '78.9629', description: ''
-        })
-        setSelectedLinkedProfileData({})
-    };
-
-    const [chatIntakeDetail, setChatIntakeDetail] = useState({
-        isNewProfile: true, first_name: '', last_name: '', gender: '', date_of_birth: '', time_of_birth: '', place_of_birth: '', marital_status: '', type_of_concern: '', latitude: '', longitude: '', description: ''
-    });
-    const autocompleteRef = useRef(null);
-
-    //* Handle Input : Chat Intake Form Data
-    const handleChatIntakeDetail = (e) => {
-        const { name, value } = e.target;
-        setChatIntakeDetail({ ...chatIntakeDetail, [name]: value })
-    };
-
-    const handlePlaceSelect = () => {
-        const place = autocompleteRef.current.getPlace();
-        if (place) {
-            const location = place.geometry.location;
-            setChatIntakeDetail({
-                ...chatIntakeDetail,
-                place_of_birth: place.formatted_address,
-                latitude: location.lat(),
-                longitude: location.lng(),
-            });
-        }
-    };
-
-    //* Handle Validation For Intake Form Data
-    const handleValidation = () => {
-        const { first_name, last_name, gender, date_of_birth, time_of_birth, place_of_birth, marital_status, type_of_concern, description, latitude, longitude } = chatIntakeDetail;
-
-        let isValid = true;
-
-        if (!first_name) {
-            toast.error('Please Enter First Name')
-            return isValid = false
-        }
-        if (!last_name) {
-            toast.error('Please Enter Last Name')
-            return isValid = false
-        }
-        if (!gender) {
-            toast.error('Please Select Gender')
-            return isValid = false
-        }
-        if (!date_of_birth) {
-            toast.error('Please Enter Date Of Birth')
-            return isValid = false
-        }
-        if (!time_of_birth) {
-            toast.error('Please Enter Time Of Birth')
-            return isValid = false
-        }
-        if (!place_of_birth) {
-            toast.error('Please Enter Place Of Birth')
-            return isValid = false
-        }
-        if (!marital_status) {
-            toast.error('Please Select Marital Status')
-            return isValid = false
-        }
-        if (!type_of_concern) {
-            toast.error('Please Select Type Of Concern')
-            return isValid = false
-        }
-        if (!description) {
-            toast.error('Please Enter Description')
-            return isValid = false
-        }
-
-        return isValid;
-    }
-
-    //! Handle Submit : Chat Intake Form Data
-    const handleSubmitChatIntakeForm = async () => {
-        console.log({ ...chatIntakeDetail });
-
-        if (handleValidation()) {
-            const { isNewProfile, first_name, last_name, gender, date_of_birth, time_of_birth, place_of_birth, marital_status, type_of_concern, description, latitude, longitude } = chatIntakeDetail;
-
-            const payload = {
-                isNewProfile: isNewProfile,
-                profileData: { firstName: first_name, lastName: last_name, gender: gender, dateOfBirth: date_of_birth, timeOfBirth: ParseDateTime(date_of_birth, time_of_birth), placeOfBirth: place_of_birth, maritalStatus: marital_status, topic_of_concern: type_of_concern, latitude, longitude, description },
-                selectedProfileId: selectedLinkedProfileData?._id ?? null,
-                chatPrice: Number(astrologerDataById?.chat_price) + Number(astrologerDataById?.commission_chat_price),
-                astrologerId: astrologerId,
-                // type: astrologerDataById?.type,
-                type: connectionType,
-                onComplete: () => {
-                    handleCloseChatIntakeFormModal();
-                    navigate('/astrologer');
-                }
-            }
-            console.log("Payload ::: ", payload);
-
-            //! Dispatch Chat Request : Send By Customer 
-            dispatch(ChatActions.chatRequestSendByCustomer(payload));
-        }
-    };
-
     useEffect(() => {
-        //! Dispatching API For Getting Single Astrologer
-        dispatch(ChatActions.getLinkedProfileForChat({ customerId: localStorage.getItem('current_user_id') }));
-
         //! Dispatching API For Getting Single Astrologer
         dispatch(AstrologerActions.getAstrologerById({ astrologerId }));
 
@@ -289,7 +132,21 @@ const SingleAstrologer = () => {
                                                 const result = await Swal.fire({ icon: "warning", text: "Please Recharge Your Wallet", showConfirmButton: true, timer: 20000, confirmButtonText: "Recharge", confirmButtonColor: Color.primary, cancelButtonText: "Cancel", showCancelButton: true, cancelButtonColor: Color.darkgrey });
                                                 if (result.isConfirmed) navigate('/recharge');
                                             } else {
-                                                navigate(`/astrologer/intake-form/${astrologerDataById?._id}?type=call`);
+                                                if (!("Notification" in window)) {
+                                                    alert("This browser does not support desktop notifications.");
+                                                } else if (Notification.permission === "granted") {
+                                                    if (userCustomerDataById) {
+                                                        navigate(`/astrologer/intake-form/${astrologerDataById?._id}?type=call`);
+                                                    } else {
+                                                        toaster.info({ text: 'Please login as a customer' })
+                                                    }
+                                                } else if (Notification.permission === "denied") {
+                                                    alert("You have blocked notifications. Please enable them in your browser settings.");
+
+                                                } else if (Notification.permission === "default") {
+                                                    console.log('Requesting Notification Permission');
+                                                    await Notification.requestPermission();
+                                                }
                                             }
                                         }} disabled={astrologerDataById?.call_status != "online"} className={`flex items-center gap-2 bg-secondary text-black px-2 py-[7px] rounded-full w-[280px] ${astrologerDataById?.call_status != "online" && 'cursor-not-allowed'}`}><div className='bg-white p-2 rounded-full'><CallSvg h='25' w='25' /></div> <div className='line-clamp-1 text-center flex-1 pr-5'>Start Call</div></button>
 
@@ -298,7 +155,21 @@ const SingleAstrologer = () => {
                                                 const result = await Swal.fire({ icon: "warning", text: "Please Recharge Your Wallet", showConfirmButton: true, timer: 20000, confirmButtonText: "Recharge", confirmButtonColor: Color.primary, cancelButtonText: "Cancel", showCancelButton: true, cancelButtonColor: Color.darkgrey });
                                                 if (result.isConfirmed) navigate('/recharge');
                                             } else {
-                                                navigate(`/astrologer/intake-form/${astrologerDataById?._id}?type=chat`);
+                                                if (!("Notification" in window)) {
+                                                    alert("This browser does not support desktop notifications.");
+                                                } else if (Notification.permission === "granted") {
+                                                    if (userCustomerDataById) {
+                                                        navigate(`/astrologer/intake-form/${astrologerDataById?._id}?type=chat`);
+                                                    } else {
+                                                        toaster.info({ text: 'Please login as a customer' })
+                                                    }
+                                                } else if (Notification.permission === "denied") {
+                                                    alert("You have blocked notifications. Please enable them in your browser settings.");
+
+                                                } else if (Notification.permission === "default") {
+                                                    console.log('Requesting Notification Permission');
+                                                    await Notification.requestPermission();
+                                                }
                                             }
                                         }} disabled={astrologerDataById?.chat_status != "online"} className={`flex items-center gap-2 bg-secondary text-black px-2 py-[7px] rounded-full w-[280px] ${astrologerDataById?.chat_status != "online" && 'cursor-not-allowed'}`}><div className='bg-white p-2 rounded-full'><ChatSvg h='25' w='25' /></div> <div className='line-clamp-1 text-center flex-1 pr-5'>Start Chat</div></button>
                                     </div>
@@ -339,7 +210,7 @@ const SingleAstrologer = () => {
                                 <div className='font-semibold'>User Review</div>
                                 <div className='rounded-lg p-5 flex flex-col gap-4 bg-[#F8F8F8]'>
                                     <main className='flex flex-col gap-3'>
-                                        {reversedAstrologerReviewData.length > 0 ? reversedAstrologerReviewData.map((value, index) => (
+                                        {astrologerReviewDataById.length > 0 ? astrologerReviewDataById.map((value, index) => (
                                             <main key={index} className='bg-white rounded-lg p-5 flex flex-col gap-2'>
                                                 <div className='flex justify-between'>
                                                     <div className='flex gap-4 items-center'>
@@ -387,9 +258,6 @@ const SingleAstrologer = () => {
                     }} className='bg-primary text-center py-1.5 rounded-[2px] cursor-pointer'>Select</div>
                 </div>
             </Modal> */}
-
-            {/* Download App */}
-            <DownloadApp isOpen={callModal} handleCloseModal={handleCloseCallModal} />
         </>
     )
 }
