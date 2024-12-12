@@ -124,18 +124,18 @@ const Header = () => {
                         <div className='flex items-center gap-5'>
                             <nav className='flex flex-col gap-2 items-end max-lg:hidden'>
                                 <div className='flex items-center gap-[30px]'>
-                                    <NavLink to="/free-kundli" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-black" : "text-black"}>Free Kundli</NavLink>
-                                    <NavLink to="/kundli-matching" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-black" : "text-black"}>Kundli Matching</NavLink>
-                                    <NavLink to="/horoscope/daily" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-black" : "text-black"}>Horoscope</NavLink>
+                                    <NavLink to="/free-kundli" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-secondary" : "text-black"}>Free Kundli</NavLink>
+                                    <NavLink to="/kundli-matching" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-secondary" : "text-black"}>Kundli Matching</NavLink>
+                                    <NavLink to="/horoscope/daily" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-secondary" : "text-black"}>Horoscope</NavLink>
+                                    {!userCustomerDataById && !userAstrologerDataById && <div onClick={handleOpenLoginCustomerModal} className='flex items-center gap-1.5 cursor-pointer bg-[#F1B646] px-3.5 py-1 rounded-full'><div className='-mt-1'><PersonSvg /></div><div>Login</div></div>}
                                 </div>
                                 <div className='flex items-center gap-[30px]'>
-                                    <NavLink to="/astrologer" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-black" : "text-black"}>Talk to Astrologer</NavLink>
-                                    {userCustomerDataById ? <NavLink to="/book-puja" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-black" : "text-black"}>Book Puja</NavLink> : <NavLink to="/register-puja" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-black" : "text-black"}>Register Puja</NavLink>}
-                                    <NavLink to="/astro-mall" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-black" : "text-black"}>Astromall</NavLink>
-                                    <NavLink to="" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-black" : "text-black"}>Astrotalk Store</NavLink>
+                                    <NavLink to="/astrologer" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-secondary" : "text-black"}>Talk to Astrologer</NavLink>
+                                    {userCustomerDataById ? <NavLink to="/book-puja" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-secondary" : "text-black"}>Book Puja</NavLink> : <NavLink to="/register-puja" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-secondary" : "text-black"}>Register Puja</NavLink>}
+                                    <NavLink to="/astro-mall" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-secondary" : "text-black"}>Astroshop</NavLink>
+                                    <div className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-secondary" : "text-black"}>Astrotalk Store</div>
                                 </div>
                             </nav>
-                            {!userCustomerDataById && !userAstrologerDataById && <div onClick={handleOpenLoginCustomerModal} className='flex items-center gap-1.5 cursor-pointer bg-[#F1B646] px-3.5 py-1 rounded-full'><div className='-mt-1'><PersonSvg /></div><div>Login</div></div>}
 
                             {userAstrologerDataById &&
                                 <div className='group relative text-black'>
