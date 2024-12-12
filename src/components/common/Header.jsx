@@ -116,68 +116,68 @@ const Header = () => {
 
     return (
         <>
-            <header className={`bg-primary text-white fixed w-full z-[1000] top-0 transition-all duration-300 text-[15px] font-normal`}>
+            <header className={`bg-white text-black fixed w-full z-[1000] top-0 transition-all duration-300 text-[16px] font-normal shadow-md`}>
                 <article>
                     <main className='flex flex-wrap justify-between items-center gap-5 relative z-10 px-[80px] max-md:px-[20px] py-[15px]'>
                         <Link to={'/'} ><img className='h-16 max-lg:h-10' src={Logo} /></Link>
 
-                        <nav className='flex flex-col gap-2 items-end max-lg:hidden'>
-                            <div className='flex items-center gap-[30px]'>
-                                <NavLink to="/free-kundli" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-white" : "text-white"}>Free Kundli</NavLink>
-                                <NavLink to="/kundli-matching" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-white" : "text-white"}>Kundli Matching</NavLink>
-                                <NavLink to="/horoscope/daily" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-white" : "text-white"}>Horoscope</NavLink>
-                                <NavLink to="" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-white" : "text-white"}>Eng</NavLink>
-                                {!userCustomerDataById && !userAstrologerDataById && <div onClick={handleOpenLoginCustomerModal} className='flex items-center gap-1.5 cursor-pointer bg-[#F1B646] px-3.5 py-1 rounded-full'><div className='-mt-1'><PersonSvg /></div><div>Login</div></div>}
+                        <div className='flex items-center gap-5'>
+                            <nav className='flex flex-col gap-2 items-end max-lg:hidden'>
+                                <div className='flex items-center gap-[30px]'>
+                                    <NavLink to="/free-kundli" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-black" : "text-black"}>Free Kundli</NavLink>
+                                    <NavLink to="/kundli-matching" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-black" : "text-black"}>Kundli Matching</NavLink>
+                                    <NavLink to="/horoscope/daily" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-black" : "text-black"}>Horoscope</NavLink>
+                                </div>
+                                <div className='flex items-center gap-[30px]'>
+                                    <NavLink to="/astrologer" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-black" : "text-black"}>Talk to Astrologer</NavLink>
+                                    {userCustomerDataById ? <NavLink to="/book-puja" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-black" : "text-black"}>Book Puja</NavLink> : <NavLink to="/register-puja" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-black" : "text-black"}>Register Puja</NavLink>}
+                                    <NavLink to="/astro-mall" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-black" : "text-black"}>Astromall</NavLink>
+                                    <NavLink to="" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-black" : "text-black"}>Astrotalk Store</NavLink>
+                                </div>
+                            </nav>
+                            {!userCustomerDataById && !userAstrologerDataById && <div onClick={handleOpenLoginCustomerModal} className='flex items-center gap-1.5 cursor-pointer bg-[#F1B646] px-3.5 py-1 rounded-full'><div className='-mt-1'><PersonSvg /></div><div>Login</div></div>}
 
-                                {userAstrologerDataById &&
-                                    <div className='group relative text-black'>
-                                        <div className='flex items-center gap-1 cursor-pointer'>{userAstrologerDataById?.profileImage ? <img src={api_urls + userAstrologerDataById?.profileImage} className='h-9 w-9 rounded-full' /> : <ProfileSvg />}</div>
+                            {userAstrologerDataById &&
+                                <div className='group relative text-black'>
+                                    <div className='flex items-center gap-1 cursor-pointer'>{userAstrologerDataById?.profileImage ? <img src={api_urls + userAstrologerDataById?.profileImage} className='h-9 w-9 rounded-full' /> : <ProfileSvg />}</div>
 
-                                        <div className='font-normal absolute overflow-hidden top-[85px] right-0 bg-white w-52 h-0 rounded-lg group-hover:h-[390px] transition-all duration-500 ease-in group-hover:border-b-[5px] group-hover:border-t border-primary shadow-2xl'>
-                                            <div className='flex flex-col items-center gap-1.5 py-5'>
-                                                {userAstrologerDataById?.profileImage ? <img src={api_urls + userAstrologerDataById?.profileImage} className='h-11 w-11 rounded-full' /> : <ProfileSvg h='40' w='40' />}
-                                                <div className='text-[16px]'>{userAstrologerDataById?.astrologerName}</div>
-                                                <div className='text-sm'>XXXXXX{userAstrologerDataById?.phoneNumber?.toString()?.substring(6, 10)}</div>
-                                            </div>
-                                            <div onClick={() => navigate('/astrologer-dashboard/my-account')} className='flex items-center gap-3 border-t py-2 px-5 cursor-pointer'><div>My Account</div></div>
-                                            <div onClick={() => navigate('/astrologer-dashboard/wallet-history')} className='flex items-center gap-3 border-t py-2 px-5 cursor-pointer'><div>Wallet History</div></div>
-                                            <div onClick={() => navigate('/astrologer-dashboard/transaction-history')} className='flex items-center gap-3 border-t py-2 px-5 cursor-pointer'><div>Transaction History</div></div>
-                                            <div onClick={() => navigate('/astrologer-dashboard/register-puja-history')} className='flex items-center gap-3 border-t py-2 px-5 cursor-pointer'><div>Register Puja History</div></div>
-                                            <div onClick={() => navigate('/astrologer-dashboard/book-puja-history')} className='flex items-center gap-3 border-t py-2 px-5 cursor-pointer'><div>Book Puja History</div></div>
-                                            <div onClick={() => dispatch(AuthActions.userLogout({ onComplete: () => navigate('/') }))} className='flex items-center gap-3 border-t py-2 px-5 cursor-pointer'><div>Logout</div></div>
+                                    <div className='font-normal absolute overflow-hidden top-[85px] right-0 bg-white w-52 h-0 rounded-lg group-hover:h-[390px] transition-all duration-500 ease-in group-hover:border-b-[5px] group-hover:border-t border-primary shadow-2xl'>
+                                        <div className='flex flex-col items-center gap-1.5 py-5'>
+                                            {userAstrologerDataById?.profileImage ? <img src={api_urls + userAstrologerDataById?.profileImage} className='h-11 w-11 rounded-full' /> : <ProfileSvg h='40' w='40' />}
+                                            <div className='text-[16px]'>{userAstrologerDataById?.astrologerName}</div>
+                                            <div className='text-sm'>XXXXXX{userAstrologerDataById?.phoneNumber?.toString()?.substring(6, 10)}</div>
                                         </div>
+                                        <div onClick={() => navigate('/astrologer-dashboard/my-account')} className='flex items-center gap-3 border-t py-2 px-5 cursor-pointer'><div>My Account</div></div>
+                                        <div onClick={() => navigate('/astrologer-dashboard/wallet-history')} className='flex items-center gap-3 border-t py-2 px-5 cursor-pointer'><div>Wallet History</div></div>
+                                        <div onClick={() => navigate('/astrologer-dashboard/transaction-history')} className='flex items-center gap-3 border-t py-2 px-5 cursor-pointer'><div>Transaction History</div></div>
+                                        <div onClick={() => navigate('/astrologer-dashboard/register-puja-history')} className='flex items-center gap-3 border-t py-2 px-5 cursor-pointer'><div>Register Puja History</div></div>
+                                        <div onClick={() => navigate('/astrologer-dashboard/book-puja-history')} className='flex items-center gap-3 border-t py-2 px-5 cursor-pointer'><div>Book Puja History</div></div>
+                                        <div onClick={() => dispatch(AuthActions.userLogout({ onComplete: () => navigate('/') }))} className='flex items-center gap-3 border-t py-2 px-5 cursor-pointer'><div>Logout</div></div>
                                     </div>
-                                }
+                                </div>
+                            }
 
-                                {userCustomerDataById &&
-                                    <div className='group relative text-black'>
-                                        <div className='flex items-center gap-1 cursor-pointer text-white'>{userCustomerDataById?.image ? <img src={api_urls + 'uploads/' + userCustomerDataById?.image} className='h-9 w-9 object-contain rounded-full bg-gray-100' /> : <ProfileSvg />}</div>
+                            {userCustomerDataById &&
+                                <div className='group relative text-black'>
+                                    <div className='flex items-center gap-1 cursor-pointer text-black'>{userCustomerDataById?.image ? <img src={api_urls + 'uploads/' + userCustomerDataById?.image} className='h-14 w-14 object-contain rounded-full bg-secondary shadow-md' /> : <ProfileSvg />}</div>
 
-                                        <div className='font-normal absolute overflow-hidden top-[85px] right-0 bg-white w-52 h-0 rounded-lg group-hover:h-[430px] transition-all duration-500 ease-in group-hover:border-b-[5px] group-hover:border-t border-primary shadow-2xl'>
-                                            <div className='flex flex-col items-center gap-1.5 py-5'>
-                                                {userCustomerDataById?.image ? <img src={api_urls + 'uploads/' + userCustomerDataById?.image} className='h-11 w-11 object-contain rounded-full bg-gray-100' /> : <ProfileSvg h='40' w='40' />}
-                                                <div className='text-[16px]'>{userCustomerDataById?.customerName}</div>
-                                                <div className='text-sm'>XXXXXX{userCustomerDataById?.phoneNumber?.toString()?.substring(6, 10)}</div>
-                                            </div>
-                                            <div onClick={() => navigate('/my-account?active-tab=update-profile')} className='flex items-center gap-3 border-t py-2 px-5 cursor-pointer'><div>My Account</div></div>
-                                            <div onClick={() => navigate('/wallet-history')} className='flex items-center gap-3 border-t py-2 px-5 cursor-pointer'><div>My Wallet</div></div>
-                                            <div onClick={() => navigate('/transaction-history')} className='flex items-center gap-3 border-t py-2 px-5 cursor-pointer'><div>My Transaction</div></div>
-                                            <div onClick={() => navigate('/my-order?active-tab=order-history')} className='flex items-center gap-3 border-t py-2 px-5 cursor-pointer'><div>My Order</div></div>
-                                            <div onClick={() => navigate('/astro-mall')} className='flex items-center gap-3 border-t py-2 px-5 cursor-pointer'><div>Astromall</div></div>
-                                            <div onClick={() => navigate('/book-puja')} className='flex items-center gap-3 border-t py-2 px-5 cursor-pointer'><div>Book Puja</div></div>
-                                            <div onClick={() => dispatch(AuthActions.userLogout({ onComplete: () => navigate('/') }))} className='flex items-center gap-3 border-t py-2 px-5 cursor-pointer'><div>Logout</div></div>
+                                    <div className='font-normal absolute overflow-hidden top-[85px] right-0 bg-white w-52 h-0 rounded-lg group-hover:h-[430px] transition-all duration-500 ease-in group-hover:border-b-[5px] group-hover:border-t border-primary shadow-2xl'>
+                                        <div className='flex flex-col items-center gap-1.5 py-5'>
+                                            {userCustomerDataById?.image ? <img src={api_urls + 'uploads/' + userCustomerDataById?.image} className='h-11 w-11 object-contain rounded-full bg-gray-100' /> : <ProfileSvg h='40' w='40' />}
+                                            <div className='text-[16px]'>{userCustomerDataById?.customerName}</div>
+                                            <div className='text-sm'>XXXXXX{userCustomerDataById?.phoneNumber?.toString()?.substring(6, 10)}</div>
                                         </div>
+                                        <div onClick={() => navigate('/my-account?active-tab=update-profile')} className='flex items-center gap-3 border-t py-2 px-5 cursor-pointer'><div>My Account</div></div>
+                                        <div onClick={() => navigate('/wallet-history')} className='flex items-center gap-3 border-t py-2 px-5 cursor-pointer'><div>My Wallet</div></div>
+                                        <div onClick={() => navigate('/transaction-history')} className='flex items-center gap-3 border-t py-2 px-5 cursor-pointer'><div>My Transaction</div></div>
+                                        <div onClick={() => navigate('/my-order?active-tab=order-history')} className='flex items-center gap-3 border-t py-2 px-5 cursor-pointer'><div>My Order</div></div>
+                                        <div onClick={() => navigate('/astro-mall')} className='flex items-center gap-3 border-t py-2 px-5 cursor-pointer'><div>Astromall</div></div>
+                                        <div onClick={() => navigate('/book-puja')} className='flex items-center gap-3 border-t py-2 px-5 cursor-pointer'><div>Book Puja</div></div>
+                                        <div onClick={() => dispatch(AuthActions.userLogout({ onComplete: () => navigate('/') }))} className='flex items-center gap-3 border-t py-2 px-5 cursor-pointer'><div>Logout</div></div>
                                     </div>
-                                }
-                            </div>
-                            <div className='flex items-center gap-[30px]'>
-                                <NavLink to="/astrologer" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-white" : "text-white"}>Talk to Astrologer</NavLink>
-                                {userCustomerDataById ? <NavLink to="/book-puja" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-white" : "text-white"}>Book a Puja</NavLink> : <NavLink to="/register-puja" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-white" : "text-white"}>Register Puja</NavLink>}
-                                <NavLink to="/astro-mall" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-white" : "text-white"}>Astromall</NavLink>
-                                <NavLink to="" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-white" : "text-white"}>Astrotalk Store</NavLink>
-                                <NavLink to="/blog" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-white" : "text-white"}>Blog</NavLink>
-                            </div>
-                        </nav>
+                                </div>
+                            }
+                        </div>
 
                         <div onClick={() => setShownav(!shownav)} className={`cursor-pointer lg:hidden ${shownav == true && 'invisible'}`}><HamburgerSvg h={'30'} w={'30'} /></div>
                     </main>
