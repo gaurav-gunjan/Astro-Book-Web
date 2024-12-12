@@ -236,8 +236,8 @@ const App = () => {
             </Routes>
           </ScrollToTop>
         </Suspense>
-        {location?.pathname !== '/chat' || location?.pathname !== '/astrologer/intake-form' && <NewsLetter />}
-        {location?.pathname !== '/chat' || location?.pathname !== '/astrologer/intake-form' && <Footer scrollToSection={scrollToSection} />}
+        {location?.pathname !== '/chat' && <NewsLetter />}
+        {location?.pathname !== '/chat' && <Footer scrollToSection={scrollToSection} />}
 
         <ChatInvoiceModal />
         <CallInvoiceModal />
