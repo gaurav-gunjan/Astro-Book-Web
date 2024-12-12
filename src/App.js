@@ -46,6 +46,7 @@ const AstrologerBookPujaHistory = lazy(() => import('./pages/astrologer-dashboar
 //! Astrologer
 const Astrologer = lazy(() => import('./pages/astrologer'));
 const SingleAstrologer = lazy(() => import('./pages/astrologer/name'));
+const IntakeForm = lazy(() => import('./pages/astrologer/intake-form'));
 const CustomerAcceptReject = lazy(() => import('./pages/chat/customer-accept-reject'));
 const AstrologerAcceptReject = lazy(() => import('./pages/chat/astrologer-accept-reject'));
 const Chat = lazy(() => import('./pages/chat'));
@@ -188,6 +189,7 @@ const App = () => {
               {/* Astrologer */}
               <Route path='/astrologer' element={<Astrologer />} />
               <Route path='/astrologer/:name' element={<SingleAstrologer />} />
+              <Route path='/astrologer/intake-form/:astrologerId' element={<IntakeForm />} />
               <Route path='/chat/customer-accept-reject' element={<CustomerAcceptReject />} />
               <Route path='/chat/astrologer-accept-reject' element={<AstrologerAcceptReject />} />
               <Route path='/chat' element={<Chat />} />
@@ -234,8 +236,8 @@ const App = () => {
             </Routes>
           </ScrollToTop>
         </Suspense>
-        {location?.pathname !== '/chat' && <NewsLetter />}
-        {location?.pathname !== '/chat' && <Footer scrollToSection={scrollToSection} />}
+        {location?.pathname !== '/chat' || location?.pathname !== '/astrologer/intake-form' && <NewsLetter />}
+        {location?.pathname !== '/chat' || location?.pathname !== '/astrologer/intake-form' && <Footer scrollToSection={scrollToSection} />}
 
         <ChatInvoiceModal />
         <CallInvoiceModal />

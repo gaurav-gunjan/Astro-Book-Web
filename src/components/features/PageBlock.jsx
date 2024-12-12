@@ -27,9 +27,9 @@ const PageBlock = () => {
 
     return (
         <>
-            <div className='fixed inset-0 z-[1000] bg-transparent flex justify-center items-center'>
-                <div className='bg-gray-100 px-10 py-7 shadow-2xl h-60 rounded-md border border-primary flex flex-col items-center gap-10 justify-center'>
-                    <div className='text-primary'>Please wait, astrologer will accept your request!</div>
+            <div className='fixed inset-0 z-[1000] bg-transparent flex justify-center items-end pb-5'>
+                <div className='bg-[#F1E6BE] px-10 py-5 rounded-md border border-primary flex flex-col items-center gap-2 justify-center'>
+                    <div className='text-black'>Please wait, astrologer will accept your request!</div>
                     <div>Wait till ~ {requestInitiatedByCustomer?.timer} sec</div>
                 </div>
             </div>

@@ -126,7 +126,7 @@ const ChatWithAstrologer = () => {
                     <main className='flex flex-wrap gap-[2.5%] gap-y-[40px]'>
                         {astrologerData?.map((value, index) => (
                             <div key={index} className='basis-[31.5%] max-xl:basis-[47.5%] max-xl:flex-grow max-md:basis-full flex items-center gap-[20px] rounded-xl px-2 pt-1 pb-3 capitalize' style={{ boxShadow: "0 0 10px #bdb5b5" }}>
-                                <div className='h-36 max-lg:h-32 w-36 max-lg:w-32 '><img className='h-full w-full rounded-full border border-[#F1B646]' src={api_urls + value?.profileImage} /></div>
+                                <div onClick={() => navigate(`/astrologer/${value?.astrologerName?.split(' ')[0]?.toLowerCase()}`, { state: { stateData: value } })} className='h-32 max-lg:h-32 w-32 max-lg:w-32 cursor-pointer'><img className='h-full w-full rounded-full border border-[#F1B646]' src={api_urls + value?.profileImage} /></div>
                                 <div className='flex-1'>
                                     <div className='flex flex-col items-end text-center'>
                                         <div className='text-center'><ReactStars count={5} edit={false} value={Number(value?.rating)} size={16} color2={'#ffd700'} /></div>
@@ -142,19 +142,20 @@ const ChatWithAstrologer = () => {
                                     </div>
 
                                     <hr className='my-3' />
+
                                     <div className='flex items-center gap-2'>
-                                        {['Chat', 'Call', 'Video']?.map((curr, index) => (
-                                            <div onClick={() => {
-                                                if (curr == 'Video') {
-                                                    dispatch(CommonActions?.openDownloadOurAppModal());
-                                                } else {
-                                                    navigate(`/astrologer/${value?.astrologerName?.split(' ')[0]?.toLowerCase()}`, { state: { stateData: value } })
-                                                }
-                                            }} key={index} className='flex flex-col justify-center items-center px-3 flex-1 border border-[#27AE60] rounded-[7.49px] cursor-pointer'>
-                                                <div className='text-[#27AE60] text-[13px]'>{curr}</div>
-                                                <div className='text-[10px]'>25/min</div>
-                                            </div>
-                                        ))}
+                                        <div onClick={() => navigate(`/astrologer/intake-form/${value?._id}?type=chat`)} className='flex flex-col justify-center items-center px-3 flex-1 border border-[#27AE60] rounded-[7.49px] cursor-pointer'>
+                                            <div className='text-[#27AE60] text-[13px]'>Chat</div>
+                                            <div className='text-[10px]'>{value?.chat_price}/min</div>
+                                        </div>
+                                        <div onClick={() => navigate(`/astrologer/intake-form/${value?._id}?type=call`)} className='flex flex-col justify-center items-center px-3 flex-1 border border-[#27AE60] rounded-[7.49px] cursor-pointer'>
+                                            <div className='text-[#27AE60] text-[13px]'>Call</div>
+                                            <div className='text-[10px]'>{value?.call_price}/min</div>
+                                        </div>
+                                        <div onClick={() => dispatch(CommonActions?.openDownloadOurAppModal())} className='flex flex-col justify-center items-center px-3 flex-1 border border-[#27AE60] rounded-[7.49px] cursor-pointer'>
+                                            <div className='text-[#27AE60] text-[13px]'>Video</div>
+                                            <div className='text-[10px]'>{value?.normal_video_call_price}/min</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

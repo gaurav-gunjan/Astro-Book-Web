@@ -46,7 +46,7 @@ function* chatRequestSendByCustomer(action) {
         }
         console.log('profileId', profileId);
 
-        if (payload?.type == 'Chat') {
+        if (payload?.type == 'chat') {
             const send_request = yield axios.post(api_urls + initiate_chat_message, { astrologerId: payload?.astrologerId, customerId: localStorage.getItem('current_user_id'), formId: profileId, chatPrice: payload?.chatPrice, })
             console.log('send_request', send_request?.data)
 
@@ -68,21 +68,21 @@ function* chatRequestSendByCustomer(action) {
                 yield put({ type: actionTypes.REQUEST_INITIATED_BY_CUSTOMER, payload: { initiated: true, timer: 60 } });
 
             } else {
-                Swal.fire({ icon: "error", title: 'Failed', text: send_request?.data?.message, showConfirmButton: false, timer: 2000, });
+                toaster.error({ text: send_request?.data?.message });
             }
         } else {
             const send_call_request = yield axios.post(api_urls + 'api/customers/initiate_call_with_exotel', { astrologerId: payload?.astrologerId, customerId: localStorage.getItem('current_user_id'), formId: profileId })
             console.log('send_call_request', send_call_request?.data);
 
             if (send_call_request?.data?.success) {
-                Swal.fire({ icon: "success", text: "Call Request Send Successfully", showConfirmButton: false, timer: 2000 });
+                toaster.success({ text: "Call request send successfully!!!" });
                 yield call(payload?.onComplete)
             }
         }
 
     } catch (error) {
         yield put({ type: actionTypes.SET_IS_LOADING, payload: false });
-        Swal.fire({ icon: "error", title: 'Failed', showConfirmButton: false, timer: 2000 });
+        toaster.error({ text: 'Failed to send request' })
         console.log("Get Chat Request Send By Customer Saga Error ::: ", error);
     }
 }

@@ -27,9 +27,6 @@ import RecordNotFound from '../../../components/features/RecordNotFound';
 Modal.setAppElement('#root');
 
 const SingleAstrologer = () => {
-    const { pathname } = useLocation();
-    useEffect(() => { window.scrollTo(0, 0) }, [pathname]);
-
     const navigate = useNavigate();
     const location = useLocation();
     const stateData = location?.state?.stateData;
