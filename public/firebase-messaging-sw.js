@@ -2,13 +2,13 @@ importScripts('https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js');
 importScripts('https://www.gstatic.com/firebasejs/8.10.1/firebase-messaging.js');
 
 const firebaseConfig = {
-    apiKey: "AIzaSyBxmEfOXUmA6uD6-7g_1RcKFuOrla2JPbQ",
-    authDomain: "astrofriends-9383a.firebaseapp.com",
-    databaseURL: "https://astrofriends-default-rtdb.firebaseio.com",
-    projectId: "astrofriends",
-    storageBucket: "astrofriends.appspot.com",
-    messagingSenderId: "479840149158",
-    appId: "1:479840149158:web:5b85c570ade3ed703b5e67"
+    apiKey: "AIzaSyCaWJBODsy4Iatao2cjl7QdoqyI23IG4hY",
+    authDomain: "astrobook-96d06.firebaseapp.com",
+    databaseURL: "https://astrobook-96d06-default-rtdb.firebaseio.com",
+    projectId: "astrobook-96d06",
+    storageBucket: "astrobook-96d06.firebasestorage.app",
+    messagingSenderId: "1086555677086",
+    appId: "1:1086555677086:web:33573b3a6069d103c2368f",
 };
 
 firebase.initializeApp(firebaseConfig);
