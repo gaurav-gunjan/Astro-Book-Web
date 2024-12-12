@@ -34,7 +34,7 @@
 /* Custom styles for Swiper navigation buttons */
 .swiper-button-prev,
 .swiper-button-next {
-    background-color: #FD6008;
+    background-color: #D9D9D9;
     border-radius: 50%;
     width: 40px;
     height: 40px;
@@ -46,7 +46,7 @@
 .swiper-button-prev::after,
 .swiper-button-next::after {
     font-size: 16px;
-    color: #fff;
+    color: #000;
 }
 
 .swiper-button-prev:hover,

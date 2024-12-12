@@ -1,11 +1,13 @@
 import moment from "moment";
 import { v4 as uuidv4 } from 'uuid';
 
-export const IndianRupee = (rupee) => {
+export const IndianRupee = (rupee, max = 0, min = 0) => {
 
     let Rupee = new Intl.NumberFormat('en-IN', {
         style: 'currency',
         currency: 'INR',
+        maximumFractionDigits: max,
+        minimumFractionDigits: min
     });
 
     return Rupee.format(rupee)
