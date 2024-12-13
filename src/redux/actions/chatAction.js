@@ -42,6 +42,9 @@ export const endChatMessage = payload => ({
 export const closeChatMessage = payload => ({
     type: actionTypes.CLOSE_CHAT_MESSAGE, payload,
 });
+export const hideChatMessageInputField = payload => ({
+    type: actionTypes.HIDE_CHAT_MESSAGE_INPUT_FIELD, payload,
+});
 
 //* Rest 
 export const sendChatMessage = payload => ({

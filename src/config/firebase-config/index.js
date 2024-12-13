@@ -63,7 +63,8 @@ const onMessageListener = (navigate, dispatch) => {
           console.log('For Customer', notificationData?.sent_to)
           // url = `/chat/customer-accept-reject?user_id=${notificationData.user_id}&astroID=${notificationData.astroID}&chatId=${notificationData.chatId}&astrologerName=${notificationData.astrologerName}&chatPrice=${notificationData.chatPrice}&priority=${notificationData.priority}&type=${notificationData.type}`;
           navigate(`/chat?customer=${notificationData.user_id}&astrologer=${notificationData.astroID}&chatId=${notificationData?.chatId}&profileId=${notificationData?.profileId}`, { replace: true })
-          dispatch(ChatActions?.requestInitiatedByCustomer({ initiated: false, timer: 60 }))
+          dispatch(ChatActions?.requestInitiatedByCustomer({ initiated: false, timer: 60 }));
+          dispatch(ChatActions?.hideChatMessageInputField(false));
           break;
 
         default:

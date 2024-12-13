@@ -6,6 +6,7 @@ const initialState = {
     chatTimerCountDown: 0,
     chatInvoiceData: {},
     chatInvoiceVisibility: false,
+    hideChatMessageInputField: false,
     //* Call 
     callIntakeDetailData: { visible: false, profileId: null },
     callInvoiceData: {},
@@ -31,6 +32,8 @@ const chatReducer = (state = initialState, actions) => {
             return { ...state, chatInvoiceData: payload }
         case actionTypes.SET_CHAT_INVOICE_VISIBILITY:
             return { ...state, chatInvoiceVisibility: payload }
+        case actionTypes.HIDE_CHAT_MESSAGE_INPUT_FIELD:
+            return { ...state, hideChatMessageInputField: payload }
 
         //! Call
         case actionTypes.CALL_INTAKE_DETAIL_DATA:

@@ -20,7 +20,7 @@ const Chat = () => {
     const customer_id = searchParams.get('customer');
     const astrologer_id = searchParams.get('astrologer');
     const profileId = searchParams.get('profileId');
-    const { callInvoiceVisibility, astrologerRatingVisibility } = useSelector(state => state?.chatReducer)
+    const { hideChatMessageInputField, astrologerRatingVisibility } = useSelector(state => state?.chatReducer)
 
     const [inputField, setInputField] = useState('');
 
@@ -244,12 +244,12 @@ const Chat = () => {
                     ))}
                 </div>
 
-                <div className="flex-shrink-0 p-4 bg-white border-t flex items-center">
+                {!hideChatMessageInputField && <div className="flex-shrink-0 p-4 bg-white border-t flex items-center">
                     <input type="file" accept="image/*" ref={fileInputRef} style={{ display: 'none' }} onChange={handleFileChange} />
                     <button onClick={() => fileInputRef.current.click()} className="p-2 text-primary rounded-lg"><AttachmentBtnSvg /></button>
                     <input type="text" value={inputField} placeholder="Type a message" className="flex-grow p-2 mx-2 border border-gray-300 rounded-lg outline-none" onChange={(e) => setInputField(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') { handleSend(e.target.value); e.target.value = ''; setInputField('') } }} />
                     <button onClick={() => handleSend(inputField)} className="p-2 text-primary rounded-lg"><SendBtnSvg /></button>
-                </div>
+                </div>}
 
                 <ChatImageModal visible={modalOpen} image={selectedContent?.image} handleClose={handleCloseImage} />
             </div>

@@ -98,6 +98,7 @@ function* chatRequestAcceptRejectByAstrologer(action) {
             SocketService.emit('onAstroAccept', payload?.data?.requestedData?.chatId)
             SocketService.emit('joinChatRoom', payload?.data?.requestedData?.chatId)
             yield call(payload?.onComplete);
+            yield put({ type: actionTypes.HIDE_CHAT_MESSAGE_INPUT_FIELD, payload: false });
 
             SocketService.emit('startChatTimer', payload?.data?.requestedData?.chatId) //? Started Chat Timer On Astrologer Chat Accept
             return
@@ -176,6 +177,7 @@ function* closeChatMessage(action) {
                     yield put({ type: actionTypes.SET_CHAT_TIMER_COUNTDOWN, payload: 0 });
                     yield put({ type: actionTypes.SET_CHAT_INVOICE_DATA, payload: close_chat_reponse?.data?.chatHistory });
                     yield put({ type: actionTypes.SET_CHAT_INVOICE_VISIBILITY, payload: true });
+                    yield put({ type: actionTypes.HIDE_CHAT_MESSAGE_INPUT_FIELD, payload: true });
                     yield put({ type: actionTypes.GET_USER_CUSTOMER_BY_ID, payload: { customerId: localStorage.getItem('current_user_id') } });
                 }
             }
