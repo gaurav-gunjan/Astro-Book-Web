@@ -24,6 +24,7 @@ const Chat = () => {
     const currentUser = {
         _id: localStorage.getItem('user_type') === 'astrologer' ? `astro_${current_user_id}` : `customer_${current_user_id}`,
         name: current_user_data?.astrologerName || current_user_data?.customerName,
+        image: current_user_data?.profileImage || 'uploads/' + current_user_data?.image,
     };
 
     //! Image Modal Start 
@@ -79,6 +80,8 @@ const Chat = () => {
             createdAt: new Date().getTime(),
             addedAt: serverTimestamp(),
         };
+
+        console.log(message)
 
         const chatNode = push(ref(database, `ChatMessages/${chat_id}`));
         const newKey = chatNode.key;
@@ -140,7 +143,7 @@ const Chat = () => {
         console.log('Intale User', localStorage.getItem('user_type'));
         console.log('Intake Count', intakeInsertedCount);
 
-        intakeDetail && intakeInsertedCount == 1 && localStorage.getItem('user_type') === 'customer' && storeIntake();
+        // intakeDetail && intakeInsertedCount == 1 && localStorage.getItem('user_type') === 'customer' && storeIntake();
     }, [intakeInsertedCount]);
 
     //! Handle Reload Screen and Get Intake Detail
@@ -198,9 +201,13 @@ const Chat = () => {
                                 <div key={index} className={`flex ${message.user.id === currentUser._id ? 'justify-end' : 'justify-start'} my-2`}>
                                     <div onClick={() => { if (message?.image) handleOpenImage(message) }}>
                                         {!message.image ?
-                                            <div className={`relative max-w-xs p-3 rounded-lg shadow-md ${message.user.id === currentUser._id ? 'bg-[#6f6d4f] text-white' : 'bg-white text-black'} break-words`}>
-                                                <div className='text-[14px]'>{message.text}</div>
-                                                <div className={`text-xs text-end mt-1`}>{moment(message.createdAt).format('h:mm A')}</div>
+                                            <div className='flex gap-1'>
+                                                {message.user.id !== currentUser._id && <img src={api_urls + message?.user?.image} className='h-4 w-4 rounded-full' />}
+                                                <div className={`relative max-w-xs p-3 rounded-lg shadow-md ${message.user.id === currentUser._id ? 'bg-[#6f6d4f] text-white' : 'bg-white text-black'} break-words`}>
+                                                    {message.user.id !== currentUser._id && <div className='text-xs text-primary'>{message?.user?.name}</div>}
+                                                    <div className='text-[14px]'>{message.text}</div>
+                                                    <div className={`text-xs text-end mt-1`}>{moment(message.createdAt).format('h:mm A')}</div>
+                                                </div>
                                             </div>
                                             :
                                             <div className='relative max-w-80 cursor-pointer'>
