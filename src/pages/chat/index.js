@@ -141,7 +141,7 @@ const Chat = () => {
 
             const message = {
                 _id: Math.random().toString(36).substr(2, 9),
-                text: `Firstname: ${firstName},  Lastname: ${lastName}, DOB: ${moment(dateOfBirth)?.format('DD MMM YYYY')}, TOB: ${moment(timeOfBirth)?.format('hh:mm a')}, POB: ${placeOfBirth}, Marital Status: ${maritalStatus}, Latitude:${latitude}, Longitude:${longitude}, Topic of concer:${topic_of_concern}, description: ${description}`,
+                intakeDetail: { firstName, lastName, dateOfBirth, timeOfBirth, placeOfBirth, maritalStatus, latitude, longitude, topic_of_concern, },
                 user: currentUser,
                 createdAt: new Date().getTime(),
                 addedAt: serverTimestamp(),
@@ -213,7 +213,7 @@ const Chat = () => {
                                 <div key={index} className={`flex ${message.user.id === currentUser._id ? 'justify-end' : 'justify-start'} my-2`}>
                                     <div onClick={() => { if (message?.image) handleOpenImage(message) }}>
                                         {!message.image ?
-                                            <div className='flex gap-1'>
+                                            message?.text ? <div className='flex gap-1'>
                                                 {message.user.id !== currentUser._id && <img src={message?.user?.image} className='h-4 w-4 rounded-full' />}
                                                 <div className='flex'>
                                                     {message.user.id !== currentUser._id && <div className='p-1 bg-white border-l-2 border-t border-primary self-start rounded-bl-full'></div>}
@@ -223,7 +223,27 @@ const Chat = () => {
                                                         <div className={`text-xs text-end mt-1`}>{moment(message.createdAt).format('h:mm A')}</div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> :
+                                                <>
+                                                    <div className={`relative max-w-xs p-3 shadow-md ${message.user.id === currentUser._id ? 'bg-[#6f6d4f] text-white rounded-lg' : 'bg-white text-black rounded-lg rounded-tl-none'} break-words text-[14px]`}>
+                                                        <p>Hii,</p>
+                                                        <p>Below are my details</p>
+                                                        <p>Name: {message?.intakeDetail?.firstName} {message?.intakeDetail?.lastName}</p>
+                                                        <p>DOB: {moment(message?.intakeDetail?.dateOfBirth)?.format('DD-MMM-YYYY')}</p>
+                                                        <p>TOB: {moment(message?.intakeDetail?.timeOfBirth)?.format('hh:mm A')}</p>
+                                                        <p>POB: {message?.intakeDetail?.placeOfBirth}</p>
+                                                        <p>Latitude: {message?.intakeDetail?.latitude}</p>
+                                                        <p>Longitude: {message?.intakeDetail?.longitude}</p>
+                                                        <p>Marital Status: {message?.intakeDetail?.maritalStatus}</p>
+                                                        <p>Topic Of Concern: {message?.intakeDetail?.topic_of_concern}</p>
+                                                        <div className={`text-xs text-end mt-1`}>{moment(message.createdAt).format('h:mm A')}</div>
+                                                    </div>
+
+                                                    <div className={`relative mt-2 max-w-xs p-3 shadow-md ${message.user.id === currentUser._id ? 'bg-primary text-white rounded-lg' : 'bg-white text-black rounded-lg rounded-tl-none'} break-words text-[14px]`}>
+                                                        <p className='text-red-600 text-xs'>This is an automated message to confirm that chat has started</p>
+                                                        <div className={`text-xs text-end mt-1`}>{moment(message.createdAt).format('h:mm A')}</div>
+                                                    </div>
+                                                </>
                                             :
                                             <div className='flex gap-1 mt-2'>
                                                 {message.user.id !== currentUser._id && <img src={message?.user?.image} className='h-4 w-4 rounded-full' />}

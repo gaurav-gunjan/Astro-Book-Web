@@ -24,7 +24,7 @@ const showNumber = (number) => {
 const ChatInvoiceModal = () => {
     const dispatch = useDispatch();
     const { chatInvoiceData, chatInvoiceVisibility } = useSelector(state => state?.chatReducer);
-    // console.log('chatInvoiceData', chatInvoiceData);
+    console.log('chatInvoiceData', chatInvoiceData);
 
     const handleCloseInvoice = () => {
         const payload = {
