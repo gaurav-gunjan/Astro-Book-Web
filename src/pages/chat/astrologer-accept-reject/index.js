@@ -92,7 +92,7 @@ const AstrologerAcceptReject = () => {
         }
 
         return () => clearInterval(timerInterval); // Cleanup the interval when component unmounts or timer reaches 0
-    }, [rejectChatByAstrologer.initiated, rejectChatByAstrologer.timer, dispatch]);
+    }, [rejectChatByAstrologer.rejected, rejectChatByAstrologer.timer, dispatch]);
 
     useEffect(() => {
         const handleBeforeUnload = (event) => {

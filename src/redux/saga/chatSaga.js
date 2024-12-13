@@ -99,7 +99,7 @@ function* chatRequestAcceptRejectByAstrologer(action) {
             SocketService.emit('joinChatRoom', payload?.data?.requestedData?.chatId)
             yield call(payload?.onComplete);
             yield put({ type: actionTypes.HIDE_CHAT_MESSAGE_INPUT_FIELD, payload: false });
-
+            yield put({ type: actionTypes.REJECT_CHAT_BY_ASTROLOGER, payload: { rejected: false, timer: 60 } });
             SocketService.emit('startChatTimer', payload?.data?.requestedData?.chatId) //? Started Chat Timer On Astrologer Chat Accept
             return
         }

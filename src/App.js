@@ -91,6 +91,9 @@ const AboutUs = lazy(() => import('./pages/about-us'));
 
 const App = () => {
   const { requestInitiatedByCustomer } = useSelector(state => state?.chatReducer);
+  const { rejectChatByAstrologer } = useSelector(state => state?.chatReducer);
+  console.log("Reject chat by astrologer", rejectChatByAstrologer);
+  console.log("Request initiaed by customer", requestInitiatedByCustomer);
 
   const location = useLocation()
   const navigate = useNavigate();
@@ -239,7 +242,7 @@ const App = () => {
         {location?.pathname !== '/chat' && <NewsLetter />}
         {location?.pathname !== '/chat' && <Footer scrollToSection={scrollToSection} />}
 
-        
+
         <CallInvoiceModal />
         {requestInitiatedByCustomer?.initiated && <PageBlock />}
         <ToastContainer />
