@@ -61,7 +61,7 @@ const MyAccount = () => {
             </section>
 
             <section className='px-[80px] max-md:px-[20px] py-5'>
-                <main className='flex justify-between gap-5'>
+                <main className='flex max-md:flex-col justify-between gap-5'>
                     <PageHeading title={'Transaction History'} />
 
                     <div className='flex items-center gap-3'>
@@ -69,7 +69,7 @@ const MyAccount = () => {
                             <input value={searchText} onChange={(e) => setSearchText(e?.target?.value)} type='search' placeholder='Search here..' className='outline-none px-3 text-[16px] max-md:text-[16px] rounded-md h-full w-[330px] max-xl:w-[300px] max-lg:w-[100%]' />
                             <button className='bg-[#F1B646] border-[#F1B646] rounded-e-md flex items-center justify-center p-2 px-3 w-[50px] h-full'><SearchSvg w='18' h='18' /></button>
                         </div>
-                        <button onClick={() => navigate('/astrologer-dashboard/transaction-history')} className='border border-primary px-8 max-md:px-5 py-1.5 rounded-md text-primary hover:bg-primary hover:text-black bg-white text-sm transition-all duration-500 ease-in'>See more</button>
+                        <button onClick={() => navigate('/astrologer-dashboard/transaction-history')} className='border border-primary px-8 max-md:px-5 py-1.5 rounded-md text-primary hover:bg-primary hover:text-black bg-white text-sm transition-all duration-500 ease-in text-nowrap'>See more</button>
                     </div>
                 </main>
             </section>
