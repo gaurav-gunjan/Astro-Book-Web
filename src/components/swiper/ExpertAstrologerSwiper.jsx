@@ -3,12 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react'; //* Import Swiper React components
 import { Autoplay, Pagination, Navigation } from 'swiper/modules'; //* Import required modules
 import { api_urls } from '../../utils/api-urls';
-import { CallSvg, ChatSvg } from '../../assets/svg';
+import { CallSvg, ChatSvg, VideoSvg } from '../../assets/svg';
 import { IndianRupee } from '../../utils/common-function';
 //! Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
+import { Color } from '../../assets/colors';
 
 const ExpertAstrologerSwiper = ({ slidesPerView, navigation, pagination, data }) => {
     const navigate = useNavigate();
@@ -40,9 +41,9 @@ const ExpertAstrologerSwiper = ({ slidesPerView, navigation, pagination, data })
                                 <div className='text-black text-lg capitalize text-[25px] max-md:text-[20px]'>{value?.astrologerName}</div>
                                 <div className='text-[#7A7575] text-[20px] max-md:text-[16px]'>{IndianRupee(42, 0)}/min</div>
                                 <div className='flex items-center gap-3'>
-                                    <div className='bg-[#F1B646] p-2.5 rounded-full text-white cursor-pointer'><ChatSvg w='25' h='25' /></div>
-                                    <div className='bg-[#F1B646] p-2.5 rounded-full text-white cursor-pointer'><CallSvg w='25' h='25' /></div>
-                                    <div className='bg-[#F1B646] p-2.5 rounded-full text-white cursor-pointer'><ChatSvg w='25' h='25' /></div>
+                                    <div className='bg-[#F1B646] p-2.5 rounded-full text-white cursor-pointer'><ChatSvg w='25' h='25' color={Color?.white} /></div>
+                                    <div className='bg-[#F1B646] p-2.5 rounded-full text-white cursor-pointer'><CallSvg w='25' h='25' color={Color?.white} /></div>
+                                    <div className='bg-[#F1B646] p-2.5 rounded-full text-white cursor-pointer'><VideoSvg w='26' h='26' color={Color?.white} /></div>
                                 </div>
                             </div>
                         </div>

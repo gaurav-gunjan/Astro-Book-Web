@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as BlogActions from "../../redux/actions/blogAction";
 import * as EcommerceActions from "../../redux/actions/ecommerceActions";
 import * as AstrologerActions from "../../redux/actions/astrologerAction";
-import { BagSvg, CallSvg, ChatSvg } from '../../assets/svg/index.js';
+import { BagSvg, CallSvg, ChatSvg, VideoSvg } from '../../assets/svg/index.js';
 import LandingBanner from '../../assets/svg/landing-banner.svg';
 import LandingAstrologerSection from '../../assets/svg/landing-astrologer-image.svg';
 import AstrologyServiceSwiper from '../../components/swiper/AstrologyServiceSwiper.jsx';
@@ -16,12 +16,13 @@ import MatchMaking from '../../assets/images/landing-page/service/Match-Making.p
 import Remedies from '../../assets/images/landing-page/service/Remedies.png';
 import MobileRight from '../../assets/images/landing-page/service/Mobile-Right.png';
 import MobileLeft from '../../assets/images/landing-page/service/Mobile-Left.png';
+import { Color } from '../../assets/colors/index.js';
 
 const serviceData = [
     { path: 'astrologer', title: 'Talk To Astrologer', icon: <CallSvg h='50' w='50' />, description: 'Donec porttitor euismod dignissim. Nullam a lacinia ipsum, nec dignissim purus. ' },
     { path: 'astrologer', title: 'Chat With Astrologer', icon: <ChatSvg h='50' w='50' />, description: 'Donec porttitor euismod dignissim. Npsum, nec dignissim purus. ' },
-    { path: 'astro-mall', title: 'Astro mall Shop', icon: <BagSvg h='50' w='50' />, description: 'Donec porttitor euismod dignissim. Nullam a lacinia ipsum, nec dignissim purus. ' },
-    { path: 'astro-remedy', title: 'Astro Remedy', icon: <CallSvg h='50' w='50' />, description: 'Donec porttitor euismod dignissim. Nullam a lacinia ipsum, nec dignissim purus. ' },
+    { path: 'astrologer', title: 'Video With Astrologer', icon: <VideoSvg h='55' w='55' />, description: 'Donec porttitor euismod dignissim. Nullam a lacinia ipsum, nec dignissim purus. ' },
+    { path: 'astro-mall', title: 'Astro Shop', icon: <BagSvg h='50' w='50' />, description: 'Donec porttitor euismod dignissim. Nullam a lacinia ipsum, nec dignissim purus. ' }
 ];
 
 const complimentryAstrologyService = [
