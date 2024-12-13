@@ -256,7 +256,7 @@ const Chat = () => {
 
 
             <ChatInvoiceModal />
-            <ChatRating />
+            {astrologerRatingVisibility?.ratingVisible && <ChatRating />}
         </>
     );
 };
