@@ -11,7 +11,7 @@ const initialState = {
     callInvoiceData: {},
     callInvoiceVisibility: false,
     //* Rating 
-    astrologerRatingVisibility: { data: null, ratingVisible: true },
+    astrologerRatingVisibility: { data: null, ratingVisible: false },
     //? Chat Request
     requestInitiatedByCustomer: { initiated: false, timer: 60 },
     rejectChatByAstrologer: { rejected: false, timer: 60 }

@@ -155,7 +155,7 @@ const Chat = () => {
         console.log('Intale User', localStorage.getItem('user_type'));
         console.log('Intake Count', intakeInsertedCount);
 
-        // intakeDetail && intakeInsertedCount == 1 && localStorage.getItem('user_type') === 'customer' && storeIntake();
+        intakeDetail && intakeInsertedCount == 1 && localStorage.getItem('user_type') === 'customer' && storeIntake();
     }, [intakeInsertedCount]);
 
     //! Handle Reload Screen and Get Intake Detail
@@ -178,7 +178,7 @@ const Chat = () => {
         };
 
         profileId && fetchIntakeDetail();
-        // window.addEventListener('beforeunload', handleBeforeUnload);
+        window.addEventListener('beforeunload', handleBeforeUnload);
 
         return () => {
             window.removeEventListener('beforeunload', handleBeforeUnload);
