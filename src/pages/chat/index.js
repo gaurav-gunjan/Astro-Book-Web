@@ -7,10 +7,11 @@ import { database, ref, push, onValue, serverTimestamp, set } from '../../config
 import Timer from './features/Timer';
 import { api_urls } from '../../utils/api-urls';
 import { AttachmentBtnSvg, SendBtnSvg } from '../../assets/svg';
-import { generateRandomNumber } from '../../utils/common-function';
+import { generateRandomNumber, GroupMessagesByDate } from '../../utils/common-function';
 import ChatImageModal from '../../components/modal/ChatImageModal';
 import SocketService from '../../utils/services/socket-service';
-import ChatBg from '../../assets/svg/chat-bg.svg';
+import ChatBg from '../../assets/images/chat/chat-bg.png';
+import TopHeaderSection from '../../components/common/TopHeaderSection';
 
 const Chat = () => {
     const location = useLocation();
@@ -84,11 +85,10 @@ const Chat = () => {
                 const { data } = await axios.post(api_urls + 'api/customers/get_linked_profile', { profileId });
                 if (data?.success) {
                     setIntakeDetail(data?.data);
-                    const { firstName, lastName, dateOfBirth, timeOfBirth, placeOfBirth, maritalStatus, latitude, longitude, topic_of_concern, description } = data?.data;
-                    setIntakeInsertedCount(1)
+                    setIntakeInsertedCount(1);
                 }
             } catch (error) {
-                console.log("Error");
+                console.log("Get Linked Profile Failed!!!");
             }
         };
 
@@ -112,7 +112,8 @@ const Chat = () => {
             const chatRef = ref(database, `ChatMessages/${chat_id}/${newKey}`);
             await set(chatRef, { ...message, pending: false, sent: true, received: false });
         }
-
+        console.log('Intale User', localStorage.getItem('user_type'));
+        console.log('Intake Count', intakeInsertedCount);
 
         intakeDetail && intakeInsertedCount == 1 && localStorage.getItem('user_type') === 'customer' && storeIntake();
     }, [intakeInsertedCount]);
@@ -166,19 +167,7 @@ const Chat = () => {
         }
     };
 
-    const groupMessagesByDate = () => {
-        const grouped = messages.reduce((acc, message) => {
-            const messageDate = moment(message.createdAt).format('YYYY-MM-DD');
-            if (!acc[messageDate]) {
-                acc[messageDate] = [];
-            }
-            acc[messageDate].push(message);
-            return acc;
-        }, {});
-        return grouped;
-    };
-
-    const groupedMessages = groupMessagesByDate();
+    const groupedMessages = GroupMessagesByDate(messages);
 
     useEffect(() => {
         const handleBeforeUnload = (event) => {
@@ -186,7 +175,7 @@ const Chat = () => {
             event.returnValue = ''; // Required for modern browsers
         };
 
-        window.addEventListener('beforeunload', handleBeforeUnload);
+        // window.addEventListener('beforeunload', handleBeforeUnload);
 
         return () => {
             window.removeEventListener('beforeunload', handleBeforeUnload);
@@ -195,47 +184,45 @@ const Chat = () => {
 
     return (
         <>
-            <div className='h-[94.5px] max-md:h-[70.5px]'></div>
+            <TopHeaderSection />
 
-            <div className='flex'>
-                <div className="flex-1 flex flex-col max-md:h-[calc(100vh-70.5px)] h-[calc(100vh-94.5px)]">
-                    <Timer requestedData={localRequestedData} />
+            <div className="flex flex-col max-md:h-[calc(100vh-70.5px)] h-[calc(100vh-94.5px)]">
+                <Timer requestedData={localRequestedData} />
 
-                    <div ref={chatContainerRef} className="flex-grow overflow-y-auto p-4 bg-gray-100" style={{ backgroundImage: `url(${ChatBg})` }}>
-                        {Object.keys(groupedMessages).map((date, index) => (
-                            <div key={index}>
-                                <div className='text-center text-green-600'>You are now connected! Please start the conversation.</div>
-                                <div className="text-center my-4 text-gray-500">{moment(date).format('MMMM Do, YYYY')}</div>
+                <div ref={chatContainerRef} className="flex-grow overflow-y-auto p-4" style={{ backgroundImage: `url(${ChatBg})` }}>
+                    {Object.keys(groupedMessages).map((date, index) => (
+                        <div key={index}>
+                            <div className='text-center text-green-600'>You are now connected! Please start the conversation.</div>
+                            <div className="text-center my-4 text-gray-500">{moment(date).format('MMMM Do, YYYY')}</div>
 
-                                {groupedMessages[date].map((message, index) => (
-                                    <div key={index} className={`flex ${message.user.id === currentUser._id ? 'justify-end' : 'justify-start'} my-2`}>
-                                        <div onClick={() => { if (message?.image) handleOpenImage(message) }}>
-                                            {!message.image ?
-                                                <div className={`relative max-w-xs p-3 rounded-lg shadow-md ${message.user.id === currentUser._id ? 'bg-primary text-white' : 'bg-white text-black'} break-words`}>
-                                                    <div className='text-[14px]'>{message.text}</div>
-                                                    <div className={`text-xs text-end mt-1`}>{moment(message.createdAt).format('h:mm A')}</div>
-                                                </div>
-                                                :
-                                                <div className='relative max-w-80 cursor-pointer'>
-                                                    <img src={message.image} alt="attachment" className="mt-2 max-h-40 rounded-lg" />
-                                                    <div className="text-xs text-white absolute z-10 right-2 bottom-2">{moment(message.createdAt).format('h:mm A')}</div>
-                                                </div>}
-                                        </div>
+                            {groupedMessages[date].map((message, index) => (
+                                <div key={index} className={`flex ${message.user.id === currentUser._id ? 'justify-end' : 'justify-start'} my-2`}>
+                                    <div onClick={() => { if (message?.image) handleOpenImage(message) }}>
+                                        {!message.image ?
+                                            <div className={`relative max-w-xs p-3 rounded-lg shadow-md ${message.user.id === currentUser._id ? 'bg-[#6f6d4f] text-white' : 'bg-white text-black'} break-words`}>
+                                                <div className='text-[14px]'>{message.text}</div>
+                                                <div className={`text-xs text-end mt-1`}>{moment(message.createdAt).format('h:mm A')}</div>
+                                            </div>
+                                            :
+                                            <div className='relative max-w-80 cursor-pointer'>
+                                                <img src={message.image} alt="attachment" className="mt-2 max-h-40 rounded-lg" />
+                                                <div className="text-xs text-white absolute z-10 right-2 bottom-2">{moment(message.createdAt).format('h:mm A')}</div>
+                                            </div>}
                                     </div>
-                                ))}
-                            </div>
-                        ))}
-                    </div>
-
-                    <div className="flex-shrink-0 p-4 bg-white border-t flex items-center">
-                        <input type="file" accept="image/*" ref={fileInputRef} style={{ display: 'none' }} onChange={handleFileChange} />
-                        <button onClick={() => fileInputRef.current.click()} className="p-2 text-primary rounded-lg"><AttachmentBtnSvg /></button>
-                        <input type="text" value={inputField} placeholder="Type a message" className="flex-grow p-2 mx-2 border border-gray-300 rounded-lg outline-none" onChange={(e) => setInputField(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') { handleSend(e.target.value); e.target.value = ''; setInputField('') } }} />
-                        <button onClick={() => handleSend(inputField)} className="p-2 text-primary rounded-lg"><SendBtnSvg /></button>
-                    </div>
-
-                    <ChatImageModal visible={modalOpen} image={selectedContent?.image} handleClose={handleCloseImage} />
+                                </div>
+                            ))}
+                        </div>
+                    ))}
                 </div>
+
+                <div className="flex-shrink-0 p-4 bg-white border-t flex items-center">
+                    <input type="file" accept="image/*" ref={fileInputRef} style={{ display: 'none' }} onChange={handleFileChange} />
+                    <button onClick={() => fileInputRef.current.click()} className="p-2 text-secondary rounded-lg"><AttachmentBtnSvg /></button>
+                    <input type="text" value={inputField} placeholder="Type a message" className="flex-grow p-2 mx-2 border border-gray-300 rounded-lg outline-none" onChange={(e) => setInputField(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') { handleSend(e.target.value); e.target.value = ''; setInputField('') } }} />
+                    <button onClick={() => handleSend(inputField)} className="p-2 text-secondary rounded-lg"><SendBtnSvg /></button>
+                </div>
+
+                <ChatImageModal visible={modalOpen} image={selectedContent?.image} handleClose={handleCloseImage} />
             </div>
         </>
     );

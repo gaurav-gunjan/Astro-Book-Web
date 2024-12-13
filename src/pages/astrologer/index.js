@@ -22,8 +22,8 @@ const ChatWithAstrologer = () => {
     // const { astrologerData } = useSelector(state => state?.astrologerReducer);
 
     const [astrologerData, setAstrologerData] = useState([]);
-    console.log("Astrologer Data ::: ", astrologerData);
-    console.log("Astrologer Data Length ::: ", astrologerData?.length);
+    // console.log("Astrologer Data ::: ", astrologerData);
+    // console.log("Astrologer Data Length ::: ", astrologerData?.length);
 
     const [page, setPage] = useState(1);
     const [search, setSearch] = useState('');

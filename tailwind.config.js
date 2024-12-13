@@ -13,8 +13,8 @@ module.exports = {
         custom: "0 4px 6px 10px rgba(0, 0, 0, 0.1), 0 2px 4px 10px rgba(0, 0, 0, 0.06)",
       },
       colors: {
-        primary: "#381415",
-        secondary: "#F1B646",
+        primary: "#F1B646",
+        // secondary: "#F1B646",
         grey: "#616161",
         greybg: '#EEEEEE',
         tealblue: "#008080"

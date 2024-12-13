@@ -6,6 +6,7 @@ import * as ChatActions from '../../../redux/actions/chatAction';
 import Swal from 'sweetalert2';
 import useNetworkStatus from '../../../components/hooks/useNetworkStatus';
 import { Color } from '../../../assets/colors';
+import { ChatCloseSvg } from '../../../assets/svg';
 
 const Timer = () => {
     const isOnline = useNetworkStatus();
@@ -44,7 +45,7 @@ const Timer = () => {
 
     return (
         <>
-            <div className="flex items-center justify-around bg-primary shadow-xl px-4 py-2.5">
+            <div className="flex items-center justify-around bg-secondary shadow-xl px-4 py-2.5">
                 <div className="pr-5 border-r border-gray-400">
                     {user_type == 'astrologer' ? <span onClick={() => window.open(`/chat/intake-details/${profileId}`)} className='bg-white rounded-md px-3 pt-[6px] pb-1 cursor-pointer'>Intake Form</span> : <span className="text-white font-medium">Rate: ₹ {localStorage?.getItem('Chat_price_during_chat')}/min</span>}
                 </div>
@@ -52,8 +53,8 @@ const Timer = () => {
                     <span className="text-white font-medium">
                         <CountDown />
                     </span>
-                    <span onClick={() => handleEndChat()} className="text-white font-medium text-sm bg-red-600 px-4 pt-[6px] pb-1 rounded-md cursor-pointer">
-                        End Chat
+                    <span onClick={() => handleEndChat()} className="bg-red-600 p-2 rounded-full cursor-pointer">
+                        <ChatCloseSvg color={Color?.white} />
                     </span>
                 </div>
             </div>

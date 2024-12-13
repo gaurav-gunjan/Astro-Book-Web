@@ -168,6 +168,17 @@ export const CalculateTimeDifference = (date) => {
     return `${days}d : ${hours}h : ${minutes}m : ${seconds}s`;
 };
 
+export const GroupMessagesByDate = (msg) => {
+    const grouped = msg?.reduce((acc, message) => {
+        const messageDate = moment(message?.createdAt).format('YYYY-MM-DD');
+        if (!acc[messageDate]) {
+            acc[messageDate] = [];
+        }
+        acc[messageDate].push(message);
+        return acc;
+    }, {});
+    return grouped;
+};
 
 // export const CalculateTimeDifference = (endDate) => {
 //     console.log(endDate)
