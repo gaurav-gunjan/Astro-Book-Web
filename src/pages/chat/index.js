@@ -21,10 +21,10 @@ const Chat = () => {
 
     const current_user_id = localStorage.getItem('current_user_id');
     const current_user_data = JSON.parse(localStorage.getItem('current_user_data'));
-    console.log("Current User Data: " + current_user_data?.customerName);
-    console.log("Current User Data: " + current_user_data?.image);
-    console.log("Current User Data: " + api_urls + 'uploads/' + current_user_data?.image);
-    console.log(localStorage.getItem('user_type') === 'astrologer' ? api_urls + current_user_data?.profileImage : api_urls + 'uploads/' + current_user_data?.image)
+    // console.log("Current User Data: " + current_user_data?.customerName);
+    // console.log("Current User Data: " + current_user_data?.image);
+    // console.log("Current User Data: " + api_urls + 'uploads/' + current_user_data?.image);
+    // console.log(localStorage.getItem('user_type') === 'astrologer' ? api_urls + current_user_data?.profileImage : api_urls + 'uploads/' + current_user_data?.image)
 
     const currentUser = {
         _id: localStorage.getItem('user_type') === 'astrologer' ? `astro_${current_user_id}` : `customer_${current_user_id}`,
@@ -50,6 +50,8 @@ const Chat = () => {
     const [intakeInsertedCount, setIntakeInsertedCount] = useState(0);
     const [messages, setMessages] = useState([]);
     const groupedMessages = GroupMessagesByDate(messages);
+    console.log("messages", messages)
+    console.log("Group messages", groupedMessages)
     const chatContainerRef = useRef(null);
     const fileInputRef = useRef(null);
 
@@ -67,7 +69,7 @@ const Chat = () => {
                 loadedMessages.push({
                     ...message,
                     createdAt: new Date(message.createdAt),
-                    user: { id: message?.user?._id, name: message?.user?.name },
+                    user: { id: message?.user?._id, name: message?.user?.name, image: message?.user?.image },
                 });
             }
             setMessages(loadedMessages);
@@ -207,11 +209,14 @@ const Chat = () => {
                                     <div onClick={() => { if (message?.image) handleOpenImage(message) }}>
                                         {!message.image ?
                                             <div className='flex gap-1'>
-                                                {message.user.id !== currentUser._id && <img src={message?.user?.image} className='h-10 w-10 rounded-full' />}
-                                                <div className={`relative max-w-xs p-3 rounded-lg shadow-md ${message.user.id === currentUser._id ? 'bg-[#6f6d4f] text-white' : 'bg-white text-black'} break-words`}>
-                                                    {message.user.id !== currentUser._id && <div className='text-xs text-primary'>{message?.user?.name}</div>}
-                                                    <div className='text-[14px]'>{message.text}</div>
-                                                    <div className={`text-xs text-end mt-1`}>{moment(message.createdAt).format('h:mm A')}</div>
+                                                {message.user.id !== currentUser._id && <img src={message?.user?.image} className='h-4 w-4 rounded-full' />}
+                                                <div className='flex'>
+                                                    {message.user.id !== currentUser._id && <div className='p-1 bg-white self-start rounded-bl-full'></div>}
+                                                    <div className={`relative max-w-xs p-3 shadow-md ${message.user.id === currentUser._id ? 'bg-[#6f6d4f] text-white rounded-lg' : 'bg-white text-black rounded-lg rounded-tl-none'} break-words`}>
+                                                        {message.user.id !== currentUser._id && <div className='text-xs text-primary'>{message?.user?.name}</div>}
+                                                        <div className='text-[14px]'>{message.text}</div>
+                                                        <div className={`text-xs text-end mt-1`}>{moment(message.createdAt).format('h:mm A')}</div>
+                                                    </div>
                                                 </div>
                                             </div>
                                             :
