@@ -42,7 +42,7 @@ const Timer = ({ currentUser, messageChatId }) => {
 
             setTimeout(() => {
                 dispatch(ChatActions.endChatMessage({ chatId }));
-            }, 5000);
+            }, 2000);
         }
     };
 
