@@ -15,7 +15,7 @@ const DownloadApp = () => {
 
     return (
         <Modal isOpen={isdownloadOurAppModalOpen} className="modal-content-small" overlayClassName="modal-overlay-small" closeTimeoutMS={200}>
-            <div className='bg-secondary py-2 px-5 flex justify-between items-center'>
+            <div className='bg-primary py-2 px-5 flex justify-between items-center'>
                 <div className='text-white'>For more features, Download our app</div>
                 <div onClick={() => dispatch(CommonActions?.closeDownloadOurAppModal())} className='bg-red-600 text-white p-1.5 rounded-full cursor-pointer'><CrossSvg /></div>
             </div>

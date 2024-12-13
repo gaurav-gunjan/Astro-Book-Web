@@ -14,7 +14,6 @@ module.exports = {
       },
       colors: {
         primary: "#F1B646",
-        // secondary: "#F1B646",
         grey: "#616161",
         greybg: '#EEEEEE',
         tealblue: "#008080"

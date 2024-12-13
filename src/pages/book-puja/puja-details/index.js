@@ -67,7 +67,7 @@ const PujaDetails = () => {
                         <div>{moment(pujaData?.poojaDate)?.utc()?.format('DD MMM YYYY hh:mm:ss a')}</div>
                         <div>{moment(new Date())?.utc()?.format('DD MMM YYYY hh:mm:ss a')}</div>
                         <div>{moment(new Date())?.format('DD MMM YYYY hh:mm:ss a')}</div> */}
-                        <button onClick={() => handleBookPuja()} className='bg-black hover:bg-secondary text-white text-sm font-[500] py-3.5 px-14 transition-all duration-300 ease-in'>Buy Now</button>
+                        <button onClick={() => handleBookPuja()} className='bg-black hover:bg-primary text-white text-sm font-[500] py-3.5 px-14 transition-all duration-300 ease-in'>Buy Now</button>
                     </div>
                 </main>
             </section>

@@ -50,7 +50,7 @@ const MyOrder = () => {
                     </section>
 
                     <main className='px-7 flex justify-center gap-4 pb-10'>
-                        {['order-history', 'book-history']?.map((value, index) => <div onClick={() => setSearchParams(`active-tab=${value.toLowerCase().split(' ').join('-')}`)} key={index} className={`w-32 text-sm border text-center border-secondary ${activeHead == value && 'bg-secondary text-white'} hover:scale-105 py-2 rounded-md cursor-pointer flex items-center justify-center transition-all duration-300 capitalize`}>{value?.split('-')?.join(' ')}</div>)}
+                        {['order-history', 'book-history']?.map((value, index) => <div onClick={() => setSearchParams(`active-tab=${value.toLowerCase().split(' ').join('-')}`)} key={index} className={`w-32 text-sm border text-center border-primary ${activeHead == value && 'bg-primary text-white'} hover:scale-105 py-2 rounded-md cursor-pointer flex items-center justify-center transition-all duration-300 capitalize`}>{value?.split('-')?.join(' ')}</div>)}
                     </main>
 
                     <section className='px-[80px] pb-16 max-sm:px-[20px]'>
@@ -102,7 +102,7 @@ const MyOrder = () => {
                     </section>
 
                     <main className='px-7 flex justify-center gap-4 pb-10'>
-                        {['order-history', 'book-history']?.map((value, index) => <div onClick={() => setSearchParams(`active-tab=${value.toLowerCase().split(' ').join('-')}`)} key={index} className={`w-32 text-sm border text-center border-secondary ${activeHead == value && 'bg-secondary text-white'} hover:scale-105 py-2 rounded-md cursor-pointer flex items-center justify-center transition-all duration-300 capitalize`}>{value?.split('-')?.join(' ')}</div>)}
+                        {['order-history', 'book-history']?.map((value, index) => <div onClick={() => setSearchParams(`active-tab=${value.toLowerCase().split(' ').join('-')}`)} key={index} className={`w-32 text-sm border text-center border-primary ${activeHead == value && 'bg-primary text-white'} hover:scale-105 py-2 rounded-md cursor-pointer flex items-center justify-center transition-all duration-300 capitalize`}>{value?.split('-')?.join(' ')}</div>)}
                     </main>
 
                     <section className='px-[80px] pb-16 max-sm:px-[20px]'>

@@ -148,7 +148,7 @@ const SingleAstrologer = () => {
                                                     await Notification.requestPermission();
                                                 }
                                             }
-                                        }} disabled={astrologerDataById?.call_status != "online"} className={`flex items-center gap-2 bg-secondary text-black px-2 py-[7px] rounded-full w-[280px] ${astrologerDataById?.call_status != "online" && 'cursor-not-allowed'}`}><div className='bg-white p-2 rounded-full'><CallSvg h='25' w='25' /></div> <div className='line-clamp-1 text-center flex-1 pr-5'>Start Call</div></button>
+                                        }} disabled={astrologerDataById?.call_status != "online"} className={`flex items-center gap-2 bg-primary text-black px-2 py-[7px] rounded-full w-[280px] ${astrologerDataById?.call_status != "online" && 'cursor-not-allowed'}`}><div className='bg-white p-2 rounded-full'><CallSvg h='25' w='25' /></div> <div className='line-clamp-1 text-center flex-1 pr-5'>Start Call</div></button>
 
                                         <button onClick={async () => {
                                             if (Number(userCustomerDataById?.wallet_balance) < Number(astrologerDataById?.chat_price) * 5) {
@@ -171,7 +171,7 @@ const SingleAstrologer = () => {
                                                     await Notification.requestPermission();
                                                 }
                                             }
-                                        }} disabled={astrologerDataById?.chat_status != "online"} className={`flex items-center gap-2 bg-secondary text-black px-2 py-[7px] rounded-full w-[280px] ${astrologerDataById?.chat_status != "online" && 'cursor-not-allowed'}`}><div className='bg-white p-2 rounded-full'><ChatSvg h='25' w='25' /></div> <div className='line-clamp-1 text-center flex-1 pr-5'>Start Chat</div></button>
+                                        }} disabled={astrologerDataById?.chat_status != "online"} className={`flex items-center gap-2 bg-primary text-black px-2 py-[7px] rounded-full w-[280px] ${astrologerDataById?.chat_status != "online" && 'cursor-not-allowed'}`}><div className='bg-white p-2 rounded-full'><ChatSvg h='25' w='25' /></div> <div className='line-clamp-1 text-center flex-1 pr-5'>Start Chat</div></button>
                                     </div>
                                 </div>
                             </div>

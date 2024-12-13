@@ -172,7 +172,7 @@ const AssignPujaHistory = () => {
 
 
             <ReactModal isOpen={modalData?.ismodalOpen} className="modal-content-small" overlayClassName="modal-overlay-small" closeTimeoutMS={200}>
-                <div className='bg-secondary py-2 px-5 flex gap-10 justify-between items-center'>
+                <div className='bg-primary py-2 px-5 flex gap-10 justify-between items-center'>
                     <div className='text-black'>Upload Files</div>
                     <div onClick={() => {
                         setModalData({ ismodalOpen: false, modalData: null })

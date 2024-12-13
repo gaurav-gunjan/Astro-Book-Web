@@ -124,16 +124,16 @@ const Header = () => {
                         <div className='flex items-center gap-5'>
                             <nav className='flex flex-col gap-2 items-end max-lg:hidden'>
                                 <div className='flex items-center gap-[30px]'>
-                                    <NavLink to="/free-kundli" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-secondary" : "text-black"}>Free Kundli</NavLink>
-                                    <NavLink to="/kundli-matching" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-secondary" : "text-black"}>Kundli Matching</NavLink>
-                                    <NavLink to="/horoscope/daily" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-secondary" : "text-black"}>Horoscope</NavLink>
+                                    <NavLink to="/free-kundli" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-primary" : "text-black"}>Free Kundli</NavLink>
+                                    <NavLink to="/kundli-matching" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-primary" : "text-black"}>Kundli Matching</NavLink>
+                                    <NavLink to="/horoscope/daily" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-primary" : "text-black"}>Horoscope</NavLink>
                                     {!userCustomerDataById && !userAstrologerDataById && <div onClick={handleOpenLoginCustomerModal} className='flex items-center gap-1.5 cursor-pointer bg-[#F1B646] px-3.5 py-1 rounded-full'><div className='-mt-1'><PersonSvg /></div><div>Login</div></div>}
                                 </div>
                                 <div className='flex items-center gap-[30px]'>
-                                    <NavLink to="/astrologer" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-secondary" : "text-black"}>Talk to Astrologer</NavLink>
-                                    {userAstrologerDataById ? <NavLink to="/register-puja" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-secondary" : "text-black"}>Register Puja</NavLink> : <NavLink to="/book-puja" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-secondary" : "text-black"}>Book Puja</NavLink>}
-                                    <NavLink to="/astro-mall" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-secondary" : "text-black"}>Astroshop</NavLink>
-                                    <div className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-secondary" : "text-black"}>Astrotalk Store</div>
+                                    <NavLink to="/astrologer" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-primary" : "text-black"}>Talk to Astrologer</NavLink>
+                                    {userAstrologerDataById ? <NavLink to="/register-puja" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-primary" : "text-black"}>Register Puja</NavLink> : <NavLink to="/book-puja" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-primary" : "text-black"}>Book Puja</NavLink>}
+                                    <NavLink to="/astro-mall" className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-primary" : "text-black"}>Astroshop</NavLink>
+                                    <div className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "text-primary" : "text-black"}>Astrotalk Store</div>
                                 </div>
                             </nav>
 
@@ -159,7 +159,7 @@ const Header = () => {
 
                             {userCustomerDataById &&
                                 <div className='group relative text-black max-lg:hidden'>
-                                    <div className='flex items-center gap-1 cursor-pointer text-black'>{userCustomerDataById?.image ? <img src={api_urls + 'uploads/' + userCustomerDataById?.image} className='h-14 w-14 object-contain rounded-full bg-secondary shadow-md' /> : <ProfileSvg />}</div>
+                                    <div className='flex items-center gap-1 cursor-pointer text-black'>{userCustomerDataById?.image ? <img src={api_urls + 'uploads/' + userCustomerDataById?.image} className='h-14 w-14 object-contain rounded-full bg-primary shadow-md' /> : <ProfileSvg />}</div>
 
                                     <div className='font-normal absolute overflow-hidden top-[85px] right-0 bg-white w-52 h-0 rounded-lg group-hover:h-[430px] transition-all duration-500 ease-in group-hover:border-b-[5px] group-hover:border-t border-primary shadow-2xl'>
                                         <div className='flex flex-col items-center gap-1.5 py-5'>

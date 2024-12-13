@@ -148,7 +148,7 @@ const MyAccount = () => {
                 <article className='shadow-xl p-3 py-10 overflow-hidden bg-[#E5D18E90] rounded-md relative'>
                     <div className='text-[#666373] text-center text-sm'>View and update your profile in your {website_name} Astro account.</div>
                     <main className='px-7 flex justify-center gap-4 py-[20px]'>
-                        {['update-profile', 'change-picture']?.map((value, index) => <div onClick={() => setSearchParams(`active-tab=${value.toLowerCase().split(' ').join('-')}`)} key={index} className={`w-32 text-sm border text-center border-secondary ${activeHead == value && 'bg-secondary text-white'} hover:scale-105 py-2 rounded-md cursor-pointer flex items-center justify-center transition-all duration-300 capitalize`}>{value?.split('-')?.join(' ')}</div>)}
+                        {['update-profile', 'change-picture']?.map((value, index) => <div onClick={() => setSearchParams(`active-tab=${value.toLowerCase().split(' ').join('-')}`)} key={index} className={`w-32 text-sm border text-center border-primary ${activeHead == value && 'bg-primary text-white'} hover:scale-105 py-2 rounded-md cursor-pointer flex items-center justify-center transition-all duration-300 capitalize`}>{value?.split('-')?.join(' ')}</div>)}
                     </main>
 
 
@@ -184,7 +184,7 @@ const MyAccount = () => {
                                     <option value="Business">Business</option>
                                 </select>
                                 <textarea name='description' rows={8} value={inputFieldDetail?.description} onChange={(e) => handleInputFieldDetail(e)} placeholder='Description' className='bg-gray-100 text-primary_bg_dark border border-transparent focus:border-white outline-none w-full rounded-sm px-5 py-[8px]' />
-                                <div onClick={() => handleSubmit()} className='cursor-pointer bg-secondary border border-secondary text-center text-white font-semibold rounded-sm px-5 py-2 transition-all duration-500'>Update Profile</div>
+                                <div onClick={() => handleSubmit()} className='cursor-pointer bg-primary border border-primary text-center text-white font-semibold rounded-sm px-5 py-2 transition-all duration-500'>Update Profile</div>
                             </div>
                         </div>
                     </main>}
@@ -194,7 +194,7 @@ const MyAccount = () => {
                             <div className='h-40 w-40 border border-white rounded-md'><img src={image?.file ? image?.file : Logo} alt='Profile' className='h-full w-full object-contain' /></div>
                             <div className='flex flex-col flex-1 gap-5'>
                                 <input type='file' onChange={handleImage} className='cursor-pointer bg-gray-100 text-primary_bg_dark border border-transparent focus:border-white outline-none w-full rounded-sm px-5 py-1.5' />
-                                <div onClick={() => handleChangePicture()} className='self-end cursor-pointer bg-secondary border border-secondary text-center text-white font-semibold rounded-md px-5 py-2 transition-all duration-500'>Change Picture</div>
+                                <div onClick={() => handleChangePicture()} className='self-end cursor-pointer bg-primary border border-primary text-center text-white font-semibold rounded-md px-5 py-2 transition-all duration-500'>Change Picture</div>
                             </div>
                         </div>
                     </main>}

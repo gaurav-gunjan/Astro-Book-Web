@@ -177,7 +177,7 @@ const IntakeForm = () => {
                             <textarea name='description' rows={1} value={chatIntakeDetail?.description} onChange={(e) => handleChatIntakeDetail(e)} placeholder='Description' className='border text-black text-[15px] rounded-md flex-grow outline-none w-full px-5 py-[7px]' />
                         </div> */}
                     </main>
-                    <div onClick={() => handleSubmitChatIntakeForm()} className='max-md:w-full cursor-pointer bg-secondary border border-secondary text-center rounded-full px-14 py-2 transition-all duration-500'>Start {connectionType} with {astrologerDataById?.astrologerName?.toLowerCase()}</div>
+                    <div onClick={() => handleSubmitChatIntakeForm()} className='max-md:w-full cursor-pointer bg-primary border border-primary text-center rounded-full px-14 py-2 transition-all duration-500'>Start {connectionType} with {astrologerDataById?.astrologerName?.toLowerCase()}</div>
                 </article>
             </section>
         </>
