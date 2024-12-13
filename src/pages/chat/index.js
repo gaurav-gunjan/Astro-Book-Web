@@ -1,17 +1,15 @@
 import axios from 'axios';
 import moment from 'moment';
-import { useSelector } from 'react-redux';
-import React, { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { database, ref, push, onValue, serverTimestamp, set } from '../../config/firebase-config'; // Update with your actual firebase config import
+import React, { useEffect, useRef, useState } from 'react';
+import { database, ref, push, onValue, serverTimestamp, set } from '../../config/firebase-config'
 import Timer from './features/Timer';
 import { api_urls } from '../../utils/api-urls';
-import { AttachmentBtnSvg, SendBtnSvg } from '../../assets/svg';
-import { generateRandomNumber, GroupMessagesByDate } from '../../utils/common-function';
-import ChatImageModal from '../../components/modal/ChatImageModal';
-import SocketService from '../../utils/services/socket-service';
 import ChatBg from '../../assets/images/chat/chat-bg.png';
+import { AttachmentBtnSvg, SendBtnSvg } from '../../assets/svg';
+import ChatImageModal from '../../components/modal/ChatImageModal';
 import TopHeaderSection from '../../components/common/TopHeaderSection';
+import { generateRandomNumber, GroupMessagesByDate } from '../../utils/common-function';
 
 const Chat = () => {
     const location = useLocation();
@@ -19,7 +17,6 @@ const Chat = () => {
     const customer_id = searchParams.get('customer');
     const astrologer_id = searchParams.get('astrologer');
     const profileId = searchParams.get('profileId');
-    const { socketConnectionStatus } = useSelector(state => state?.commonReducer);
     const [inputField, setInputField] = useState('');
 
     const current_user_id = localStorage.getItem('current_user_id');
@@ -29,6 +26,7 @@ const Chat = () => {
         name: current_user_data?.astrologerName || current_user_data?.customerName,
     };
 
+    //! Image Modal Start 
     const [modalOpen, setModalOpen] = useState(false);
     const [selectedContent, setSelectedContent] = useState(null);
     const handleOpenImage = (message) => {
@@ -40,20 +38,19 @@ const Chat = () => {
         setSelectedContent(null);
         setModalOpen(false)
     };
+    //! Image Modal End
 
+    const [intakeDetail, setIntakeDetail] = useState({});
+    const [intakeInsertedCount, setIntakeInsertedCount] = useState(0);
     const [messages, setMessages] = useState([]);
+    const groupedMessages = GroupMessagesByDate(messages);
     const chatContainerRef = useRef(null);
     const fileInputRef = useRef(null);
 
     const chat_id = `customer_${customer_id}_astro_${astrologer_id}`;
     const localRequestedData = JSON.parse(localStorage.getItem('chat_requested_data'));
 
-    const scrollToBottom = () => {
-        if (chatContainerRef.current) {
-            chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
-        }
-    };
-
+    // Todo : Get Message From Database 
     useEffect(() => {
         const messagesRef = ref(database, `ChatMessages/${chat_id}`);
         onValue(messagesRef, (snapshot) => {
@@ -72,52 +69,7 @@ const Chat = () => {
         });
     }, [chat_id]);
 
-    useEffect(() => {
-        scrollToBottom();
-    }, [messages]);
-
-    const [intakeDetail, setIntakeDetail] = useState({});
-    const [intakeInsertedCount, setIntakeInsertedCount] = useState(0);
-
-    useEffect(() => {
-        const fetchIntakeDetail = async () => {
-            try {
-                const { data } = await axios.post(api_urls + 'api/customers/get_linked_profile', { profileId });
-                if (data?.success) {
-                    setIntakeDetail(data?.data);
-                    setIntakeInsertedCount(1);
-                }
-            } catch (error) {
-                console.log("Get Linked Profile Failed!!!");
-            }
-        };
-
-        profileId && fetchIntakeDetail();
-    }, []);
-
-    useEffect(() => {
-        const storeIntake = async () => {
-            const { firstName, lastName, dateOfBirth, timeOfBirth, placeOfBirth, maritalStatus, latitude, longitude, topic_of_concern, description } = intakeDetail;
-
-            const message = {
-                _id: Math.random().toString(36).substr(2, 9),
-                text: `Firstname: ${firstName},  Lastname: ${lastName}, DOB: ${moment(dateOfBirth)?.format('DD MMM YYYY')}, TOB: ${moment(timeOfBirth)?.format('hh:mm a')}, POB: ${placeOfBirth}, Marital Status: ${maritalStatus}, Latitude:${latitude}, Longitude:${longitude}, Topic of concer:${topic_of_concern}, description: ${description}`,
-                user: currentUser,
-                createdAt: new Date().getTime(),
-                addedAt: serverTimestamp(),
-            };
-
-            const chatNode = push(ref(database, `ChatMessages/${chat_id}`));
-            const newKey = chatNode.key;
-            const chatRef = ref(database, `ChatMessages/${chat_id}/${newKey}`);
-            await set(chatRef, { ...message, pending: false, sent: true, received: false });
-        }
-        console.log('Intale User', localStorage.getItem('user_type'));
-        console.log('Intake Count', intakeInsertedCount);
-
-        intakeDetail && intakeInsertedCount == 1 && localStorage.getItem('user_type') === 'customer' && storeIntake();
-    }, [intakeInsertedCount]);
-
+    //! Handle Send : Text
     const handleSend = async (text) => {
         if (!text.trim()) return;
 
@@ -137,6 +89,7 @@ const Chat = () => {
         setInputField('');
     };
 
+    //! Handle Send : Image
     const handleFileChange = async (e) => {
         console.log("Handle File Change Outside ::: ", e.target.files[0]);
         if (e.target.files[0] && e.target.files.length > 0) {
@@ -167,20 +120,67 @@ const Chat = () => {
         }
     };
 
-    const groupedMessages = GroupMessagesByDate(messages);
-
+    //! Handle Send Intake Detail To Chat 
     useEffect(() => {
+        const storeIntake = async () => {
+            const { firstName, lastName, dateOfBirth, timeOfBirth, placeOfBirth, maritalStatus, latitude, longitude, topic_of_concern, description } = intakeDetail;
+
+            const message = {
+                _id: Math.random().toString(36).substr(2, 9),
+                text: `Firstname: ${firstName},  Lastname: ${lastName}, DOB: ${moment(dateOfBirth)?.format('DD MMM YYYY')}, TOB: ${moment(timeOfBirth)?.format('hh:mm a')}, POB: ${placeOfBirth}, Marital Status: ${maritalStatus}, Latitude:${latitude}, Longitude:${longitude}, Topic of concer:${topic_of_concern}, description: ${description}`,
+                user: currentUser,
+                createdAt: new Date().getTime(),
+                addedAt: serverTimestamp(),
+            };
+
+            const chatNode = push(ref(database, `ChatMessages/${chat_id}`));
+            const newKey = chatNode.key;
+            const chatRef = ref(database, `ChatMessages/${chat_id}/${newKey}`);
+            await set(chatRef, { ...message, pending: false, sent: true, received: false });
+        }
+        console.log('Intale User', localStorage.getItem('user_type'));
+        console.log('Intake Count', intakeInsertedCount);
+
+        intakeDetail && intakeInsertedCount == 1 && localStorage.getItem('user_type') === 'customer' && storeIntake();
+    }, [intakeInsertedCount]);
+
+    //! Handle Reload Screen and Get Intake Detail
+    useEffect(() => {
+        const fetchIntakeDetail = async () => {
+            try {
+                const { data } = await axios.post(api_urls + 'api/customers/get_linked_profile', { profileId });
+                if (data?.success) {
+                    setIntakeDetail(data?.data);
+                    setIntakeInsertedCount(1);
+                }
+            } catch (error) {
+                console.log("Get Linked Profile Failed!!!");
+            }
+        };
+
         const handleBeforeUnload = (event) => {
             event.preventDefault();
             event.returnValue = ''; // Required for modern browsers
         };
 
+        profileId && fetchIntakeDetail();
         // window.addEventListener('beforeunload', handleBeforeUnload);
 
         return () => {
             window.removeEventListener('beforeunload', handleBeforeUnload);
         };
     }, []);
+
+    //! Scroll Down the Chat 
+    useEffect(() => {
+        const scrollToBottom = () => {
+            if (chatContainerRef.current) {
+                chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+            }
+        };
+
+        scrollToBottom();
+    }, [messages]);
 
     return (
         <>

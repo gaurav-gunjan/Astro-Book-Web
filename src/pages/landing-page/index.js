@@ -16,7 +16,6 @@ import MatchMaking from '../../assets/images/landing-page/service/Match-Making.p
 import Remedies from '../../assets/images/landing-page/service/Remedies.png';
 import MobileRight from '../../assets/images/landing-page/service/Mobile-Right.png';
 import MobileLeft from '../../assets/images/landing-page/service/Mobile-Left.png';
-import { Color } from '../../assets/colors/index.js';
 
 const serviceData = [
     { path: 'astrologer', title: 'Talk To Astrologer', icon: <CallSvg h='50' w='50' />, description: 'Donec porttitor euismod dignissim. Nullam a lacinia ipsum, nec dignissim purus. ' },
