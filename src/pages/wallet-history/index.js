@@ -54,7 +54,7 @@ const WalletHistory = () => {
                                 <thead>
                                     <tr className="text-sm shadow-sm text-nowrap bg-[#F1B646]">
                                         <th className="p-[10px_10px] font-[600]">Recharge Amt.</th>
-                                        <th className="p-[10px_10px] font-[600]">Exptra Profilt(%)</th>
+                                        <th className="p-[10px_10px] font-[600]">Extra Profit(%)</th>
                                         <th className="p-[10px_10px] font-[600]">Recharge GST (%)</th>
                                         <th className="p-[10px_10px] font-[600]">Total Amount</th>
                                         <th className="p-[10px_10px] font-[600]">Wallet Credit Amt.</th>

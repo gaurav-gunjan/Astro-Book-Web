@@ -76,6 +76,14 @@ export const setChatInvoiceVisibility = payload => ({
     type: actionTypes.SET_CHAT_INVOICE_VISIBILITY, payload,
 });
 
+export const getAstrologerChatInvoiceVisibility = payload => ({
+    type: actionTypes.GET_ASTROLOGER_CHAT_INVOICE_VISIBILITY, payload,
+});
+
+export const setAstrologerChatInvoiceVisibility = payload => ({
+    type: actionTypes.SET_ASTROLOGER_CHAT_INVOICE_VISIBILITY, payload,
+});
+
 // TODO : Call
 export const callIntakeDetailData = payload => ({
     type: actionTypes.CALL_INTAKE_DETAIL_DATA, payload,

@@ -171,14 +171,30 @@ function* closeChatMessage(action) {
             console.log("On Complete Run");
             yield put({ type: actionTypes.HIDE_CHAT_MESSAGE_INPUT_FIELD, payload: true });
 
-            if (user_type == 'customer') {
-                const close_chat_reponse = yield axios.post(api_urls + 'api/customers/get_chat_details', { chatId: localStorage.getItem('chatId') });
-                console.log('close_chat_reponse', close_chat_reponse);
-                if (close_chat_reponse?.data?.success) {
-                    yield put({ type: actionTypes.SET_CHAT_TIMER_COUNTDOWN, payload: 0 });
-                    yield put({ type: actionTypes.SET_CHAT_INVOICE_DATA, payload: close_chat_reponse?.data?.chatHistory });
+            // if (user_type == 'customer') {
+            //     const close_chat_reponse = yield axios.post(api_urls + 'api/customers/get_chat_details', { chatId: localStorage.getItem('chatId') });
+            //     console.log('close_chat_reponse', close_chat_reponse);
+            //     if (close_chat_reponse?.data?.success) {
+            //         yield put({ type: actionTypes.SET_CHAT_TIMER_COUNTDOWN, payload: 0 });
+            //         yield put({ type: actionTypes.SET_CHAT_INVOICE_DATA, payload: close_chat_reponse?.data?.chatHistory });
+            //         yield put({ type: actionTypes.SET_CHAT_INVOICE_VISIBILITY, payload: true });
+            //         yield put({ type: actionTypes.GET_USER_CUSTOMER_BY_ID, payload: { customerId: localStorage.getItem('current_user_id') } });
+            //     }
+            // }
+
+            const close_chat_reponse = yield axios.post(api_urls + 'api/customers/get_chat_details', { chatId: localStorage.getItem('chatId') });
+            console.log('close_chat_reponse', close_chat_reponse);
+
+            if (close_chat_reponse?.data?.success) {
+                yield put({ type: actionTypes.SET_CHAT_TIMER_COUNTDOWN, payload: 0 });
+                yield put({ type: actionTypes.SET_CHAT_INVOICE_DATA, payload: close_chat_reponse?.data?.chatHistory });
+
+                if (user_type == 'customer') {
                     yield put({ type: actionTypes.SET_CHAT_INVOICE_VISIBILITY, payload: true });
                     yield put({ type: actionTypes.GET_USER_CUSTOMER_BY_ID, payload: { customerId: localStorage.getItem('current_user_id') } });
+                }
+                if (user_type == 'astrologer') {
+                    yield put({ type: actionTypes.SET_ASTROLOGER_CHAT_INVOICE_VISIBILITY, payload: true });
                 }
             }
         }
