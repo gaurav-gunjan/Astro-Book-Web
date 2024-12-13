@@ -25,7 +25,7 @@ const showNumber = (number) => {
 const ChatInvoiceAstrologerModal = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { chatInvoiceData, chatInvoiceVisibility } = useSelector(state => state?.chatReducer);
+    const { chatInvoiceData, astrologerChatInvoiceVisibility } = useSelector(state => state?.chatReducer);
     console.log('chatInvoiceData', chatInvoiceData);
 
     const handleCloseInvoice = () => {
@@ -36,7 +36,7 @@ const ChatInvoiceAstrologerModal = () => {
 
     return (
         <>
-            <Modal isOpen={chatInvoiceVisibility} className="modal-content-small" overlayClassName="modal-overlay-small" closeTimeoutMS={200}>
+            <Modal isOpen={astrologerChatInvoiceVisibility} className="modal-content-small" overlayClassName="modal-overlay-small" closeTimeoutMS={200}>
                 <div className='p-5 flex flex-col gap-5'>
                     <div className='flex justify-between items-center gap-40'>
                         <img src={Logo} className='h-10' />

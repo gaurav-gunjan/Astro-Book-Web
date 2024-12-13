@@ -13,6 +13,7 @@ import { generateRandomNumber, GroupMessagesByDate } from '../../utils/common-fu
 import ChatInvoiceModal from '../../components/modal/ChatInvoiceModal';
 import { useSelector } from 'react-redux';
 import ChatRating from '../../components/features/ChatRating';
+import ChatInvoiceAstrologerModal from '../../components/modal/ChatInvoiceAstrologerModal';
 
 const Chat = () => {
     const location = useLocation();
@@ -276,6 +277,7 @@ const Chat = () => {
 
 
             <ChatInvoiceModal />
+            <ChatInvoiceAstrologerModal />
             {astrologerRatingVisibility?.ratingVisible && <ChatRating />}
         </>
     );

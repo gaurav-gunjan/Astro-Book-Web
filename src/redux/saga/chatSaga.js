@@ -195,6 +195,7 @@ function* closeChatMessage(action) {
                 }
                 if (user_type == 'astrologer') {
                     yield put({ type: actionTypes.SET_ASTROLOGER_CHAT_INVOICE_VISIBILITY, payload: true });
+                    console.log("Invoice Open Astrolgoer !!!")
                 }
             }
         }
