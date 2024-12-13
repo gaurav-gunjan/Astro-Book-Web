@@ -40,9 +40,7 @@ const Timer = ({ currentUser, messageChatId }) => {
             const chatRef = ref(database, `ChatMessages/${messageChatId}/${newKey}`);
             await set(chatRef, { ...message, pending: false, sent: true, received: false });
 
-            setTimeout(() => {
-                dispatch(ChatActions.endChatMessage({ chatId }));
-            }, 2000);
+            dispatch(ChatActions.endChatMessage({ chatId }));
         }
     };
 
