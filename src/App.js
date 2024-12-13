@@ -239,9 +239,8 @@ const App = () => {
         {location?.pathname !== '/chat' && <NewsLetter />}
         {location?.pathname !== '/chat' && <Footer scrollToSection={scrollToSection} />}
 
-        <ChatInvoiceModal />
+        
         <CallInvoiceModal />
-        <RatingModal />
         {requestInitiatedByCustomer?.initiated && <PageBlock />}
         <ToastContainer />
       </LoadScript>

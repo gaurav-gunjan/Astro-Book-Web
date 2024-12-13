@@ -10,6 +10,9 @@ import { AttachmentBtnSvg, SendBtnSvg } from '../../assets/svg';
 import ChatImageModal from '../../components/modal/ChatImageModal';
 import TopHeaderSection from '../../components/common/TopHeaderSection';
 import { generateRandomNumber, GroupMessagesByDate } from '../../utils/common-function';
+import ChatInvoiceModal from '../../components/modal/ChatInvoiceModal';
+import { useSelector } from 'react-redux';
+import ChatRating from '../../components/features/ChatRating';
 
 const Chat = () => {
     const location = useLocation();
@@ -17,6 +20,8 @@ const Chat = () => {
     const customer_id = searchParams.get('customer');
     const astrologer_id = searchParams.get('astrologer');
     const profileId = searchParams.get('profileId');
+    const { callInvoiceVisibility, astrologerRatingVisibility } = useSelector(state => state?.chatReducer)
+
     const [inputField, setInputField] = useState('');
 
     const current_user_id = localStorage.getItem('current_user_id');
@@ -50,8 +55,8 @@ const Chat = () => {
     const [intakeInsertedCount, setIntakeInsertedCount] = useState(0);
     const [messages, setMessages] = useState([]);
     const groupedMessages = GroupMessagesByDate(messages);
-    console.log("messages", messages)
-    console.log("Group messages", groupedMessages)
+    // console.log("messages", messages)
+    // console.log("Group messages", groupedMessages)
     const chatContainerRef = useRef(null);
     const fileInputRef = useRef(null);
 
@@ -150,7 +155,7 @@ const Chat = () => {
         console.log('Intale User', localStorage.getItem('user_type'));
         console.log('Intake Count', intakeInsertedCount);
 
-        intakeDetail && intakeInsertedCount == 1 && localStorage.getItem('user_type') === 'customer' && storeIntake();
+        // intakeDetail && intakeInsertedCount == 1 && localStorage.getItem('user_type') === 'customer' && storeIntake();
     }, [intakeInsertedCount]);
 
     //! Handle Reload Screen and Get Intake Detail
@@ -211,7 +216,7 @@ const Chat = () => {
                                             <div className='flex gap-1'>
                                                 {message.user.id !== currentUser._id && <img src={message?.user?.image} className='h-4 w-4 rounded-full' />}
                                                 <div className='flex'>
-                                                    {message.user.id !== currentUser._id && <div className='p-1 bg-white self-start rounded-bl-full'></div>}
+                                                    {message.user.id !== currentUser._id && <div className='p-1 bg-white border-l-2 border-t border-primary self-start rounded-bl-full'></div>}
                                                     <div className={`relative max-w-xs p-3 shadow-md ${message.user.id === currentUser._id ? 'bg-[#6f6d4f] text-white rounded-lg' : 'bg-white text-black rounded-lg rounded-tl-none'} break-words`}>
                                                         {message.user.id !== currentUser._id && <div className='text-xs text-primary'>{message?.user?.name}</div>}
                                                         <div className='text-[14px]'>{message.text}</div>
@@ -220,10 +225,18 @@ const Chat = () => {
                                                 </div>
                                             </div>
                                             :
-                                            <div className='relative max-w-80 cursor-pointer'>
-                                                <img src={message.image} alt="attachment" className="mt-2 max-h-40 rounded-lg" />
-                                                <div className="text-xs text-white absolute z-10 right-2 bottom-2">{moment(message.createdAt).format('h:mm A')}</div>
-                                            </div>}
+                                            <div className='flex gap-1 mt-2'>
+                                                {message.user.id !== currentUser._id && <img src={message?.user?.image} className='h-4 w-4 rounded-full' />}
+                                                <div className='flex'>
+                                                    {message.user.id !== currentUser._id && <div className='p-1 bg-white border-l-2 border-t border-primary self-start rounded-bl-full'></div>}
+                                                    <div className='relative max-w-80 cursor-pointer '>
+                                                        {message.user.id !== currentUser._id && <div className='text-xs text-primary bg-white px-3 pt-2 rounded-tr-lg'>{message?.user?.name}</div>}
+                                                        <img src={message.image} alt="attachment" className="max-h-40 rounded-lg" />
+                                                        <div className="text-xs text-white absolute z-10 right-2 bottom-2">{moment(message.createdAt).format('h:mm A')}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
                                     </div>
                                 </div>
                             ))}
@@ -240,6 +253,10 @@ const Chat = () => {
 
                 <ChatImageModal visible={modalOpen} image={selectedContent?.image} handleClose={handleCloseImage} />
             </div>
+
+
+            <ChatInvoiceModal />
+            <ChatRating />
         </>
     );
 };

@@ -38,7 +38,7 @@
   }
 
   .modal-content::-webkit-scrollbar-thumb {
-    background-color: #381415;
+    background-color: #F1B646;
     border-radius: 3px;
   }
 
@@ -109,12 +109,18 @@
   }
 
   .modal-content-small::-webkit-scrollbar-thumb {
-    background-color: #381415;
+    background-color: #F1B646;
     border-radius: 3px;
   }
 
   .modal-content-small::-webkit-scrollbar-track {
     background: #f1f1f1;
+  }
+}
+
+@media (max-width: 500px) {
+  .modal-content-small {
+    min-width: 95vw;
   }
 }
 
