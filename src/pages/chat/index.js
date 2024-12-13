@@ -2,7 +2,7 @@ import axios from 'axios';
 import moment from 'moment';
 import { useLocation } from 'react-router-dom';
 import React, { useEffect, useRef, useState } from 'react';
-import { database, ref, push, onValue, serverTimestamp, set } from '../../config/firebase-config'
+import { database, ref, push, onValue, serverTimestamp, set } from '../../config/firebase-config';
 import Timer from './features/Timer';
 import { api_urls } from '../../utils/api-urls';
 import ChatBg from '../../assets/images/chat/chat-bg.png';
@@ -34,7 +34,7 @@ const Chat = () => {
         setModalOpen(true)
     };
 
-    const handleCloseImage = (message) => {
+    const handleCloseImage = () => {
         setSelectedContent(null);
         setModalOpen(false)
     };
@@ -48,7 +48,6 @@ const Chat = () => {
     const fileInputRef = useRef(null);
 
     const chat_id = `customer_${customer_id}_astro_${astrologer_id}`;
-    const localRequestedData = JSON.parse(localStorage.getItem('chat_requested_data'));
 
     // Todo : Get Message From Database 
     useEffect(() => {
@@ -187,7 +186,7 @@ const Chat = () => {
             <TopHeaderSection />
 
             <div className="flex flex-col max-md:h-[calc(100vh-70.5px)] h-[calc(100vh-94.5px)]">
-                <Timer requestedData={localRequestedData} />
+                <Timer currentUser={currentUser} messageChatId={chat_id} />
 
                 <div ref={chatContainerRef} className="flex-grow overflow-y-auto p-4" style={{ backgroundImage: `url(${ChatBg})` }}>
                     {Object.keys(groupedMessages).map((date, index) => (

@@ -1,14 +1,15 @@
-import React, { useEffect } from 'react';
+import Swal from 'sweetalert2';
 import CountDown from './CountDown';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import * as ChatActions from '../../../redux/actions/chatAction';
-import Swal from 'sweetalert2';
-import useNetworkStatus from '../../../components/hooks/useNetworkStatus';
 import { Color } from '../../../assets/colors';
 import { ChatCloseSvg } from '../../../assets/svg';
+import useNetworkStatus from '../../../components/hooks/useNetworkStatus';
+import { database, ref, push, onValue, serverTimestamp, set } from '../../../config/firebase-config';
 
-const Timer = () => {
+const Timer = ({ currentUser, messageChatId }) => {
     const isOnline = useNetworkStatus();
     const navigate = useNavigate();
     const location = useLocation();
@@ -26,7 +27,22 @@ const Timer = () => {
         console.log('result', result);
 
         if (result.isConfirmed) {
-            dispatch(ChatActions.endChatMessage({ chatId }));
+            const message = {
+                _id: Math.random().toString(36).substr(2, 9),
+                text: `Chat has been ended by ${currentUser?.name}`,
+                user: currentUser,
+                createdAt: new Date().getTime(),
+                addedAt: serverTimestamp(),
+            };
+
+            const chatNode = push(ref(database, `ChatMessages/${messageChatId}`));
+            const newKey = chatNode.key;
+            const chatRef = ref(database, `ChatMessages/${messageChatId}/${newKey}`);
+            await set(chatRef, { ...message, pending: false, sent: true, received: false });
+
+            setTimeout(() => {
+                dispatch(ChatActions.endChatMessage({ chatId }));
+            }, 5000);
         }
     };
 
