@@ -56,7 +56,7 @@ const AstrologerLoginModal = ({ isOpen, handleCloseModal }) => {
 
                                     <button onClick={handleLoginAstrolger} className="w-full shadow-lg bg-primary hover:bg-primary focus:shadow-outline focus:outline-none text-white py-2 px-4 rounded transition duration-300 transform hover:scale-95" type="submit">Login</button>
 
-                                    <div className='text-[12px] text-grey'>By login, you agree to our <Link to={'terms-and-conditions'} onClick={() => handleCloseModal()} className='underline text-blue-700'>Terms of Use</Link> and <Link to={'privacy-policy'} onClick={() => handleCloseModal()} className='underline text-blue-700'>Privacy Policy</Link></div>
+                                    <div className='text-[12px] text-grey'>By login, you agree to our <Link to={'terms-of-use'} onClick={() => handleCloseModal()} className='underline text-blue-700'>Terms of Use</Link> and <Link to={'privacy-policy'} onClick={() => handleCloseModal()} className='underline text-blue-700'>Privacy Policy</Link></div>
                                 </div>
                             </div>
                         </main>

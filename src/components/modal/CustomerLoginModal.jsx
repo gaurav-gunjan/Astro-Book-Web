@@ -109,7 +109,7 @@ const CustomerLoginModal = ({ isOpen, handleCloseModal }) => {
                                 <PhoneInput country={'in'} placeholder='Enter mobile no' value={customerLoginInputFieldDetail?.phone_number} onChange={handleLoginInputField} onKeyDown={(e) => e.key === 'Enter' && handleLogin()} inputStyle={{ width: '100%', height: '55px', fontSize: "15px", backgroundColor: "#FFF", borderRadius: '10px' }} />
                                 <button onClick={handleLogin} className="w-full h-[45px] shadow-lg bg-[#F1B646] hover:bg-[#F1B64699] focus:shadow-outline focus:outline-none text-white py-2 px-4 rounded-[10px] transition duration-300 transform hover:scale-95]" type="submit">GET OTP</button>
 
-                                <div className='text-[14px] font-[500] text-[#0858F7]'>By Signing, you agree to our <Link to={'terms-and-conditions'} onClick={() => handleCloseModal()} className='underline'>Terms of Use</Link> and <Link to={'privacy-policy'} onClick={() => handleCloseModal()} className='underline'>Privacy Policy</Link></div>
+                                <div className='text-[14px] font-[500] text-[#0858F7]'>By Signing, you agree to our <Link to={'terms-of-use'} onClick={() => handleCloseModal()} className='underline'>Terms of Use</Link> and <Link to={'privacy-policy'} onClick={() => handleCloseModal()} className='underline'>Privacy Policy</Link></div>
                             </div>
                         }
                     </div>
