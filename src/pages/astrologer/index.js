@@ -6,21 +6,61 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { Color } from '../../assets/colors';
-import { SearchSvg } from '../../assets/svg';
+import { CrossSvg, SearchSvg } from '../../assets/svg';
 import { api_urls } from '../../utils/api-urls';
+import useModal from '../../components/hooks/useModal';
 import { IndianRupee } from '../../utils/common-function';
 import { toaster } from '../../utils/services/toast-service';
 import PageHeading from '../../components/common/PageHeading';
 import TopHeaderSection from '../../components/common/TopHeaderSection';
 import * as CommonActions from '../../redux/actions/commonAction';
+import RadioButton from '../../components/button/RadioButton';
+import CheckBoxActive from '../../components/button/CheckBoxActive';
+import CheckBoxInactive from '../../components/button/CheckBoxInactive';
 // import * as AstrologerActions from '../../redux/actions/astrologerAction';
 
+export const sortByData = [{ id: 1, name: 'Popularity' }, { id: 2, name: 'Experience', type: 'High to Low' }, { id: 3, name: 'Experience', type: 'Low to High' }, { id: 4, name: 'Total orders', type: 'High to Low' }, { id: 5, name: 'Total orders', type: 'Low to High' }, { id: 6, name: 'Price', type: 'High to Low' }, { id: 7, name: 'Price', type: 'Low to High' }, { id: 8, name: 'Rating', type: 'High to Low' },];
+export const skillData = [{ name: 'Face Reading' }, { name: 'Life Coach' }, { name: 'Nadi' }, { name: 'Palmistry' }, { name: 'Vedic' }, { name: 'Vastu' }]
+export const languageData = [{ name: 'Hindi' }, { name: 'English' }, { name: 'Sanskrit' }]
+export const genderData = [{ name: 'Male' }, { name: 'Female' }, { name: 'Other' }]
+export const countryData = [{ name: 'India' }, { name: 'Outside India' }]
+export const offerData = [{ name: 'Active' }, { name: 'Inactive' }]
+
 const ChatWithAstrologer = () => {
+
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { userCustomerDataById } = useSelector(state => state?.userReducer);
     // const { astrologerData } = useSelector(state => state?.astrologerReducer);
+    const [openSortByModal, closeSortByModal, SortByModal] = useModal();
+    const [openFilterModal, closeFilterModal, FilterModal] = useModal();
 
+    //! Handle Sort By 
+    const [sortBy, setsortBy] = useState("");
+    const handleChangeSortBy = (data) => {
+        setsortBy(data?.name + data?.type);
+        console.log(data);
+    };
+
+
+    //! Handle Filter 
+    const [activeTab, setActiveTab] = useState(0);
+    const filterHead = [{ id: 0, name: 'Skill' }, { id: 1, name: 'Language' }, { id: 2, name: 'Gender' }, { id: 3, name: 'Country' }, { id: 4, name: 'Offer' },]
+
+    const [selectedLanguage, setSelectedLanguage] = useState([])
+    const handleSelectedLanguage = (language) => {
+        setSelectedLanguage((prevSelected) =>
+            prevSelected.includes(language)
+                ? prevSelected.filter((item) => item !== language)
+                : [...prevSelected, language]
+        );
+    };
+
+    const handleSubmitFilter = () => {
+        console.log('Selected Language ::: ', selectedLanguage)
+    };
+
+    //! Astrologer Data 
     const [astrologerData, setAstrologerData] = useState([]);
     // console.log("Astrologer Data ::: ", astrologerData);
     // console.log("Astrologer Data Length ::: ", astrologerData?.length);
@@ -116,6 +156,8 @@ const ChatWithAstrologer = () => {
 
                         <div className='flex gap-4 flex-wrap'>
                             <div onClick={() => navigate('/recharge')} className='border border-green-500 text-green-500 px-5 rounded-md flex items-center justify-center max-md:py-1 cursor-pointer'>Recharge</div>
+                            <div onClick={openFilterModal} className='border border-green-500 text-green-500 px-5 rounded-md flex items-center justify-center max-md:py-1  cursor-pointer'>Filter</div>
+                            <div onClick={openSortByModal} className='border border-green-500 text-green-500 px-5 rounded-md flex items-center justify-center max-md:py-1 cursor-pointer'>Sort by</div>
 
                             <div className='border border-[#DDDDDD] rounded-md flex items-center max-sm:w-[90vw]'>
                                 <input value={search} onChange={(e) => setSearch(e?.target?.value)} type='search' placeholder='Search here..' className='outline-none px-3 py-2.5 text-[16px] max-md:text-[16px] rounded-md h-full w-[200px] max-lg:w-[200px] max-md:w-[100%]' />
@@ -219,9 +261,117 @@ const ChatWithAstrologer = () => {
                         </div>
                     )}
                 </article>
-            </section >
+            </section>
+
+
+            <SortByModal width={`w-[300px]`}>
+                <div className='flex justify-between items-center py-3 px-5 border-b-[2px]'>
+                    <div className='text-lg font-semibold'>SORT BY</div>
+                    <div onClick={closeSortByModal} className='cursor-pointer' ><CrossSvg strokeWidth='3' /></div>
+                </div>
+
+                <main className='px-5 py-5 pb-7 flex flex-col gap-4'>
+                    {sortByData.map((value, index) => (
+                        <RadioButton key={index}
+                            label={value?.type ? value?.name + ' : ' + value?.type : value?.name}
+                            name="custom-radio"
+                            value={value?.name + value?.type}
+                            checked={sortBy === value?.name + value?.type}
+                            onChange={() => handleChangeSortBy(value)}
+                        />
+                    ))}
+                </main>
+            </SortByModal>
+
+            <FilterModal width={`w-[500px]`}>
+                <div className='flex justify-between items-center py-3 px-5 border-b-[2px]'>
+                    <div className='text-lg font-semibold'>FILTERS</div>
+                    <div onClick={closeFilterModal} className='cursor-pointer' ><CrossSvg strokeWidth='3' /></div>
+                </div>
+
+                <main className='flex h-96 border-b-[2px]'>
+                    <div className='basis-[30%] border-r-[2px]'>
+                        <div className=' bg-greybg'>
+                            {filterHead.map((value, index) => (
+                                <div key={index} onClick={() => setActiveTab(value?.id)} className={`border-l-[5px] ${activeTab == value?.id ? `border-[#008080] bg-white` : `border-greybg`} px-3 py-2 cursor-pointer`}>{value?.name}</div>
+                            ))}
+                        </div>
+                    </div>
+                    <div className='basis-[70%] overflow-auto filter-overflow p-4'>
+                        <SwtichTab activeTab={activeTab} handleSelectedLanguage={handleSelectedLanguage} selectedLanguage={selectedLanguage} />
+                    </div>
+                </main>
+
+                <div className='flex gap-4 py-3 px-4 items-center'>
+                    <div className='px-4 text-cyan-900 cursor-pointer'>Reset</div>
+                    <div className='flex-1 flex justify-center'>
+                        <div onClick={() => handleSubmitFilter()} className='px-20 py-2 bg-yellow-400 rounded-lg cursor-pointer' style={{ boxShadow: "0 0 5px #bdb5b5" }}>Apply</div>
+                    </div>
+                </div>
+            </FilterModal>
         </>
     )
 }
 
 export default ChatWithAstrologer;
+
+
+const SwtichTab = ({ activeTab, handleSelectedLanguage, selectedLanguage }) => {
+    switch (activeTab) {
+        case 0:
+            return <>
+                <main className='flex flex-col gap-4'>
+                    {skillData.map((value, index) => (
+                        <div onClick={() => handleSelectedLanguage(value?.name)} key={index} className='flex gap-2 items-center cursor-pointer'>
+                            {selectedLanguage.includes(value.name) ? <CheckBoxActive /> : <CheckBoxInactive />}
+                            <div>{value?.name}</div>
+                        </div>
+                    ))}
+                </main>
+            </>
+        case 1:
+            return <>
+                <main className='flex flex-col gap-4'>
+                    {languageData.map((value, index) => (
+                        <div onClick={() => handleSelectedLanguage(value?.name)} key={index} className='flex gap-2 items-center cursor-pointer'>
+                            {selectedLanguage.includes(value.name) ? <CheckBoxActive /> : <CheckBoxInactive />}
+                            <div>{value?.name}</div>
+                        </div>
+                    ))}
+                </main>
+            </>
+        case 2:
+            return <>
+                <main className='flex flex-col gap-4'>
+                    {genderData.map((value, index) => (
+                        <div onClick={() => handleSelectedLanguage(value?.name)} key={index} className='flex gap-2 items-center cursor-pointer'>
+                            {selectedLanguage.includes(value.name) ? <CheckBoxActive /> : <CheckBoxInactive />}
+                            <div>{value?.name}</div>
+                        </div>
+                    ))}
+                </main>
+            </>
+        case 3:
+            return <>
+                <main className='flex flex-col gap-4'>
+                    {countryData.map((value, index) => (
+                        <div onClick={() => handleSelectedLanguage(value?.name)} key={index} className='flex gap-2 items-center cursor-pointer'>
+                            {selectedLanguage.includes(value.name) ? <CheckBoxActive /> : <CheckBoxInactive />}
+                            <div>{value?.name}</div>
+                        </div>
+                    ))}
+                </main>
+            </>
+        case 4:
+            return <>
+                <main className='flex flex-col gap-4'>
+                    {offerData.map((value, index) => (
+                        <div onClick={() => handleSelectedLanguage(value?.name)} key={index} className='flex gap-2 items-center cursor-pointer'>
+                            {selectedLanguage.includes(value.name) ? <CheckBoxActive /> : <CheckBoxInactive />}
+                            <div>{value?.name}</div>
+                        </div>
+                    ))}
+                </main>
+            </>
+    }
+}

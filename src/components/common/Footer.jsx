@@ -41,97 +41,97 @@ const Footer = ({ scrollToSection }) => {
                     <main className='max-lg:basis-[45%] max-md:basis-full basis-[24%] flex flex-col gap-7'>
                         <main className='flex flex-col gap-3'>
                             <span className='text-[17px] font-[500] border-b-2 border-[#F0DF20] inline-block pb-1 self-start'>Horoscope</span>
-                            <Link to=''>Horoscope 2024</Link>
-                            <Link to=''>Today's Horoscope</Link>
-                            <Link to=''>Today's Love Horoscope</Link>
-                            <Link to=''>Yesterday's Horoscope</Link>
-                            <Link to=''>Tomorrow's Horoscope</Link>
-                            <Link to=''>Weekly Horoscope</Link>
-                            <Link to=''>Monthly Horoscope</Link>
-                            <Link to=''>Yearly Horoscope</Link>
+                            <Link to='/horoscope/daily'>Horoscope 2024</Link>
+                            <Link to='horoscope/daily'>Today's Horoscope</Link>
+                            <Link to='horoscope/daily'>Today's Love Horoscope</Link>
+                            <Link to='horoscope/daily'>Yesterday's Horoscope</Link>
+                            <Link to='horoscope/daily'>Tomorrow's Horoscope</Link>
+                            <Link to='/horoscope/monthly'>Weekly Horoscope</Link>
+                            <Link to='/horoscope/monthly'>Monthly Horoscope</Link>
+                            <Link to='/horoscope/monthly'>Yearly Horoscope</Link>
                         </main>
 
                         <main className='flex flex-col gap-3'>
-                            <span className='text-[17px] font-[500] border-b-2 border-[#F0DF20] inline-block pb-1 self-start'>Horoscope</span>
-                            <Link to=''>Annanprashan Muhurat 2024</Link>
-                            <Link to=''>Naamkaran Muhurat 2024</Link>
-                            <Link to=''>Car/Bike Muhurat 2024</Link>
-                            <Link to=''>Marriage Muhurat 2024</Link>
-                            <Link to=''>Gold Buying Muhurat 2024</Link>
-                            <Link to=''>Bhoomi Pujan Muhurat 2024</Link>
-                            <Link to=''>Griha Pravesh Muhurat 2024</Link>
-                            <Link to=''>Mundan Muhurat 2024</Link>
+                            <span className='text-[17px] font-[500] border-b-2 border-[#F0DF20] inline-block pb-1 self-start'>Shubh Muhurat 2024</span>
+                            <Link to='/astrologer'>Annanprashan Muhurat 2024</Link>
+                            <Link to='/astrologer'>Naamkaran Muhurat 2024</Link>
+                            <Link to='/astrologer'>Car/Bike Muhurat 2024</Link>
+                            <Link to='/astrologer'>Marriage Muhurat 2024</Link>
+                            <Link to='/astrologer'>Gold Buying Muhurat 2024</Link>
+                            <Link to='/astrologer'>Bhoomi Pujan Muhurat 2024</Link>
+                            <Link to='/astrologer'>Griha Pravesh Muhurat 2024</Link>
+                            <Link to='/astrologer'>Mundan Muhurat 2024</Link>
                         </main>
                     </main>
 
                     <main className='max-lg:basis-[45%] max-md:basis-full basis-[24%] flex flex-col gap-3'>
                         <span className='text-[17px] font-[500] border-b-2 border-[#F0DF20] inline-block pb-1 self-start'>Important Links</span>
-                        <Link to=''>Astromall</Link>
-                        <Link to=''>Astrotalk Store</Link>
-                        <Link to=''>Today Panchang</Link>
-                        <Link to=''>Live Astrologers</Link>
-                        <Link to=''>How to read kundali</Link>
-                        <Link to=''>Free Kundli</Link>
-                        <Link to=''>Kundli Matching</Link>
-                        <Link to=''>Chat with Astrologer</Link>
-                        <Link to=''>Talk to Astrologer</Link>
-                        <Link to=''>AstroBook Reviews</Link>
-                        <Link to=''>Astrology Yoga</Link>
-                        <Link to=''>Kaalsarp Doshas</Link>
-                        <Link to=''>Child Astrology</Link>
-                        <Link to=''>Ascendant Sign Gemstone</Link>
-                        <Link to=''>Nakshatras Constellations</Link>
-                        <Link to=''>Numerology</Link>
-                        <Link to=''>Mantras</Link>
-                        <Link to=''>Astrological remedies for job</Link>
-                        <Link to=''>Promotion</Link>
+                        <Link to='/astro-mall'>Astromall</Link>
+                        <Link to='/'>Astrotalk Store</Link>
+                        <Link to='/'>Today Panchang</Link>
+                        <Link to='/astrologer'>Live Astrologers</Link>
+                        <Link to='/free-kundli'>How to read kundali</Link>
+                        <Link to='/free-kundli'>Free Kundli</Link>
+                        <Link to='/kundli-matching'>Kundli Matching</Link>
+                        <Link to='/astrologer'>Chat with Astrologer</Link>
+                        <Link to='/astrologer'>Talk to Astrologer</Link>
+                        <Link to='/'>AstroBook Reviews</Link>
+                        <Link to='/'>Astrology Yoga</Link>
+                        <Link to='/'>Kaalsarp Doshas</Link>
+                        <Link to='/'>Child Astrology</Link>
+                        <Link to='/'>Ascendant Sign Gemstone</Link>
+                        <Link to='/'>Nakshatras Constellations</Link>
+                        <Link to='/'>Numerology</Link>
+                        <Link to='/'>Mantras</Link>
+                        <Link to='/'>Astrological remedies for job</Link>
+                        <Link to='/'>Promotion</Link>
                     </main>
 
                     <main className='max-lg:basis-[45%] max-md:basis-full basis-[24%] flex flex-col gap-7'>
                         <main className='flex flex-col gap-3'>
                             <span className='text-[17px] font-[500] border-b-2 border-[#F0DF20] inline-block pb-1 self-start'>Important Links</span>
-                            <Link to=''>Blog</Link>
-                            <Link to=''>Planetary Transit 2024</Link>
-                            <Link to=''>Collaboration</Link>
-                            <Link to=''>Tarot</Link>
-                            <Link to=''>Zodiac Signs</Link>
-                            <Link to=''>Vastu Shastra</Link>
-                            <Link to=''>Solar Eclipse 2024</Link>
-                            <Link to=''>Lunar Eclipse 2024</Link>
-                            <Link to=''>Festival Calendar 2024</Link>
-                            <Link to=''>Vrat Calendar 2024</Link>
-                            <Link to=''>Mole Astrology</Link>
-                            <Link to=''>Love Calculator</Link>
-                            <Link to=''>AstroBook Sitemap</Link>
+                            <Link to='/blog'>Blog</Link>
+                            <Link to='/'>Planetary Transit 2024</Link>
+                            <Link to='/'>Collaboration</Link>
+                            <Link to='/'>Tarot</Link>
+                            <Link to='/'>Zodiac Signs</Link>
+                            <Link to='/'>Vastu Shastra</Link>
+                            <Link to='/'>Solar Eclipse 2024</Link>
+                            <Link to='/'>Lunar Eclipse 2024</Link>
+                            <Link to='/'>Festival Calendar 2024</Link>
+                            <Link to='/'>Vrat Calendar 2024</Link>
+                            <Link to='/'>Mole Astrology</Link>
+                            <Link to='/'>Love Calculator</Link>
+                            <Link to='/'>AstroBook Sitemap</Link>
                         </main>
 
-                        <main className='flex flex-col gap-3'>
+                        {!userCustomerDataById && !userAstrologerDataById && <main className='flex flex-col gap-3'>
                             <span className='text-[17px] font-[500] border-b-2 border-[#F0DF20] inline-block pb-1 self-start'>Astrologer</span>
                             <div onClick={handleOpenLoginAstrologerModal} className='cursor-pointer'>Astrologer Login</div>
-                            <Link to=''>Astrologer Registration</Link>
-                        </main>
+                            {/* <Link to=''>Astrologer Registration</Link> */}
+                        </main>}
 
                         <main className='flex flex-col gap-3'>
                             <span className='text-[17px] font-[500] border-b-2 border-[#F0DF20] inline-block pb-1 self-start'>Corporate Info</span>
-                            <Link to=''>Refund & Cancellation Policy</Link>
+                            <Link to='/'>Refund & Cancellation Policy</Link>
                         </main>
                     </main>
 
                     <main className='max-lg:basis-[45%] max-md:basis-full basis-[24%] flex flex-col gap-7'>
                         <main className='flex flex-col gap-3'>
                             <span className='text-[17px] font-[500] border-b-2 border-[#F0DF20] inline-block pb-1 self-start'>Corporate Info</span>
-                            <Link to=''>Terms & Conditions</Link>
-                            <Link to=''>Privacy Policy</Link>
-                            <Link to=''>Disclaimer</Link>
-                            <Link to=''>About Us</Link>
-                            <Link to=''>Pricing Policy</Link>
+                            <Link to='/terms-of-use'>Terms & Conditions</Link>
+                            <Link to='/privacy-policy'>Privacy Policy</Link>
+                            <Link to='/'>Disclaimer</Link>
+                            <Link to='/about-us'>About Us</Link>
+                            <Link to='/'>Pricing Policy</Link>
                         </main>
 
                         <main className='flex flex-col gap-3'>
                             <span className='text-[17px] font-[500] border-b-2 border-[#F0DF20] inline-block pb-1 self-start'>Contact us</span>
                             <div className='flex items-center gap-1'><BotSvg /> We are available 24x7 on chat </div>
-                            <div>Support, <span className='text-[#F0DF20]'>click to start chat</span></div>
-                            <div className='flex items-center gap-1'><EmailSvg /> Email ID: contact@astrobook.com</div>
+                            <a href="mailto:contact@astrobook.com">Support, <span className='text-[#F0DF20]'>click to start chat</span></a>
+                            <a href="mailto:contact@astrobook.com" className='flex items-center gap-1 cursor-pointer'><EmailSvg /> Email ID: contact@astrobook.com</a>
                         </main>
 
                         <div className='flex gap-1.5 items-center justify-between'>
