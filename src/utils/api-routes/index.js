@@ -38,6 +38,8 @@ export const complete_booked_puja_history = 'api/ecommerce/complete_astrologer_p
 export const get_astrologer = 'api/astrologer/get_chat_astrologer';
 export const get_astrologer_by_id = 'api/astrologer/get-astrologer-details';
 export const get_astrologer_review_by_id = 'api/admin/get-astrologer-review';
+export const get_astrologer_skill = 'api/admin/get-skill';
+export const get_astrologer_main_expertise = 'api/admin/get-all-main-expertise';
 
 // TODO : Chat
 export const get_linked_profile_for_chat = 'api/customers/get-linked-profile';
